@@ -29,8 +29,8 @@ module.exports = grammar({
   ],
 
   externals: $ => [
-    $._multstr_start,
-    $._multstr_end,
+    $.multstr_start,
+    $.multstr_end,
     $._str_start,
     $._str_end,
     $._interpolation_start,
@@ -65,15 +65,15 @@ module.exports = grammar({
     // In the lalrpop grammar this (and the annot)-rule(s) are parameterized.
     // See NOTE[typerule].
     annot_atom: $ => choice(
-      seq("|", $.types),
+      seq("|", field("ty", $.types)),
       seq("|", "default"),
       seq("|", "doc", $.static_string),
-      seq(":", $.types),
+      seq(":", field("ty", $.types)),
     ),
 
     //grammar.lalrpop: 126
     // See NOTE[typerule].
-    annot: $ => repeat1($.annot_atom),
+    annot: $ => field("anns", repeat1($.annot_atom)),
 
     //grammar.lalrpop: 133
     types: $ => choice(
@@ -96,57 +96,57 @@ module.exports = grammar({
 
     let_expr: $ => seq(
       "let",
-      $.pattern,
-      optional($.annot),
+      field("pat", $.pattern),
+      field("meta", optional($.annot)),
       "=",
-      $.term,
+      field("t1", $.term),
       "in",
-      $.term,
+      field("t2", $.term),
     ),
 
     fun_expr: $ => seq(
       "fun",
-      repeat1($.pattern),
+      field("pats", repeat1($.pattern)),
       "=>",
-      $.term,
+      field("t", $.term),
     ),
 
     switch_expr: $ => seq(
       "switch",
       "{",
-      seq(commaSep($.switch_case), optional(",")),
+      field("cases", seq(commaSep($.switch_case), optional(","))),
       "}",
-      $.term,
+      field("exp", $.term),
     ),
 
     ite_expr: $ => seq(
       "if",
-      $.term,
+      field("cond", $.term),
       "then",
-      $.term,
+      field("t1", $.term),
       "else",
-      $.term,
+      field("t2", $.term),
     ),
 
     //grammar.lalrpop: 224
     annotated_infix_expr: $ => seq(
-      $.infix_expr,
-      $.annot,
+      field("t", $.infix_expr),
+      field("meta", $.annot),
     ),
 
     //grammar.lalrpop: 232
     forall: $ => seq(
       "forall",
-      repeat1($.ident),
+      field("ids", repeat1($.ident)),
       ".",
-      $.types,
+      field("ty", $.types),
     ),
 
     //grammar.lalrpop: 242
     applicative: $ => choice(
-      seq("import", $.static_string),
+      seq("import", field("s", $.static_string)),
       $.type_array,
-      seq($.applicative, $.record_operand),
+      seq(field("t1", $.applicative), field("t2", $.record_operand)),
       // We don't explicitly have the the following three rules. Instead we
       // match generically on builtin functions.
       // This is different from the lalrpop grammar. See NOTE[builtin].
@@ -167,8 +167,8 @@ module.exports = grammar({
 
     //grammar.lalrpop: 264
     record_operation_chain: $ => choice(
-      seq($.record_operand, ".", $.ident),
-      seq($.record_operand, ".", $.str_chunks),
+      seq(field("t", $.record_operand), ".", field("id", $.ident)),
+      seq(field("t", $.record_operand), ".", field("t_id", $.str_chunks)),
     ),
 
     //grammar.lalrpop: 269
@@ -180,9 +180,9 @@ module.exports = grammar({
     //grammar.lalrpop: 276
     uni_record: $ => seq(
       "{",
-      repeat(seq($.record_field, ",")),
-      optional($.record_last_field),
-      optional(seq(";", $.row_tail)),
+      field("fields", repeat(seq($.record_field, ","))),
+      field("last", optional($.record_last_field)),
+      field("tail", optional(seq(";", $.row_tail))),
       "}",
     ),
 
@@ -200,15 +200,15 @@ module.exports = grammar({
       $.uni_record,
       seq("`", $.enum_tag),
       // NOTE: Arrays may have a trailing comma in Nickel
-      square(seq(commaSep($.term), optional(","))),
+      square(field("terms", seq(commaSep($.term), optional(",")))),
       $.type_atom,
     ),
 
     //grammar.lalrpop: 328
     record_field: $ => seq(
-      $.field_path,
-      optional($.annot),
-      optional(seq("=", $.term)),
+      field("path", $.field_path),
+      field("ann", optional($.annot)),
+      field("t", optional(seq("=", $.term))),
     ),
 
     //grammar.lalrpop: 348
@@ -218,6 +218,7 @@ module.exports = grammar({
     ),
 
     //grammar.lalrpop: 354
+    // No field since we only have one child here
     field_path: $ => sep1($.field_path_elem, "."),
 
     //grammar.lalrpop: 361
@@ -235,37 +236,37 @@ module.exports = grammar({
     //grammar.lalrpop: 374
     // The right hand side of an `=` inside a destructuring pattern.
     pattern: $ => choice(
-      seq(optional(seq($.ident, "@")), $.destruct),
+      seq(optional(field("id", seq($.ident, "@"))), field("pat", $.destruct)),
       $.ident,
     ),
 
     //grammar.lalrpop: 380
     destruct: $ => seq(
       "{",
-      seq(repeat(seq($.match, ",")), optional($.last_match)),
+      seq(field("matches", repeat(seq($.match, ","))), field("last", optional($.last_match))),
       "}",
     ),
 
     //grammar.lalrpop: 396
     match: $ => choice(
       seq(
-        $.ident,
-        optional($.annot),
-        optional($.default_annot),
+        field("left", $.ident),
+        field("anns", optional($.annot)),
+        field("default", optional($.default_annot)),
         "=",
-        $.pattern,
+        field("right", $.pattern),
       ),
       seq(
-        $.ident,
-        optional($.annot),
-        optional($.default_annot),
+        field("id", $.ident),
+        field("anns", optional($.annot)),
+        field("default", optional($.default_annot)),
       ),
     ),
 
     //grammar.lalrpop: 428
     default_annot: $ => seq(
       "?",
-      $.term,
+      field("t", $.term),
     ),
 
     //grammar.lalrpop: 437
@@ -284,20 +285,20 @@ module.exports = grammar({
 
     str_chunks_single: $ => seq(
       $._str_start,
-      repeat(choice(
+      field("chunks", repeat(choice(
         $.chunk_expr,
         $.chunk_literal_single,
-      )),
+      ))),
       $._str_end,
     ),
 
     str_chunks_multi: $ => seq(
-      $._multstr_start,
-      repeat(choice(
+      field("start", $.multstr_start),
+      field("chunks", repeat(choice(
         $.chunk_expr,
         $.chunk_literal_multi,
-      )),
-      $._multstr_end,
+      ))),
+      field("end", $.multstr_end),
     ),
 
     //grammar.lalrpop: 480
@@ -306,10 +307,11 @@ module.exports = grammar({
     //chunk_literal: $ => repeat1($.chunk_literal_part),
 
     //grammar.lalrpop: 492
+    //Field names not from lalrpop grammar
     chunk_expr: $ => seq(
-      $._interpolation_start,
-      $.term,
-      $._interpolation_end,
+      field("start", $._interpolation_start),
+      field("t", $.term),
+      field("end", $._interpolation_end),
     ),
 
     //grammar.lalrpop: 492
@@ -320,6 +322,7 @@ module.exports = grammar({
     //),
 
     //grammar.lalrpop: 496
+    //Field names differ from lalrpop grammar
     static_string: $ => choice(
       // "Single line"
       seq($._str_start, repeat($.chunk_literal_single), $._str_end),
@@ -365,8 +368,8 @@ module.exports = grammar({
 
     //grammar.lalrpop: 546
     switch_case: $ => choice(
-      seq("`", $.enum_tag, "=>", $.term),
-      seq("_", "=>", $.term),
+      seq("`", field("id", $.enum_tag), "=>", field("t", $.term)),
+      seq("_", "=>", field("t", $.term)),
     ),
 
     //grammar.lalrpop: 554
@@ -466,21 +469,21 @@ module.exports = grammar({
     // as |> and !=) are standardised.
     infix_expr: $ => choice(
       prec.left(-0, $.applicative),
-      prec(-1, seq("-", $.infix_expr)),
-      prec.left(-2, seq($.infix_expr, $.infix_b_op_2, $.infix_expr)),
-      prec.left(-3, seq($.infix_expr, $.infix_b_op_3, $.infix_expr)),
-      prec.left(-4, seq($.infix_expr, $.infix_b_op_4, $.infix_expr)),
-      prec.left(-5, seq($.infix_u_op_5, $.infix_expr)),
+      prec(-1, seq(field("op", "-"), field("t", $.infix_expr))),
+      prec.left(-2, seq(field("t1", $.infix_expr), field("op", $.infix_b_op_2), field("t2", $.infix_expr))),
+      prec.left(-3, seq(field("t1", $.infix_expr), field("op", $.infix_b_op_3), field("t2", $.infix_expr))),
+      prec.left(-4, seq(field("t1", $.infix_expr), field("op", $.infix_b_op_4), field("t2", $.infix_expr))),
+      prec.left(-5, seq(field("op", $.infix_u_op_5), field("t", $.infix_expr))),
       // NOTE: The "|>" rule is part of the infix_b_op_6 rule because we don't
       // need to treat is specially. See NOTE[special-infix].
-      prec.left(-6, seq($.infix_expr, $.infix_b_op_6, $.infix_expr)),
-      prec.left(-7, seq($.infix_expr, $.infix_b_op_7, $.infix_expr)),
+      prec.left(-6, seq(field("t1", $.infix_expr), field("op", $.infix_b_op_6), field("t2", $.infix_expr))),
+      prec.left(-7, seq(field("t1", $.infix_expr), field("op", $.infix_b_op_7), field("t2", $.infix_expr))),
       // NOTE: The "!=" rule is part of the infix_b_op_8 rule because we don't
       // need to treat is specially. See NOTE[special-infix].
-      prec.left(-8, seq($.infix_expr, $.infix_b_op_8, $.infix_expr)),
-      prec.left(-9, seq($.infix_expr, $.infix_lazy_b_op_9, $.infix_expr)),
-      prec.left(-10, seq($.infix_expr, $.infix_lazy_b_op_10, $.infix_expr)),
-      prec.right(-11, seq($.infix_expr, "->", $.infix_expr)),
+      prec.left(-8, seq(field("t1", $.infix_expr), field("op", $.infix_b_op_8), field("t2", $.infix_expr))),
+      prec.left(-9, seq(field("t1", $.infix_expr), field("op", $.infix_lazy_b_op_9), field("t2", $.infix_expr))),
+      prec.left(-10, seq(field("t1", $.infix_expr), field("op", $.infix_lazy_b_op_10), field("t2", $.infix_expr))),
+      prec.right(-11, seq(field("t1", $.infix_expr), field("op", "->"), field("t2", $.infix_expr))),
     ),
 
     //grammar.lalrpop: 736
@@ -496,15 +499,15 @@ module.exports = grammar({
       $.type_builtin,
       seq(
         "[|",
-        commaSep($.enum_tag),
-        optional(seq(";", $.enum_tag)),
+        field("rows", commaSep($.enum_tag)),
+        field("tail", optional(seq(";", $.enum_tag))),
         "|]",
       ),
       seq(
         "{",
         "_",
         ":",
-        $.types,
+        field("types", $.types),
         "}",
       ),
     ),
