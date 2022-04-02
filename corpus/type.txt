@@ -1,0 +1,61 @@
+================================================================================
+type simple
+================================================================================
+
+1 : Num
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (annotated_infix_expr
+      (infix_expr
+        (applicative
+          (record_operand
+            (atom
+              (num_literal)))))
+      (annot
+        (annot_atom
+          (types
+            (infix_expr
+              (applicative
+                (record_operand
+                  (atom
+                    (type_atom
+                      (type_builtin))))))))))))
+
+================================================================================
+type nested (FIXME this should be syntax error)
+================================================================================
+
+1 : Num : "x"
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (annotated_infix_expr
+      (infix_expr
+        (applicative
+          (record_operand
+            (atom
+              (num_literal)))))
+      (annot
+        (annot_atom
+          (types
+            (infix_expr
+              (applicative
+                (record_operand
+                  (atom
+                    (type_atom
+                      (type_builtin))))))))
+        (annot_atom
+          (types
+            (infix_expr
+              (applicative
+                (record_operand
+                  (atom
+                    (str_chunks
+                      (str_chunks_single
+                        (chunk_literal_single
+                          (str_literal))))))))))))))

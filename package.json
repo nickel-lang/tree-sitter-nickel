@@ -1,0 +1,43 @@
+{
+  "name": "tree-sitter-nickel",
+  "version": "0.0.1",
+  "description": "Nickel grammar for tree-sitter",
+  "main": "bindings/node",
+  "scripts": {
+    "test": "tree-sitter test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickel-lang/tree-sitter-nickel.git"
+  },
+  "contributors": [
+    "Erin van der Veen"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nickel-lang/tree-sitter-nickel/issues"
+  },
+  "homepage": "https://github.com/nickel-lang/tree-sitter-nickel",
+  "dependencies": {
+    "nan": "^2.14.2"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.0"
+  },
+  "tree-sitter": [
+    {
+      "file-types": [
+        "ncl",
+        "nickel"
+      ],
+      "highlights": [
+        "queries/highlights.scm"
+      ],
+      "injection-regex": "^(ncl|nickel)$",
+      "locals": [
+        "queries/locals.scm"
+      ],
+      "scope": "source.ncl"
+    }
+  ]
+}

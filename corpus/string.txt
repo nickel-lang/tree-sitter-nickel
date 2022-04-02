@@ -1,0 +1,255 @@
+================================================================================
+string (simple)
+================================================================================
+
+"abc"
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (str_chunks
+              (str_chunks_single
+                (chunk_literal_single
+                  (str_literal))))))))))
+
+================================================================================
+string (interpolation)
+================================================================================
+
+"a%{b}c"
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (str_chunks
+              (str_chunks_single
+                (chunk_literal_single
+                  (str_literal))
+                (chunk_expr
+                  (term
+                    (uni_term
+                      (infix_expr
+                        (applicative
+                          (record_operand
+                            (atom
+                              (ident))))))))
+                (chunk_literal_single
+                  (str_literal))))))))))
+
+================================================================================
+multistring
+================================================================================
+
+m%"abc"%m
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (str_chunks
+              (str_chunks_multi
+                (chunk_literal_multi
+                  (mult_str_literal))))))))))
+
+================================================================================
+multistring (multiline)
+================================================================================
+
+m%"a
+b
+c"%m
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (str_chunks
+              (str_chunks_multi
+                (chunk_literal_multi
+                  (mult_str_literal))))))))))
+
+================================================================================
+multistring (indent)
+================================================================================
+
+m%"
+  a
+  b
+  c
+"%m
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (str_chunks
+              (str_chunks_multi
+                (chunk_literal_multi
+                  (mult_str_literal))))))))))
+
+================================================================================
+multistring (indent) (interpolation)
+================================================================================
+
+m%"
+  a
+  %{b}
+  c
+"%m
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (str_chunks
+              (str_chunks_multi
+                (chunk_literal_multi
+                  (mult_str_literal))
+                (chunk_expr
+                  (term
+                    (uni_term
+                      (infix_expr
+                        (applicative
+                          (record_operand
+                            (atom
+                              (ident))))))))
+                (chunk_literal_multi
+                  (mult_str_literal))))))))))
+
+================================================================================
+multistring (level 4)
+================================================================================
+
+m%%%%"a%%%%{b}c"%%%%m
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (str_chunks
+              (str_chunks_multi
+                (chunk_literal_multi
+                  (mult_str_literal))
+                (chunk_expr
+                  (term
+                    (uni_term
+                      (infix_expr
+                        (applicative
+                          (record_operand
+                            (atom
+                              (ident))))))))
+                (chunk_literal_multi
+                  (mult_str_literal))))))))))
+
+================================================================================
+multistring (level 4) (extra % before expr)
+================================================================================
+
+m%%%%"%%%%%{"Hello "} world"%%%%m
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (str_chunks
+              (str_chunks_multi
+                (chunk_literal_multi
+                  (percent))
+                (chunk_expr
+                  (term
+                    (uni_term
+                      (infix_expr
+                        (applicative
+                          (record_operand
+                            (atom
+                              (str_chunks
+                                (str_chunks_single
+                                  (chunk_literal_single
+                                    (str_literal)))))))))))
+                (chunk_literal_multi
+                  (mult_str_literal))))))))))
+
+================================================================================
+quote in multistring
+================================================================================
+
+m%"""%m
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (str_chunks
+              (str_chunks_multi
+                (chunk_literal_multi
+                  (double_quote))))))))))
+
+================================================================================
+# in string
+================================================================================
+
+# ett
+"#två"
+m%"#tre"%m
+#fyra
+
+
+--------------------------------------------------------------------------------
+
+(term
+  (comment)
+  (uni_term
+    (infix_expr
+      (applicative
+        (applicative
+          (record_operand
+            (atom
+              (str_chunks
+                (str_chunks_single
+                  (chunk_literal_single
+                    (str_literal)))))))
+        (record_operand
+          (atom
+            (str_chunks
+              (str_chunks_multi
+                (chunk_literal_multi
+                  (mult_str_literal)))))))))
+  (comment))
