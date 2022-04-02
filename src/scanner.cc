@@ -32,6 +32,17 @@ struct Scanner {
   unsigned serialize(char *buffer) {
     uint8_t i = 0;
 
+    if (expected_percent_count.size() >
+        TREE_SITTER_SERIALIZATION_BUFFER_SIZE - 1) {
+      return 0;
+    }
+
+    // We serialize to and from uint8_t's, we cannot currently serialize any
+    // value above that.
+    if (expected_percent_count.size() > 255) {
+      return 0;
+    }
+
     buffer[i++] = expected_percent_count.size();
     for (uint8_t count : expected_percent_count) {
       buffer[i++] = count;
@@ -238,17 +249,26 @@ bool tree_sitter_nickel_external_scanner_scan(void *payload, TSLexer *lexer,
   return scanner->scan(lexer, valid_symbols);
 }
 
+/**
+ * @param Contains the scanner
+ * @param Will hold the serialized state of the scanner
+ */
 unsigned tree_sitter_nickel_external_scanner_serialize(void *payload,
-                                                       char *state) {
+                                                       char *buffer) {
   Scanner *scanner = static_cast<Scanner *>(payload);
-  return scanner->serialize(state);
+  return scanner->serialize(buffer);
 }
 
+/**
+ * @param Contains the scanner
+ * @param The serialised state of the scanner
+ * @param Indicates the length of the buffer
+ */
 void tree_sitter_nickel_external_scanner_deserialize(void *payload,
-                                                     const char *state,
+                                                     const char *buffer,
                                                      unsigned length) {
   Scanner *scanner = static_cast<Scanner *>(payload);
-  scanner->deserialize(state, length);
+  scanner->deserialize(buffer, length);
 }
 
 void tree_sitter_nickel_external_scanner_destroy(void *payload) {
