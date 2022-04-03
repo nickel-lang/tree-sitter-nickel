@@ -62,8 +62,10 @@ m%"abc"%m
           (atom
             (str_chunks
               (str_chunks_multi
+                (multstr_start)
                 (chunk_literal_multi
-                  (mult_str_literal))))))))))
+                  (mult_str_literal))
+                (multstr_end)))))))))
 
 ================================================================================
 multistring (multiline)
@@ -83,8 +85,10 @@ c"%m
           (atom
             (str_chunks
               (str_chunks_multi
+                (multstr_start)
                 (chunk_literal_multi
-                  (mult_str_literal))))))))))
+                  (mult_str_literal))
+                (multstr_end)))))))))
 
 ================================================================================
 multistring (indent)
@@ -106,8 +110,10 @@ m%"
           (atom
             (str_chunks
               (str_chunks_multi
+                (multstr_start)
                 (chunk_literal_multi
-                  (mult_str_literal))))))))))
+                  (mult_str_literal))
+                (multstr_end)))))))))
 
 ================================================================================
 multistring (indent) (interpolation)
@@ -129,6 +135,7 @@ m%"
           (atom
             (str_chunks
               (str_chunks_multi
+                (multstr_start)
                 (chunk_literal_multi
                   (mult_str_literal))
                 (chunk_expr
@@ -140,7 +147,8 @@ m%"
                             (atom
                               (ident))))))))
                 (chunk_literal_multi
-                  (mult_str_literal))))))))))
+                  (mult_str_literal))
+                (multstr_end)))))))))
 
 ================================================================================
 multistring (level 4)
@@ -158,6 +166,7 @@ m%%%%"a%%%%{b}c"%%%%m
           (atom
             (str_chunks
               (str_chunks_multi
+                (multstr_start)
                 (chunk_literal_multi
                   (mult_str_literal))
                 (chunk_expr
@@ -169,7 +178,8 @@ m%%%%"a%%%%{b}c"%%%%m
                             (atom
                               (ident))))))))
                 (chunk_literal_multi
-                  (mult_str_literal))))))))))
+                  (mult_str_literal))
+                (multstr_end)))))))))
 
 ================================================================================
 multistring (level 4) (extra % before expr)
@@ -187,6 +197,7 @@ m%%%%"%%%%%{"Hello "} world"%%%%m
           (atom
             (str_chunks
               (str_chunks_multi
+                (multstr_start)
                 (chunk_literal_multi
                   (percent))
                 (chunk_expr
@@ -201,7 +212,8 @@ m%%%%"%%%%%{"Hello "} world"%%%%m
                                   (chunk_literal_single
                                     (str_literal)))))))))))
                 (chunk_literal_multi
-                  (mult_str_literal))))))))))
+                  (mult_str_literal))
+                (multstr_end)))))))))
 
 ================================================================================
 quote in multistring
@@ -219,8 +231,10 @@ m%"""%m
           (atom
             (str_chunks
               (str_chunks_multi
+                (multstr_start)
                 (chunk_literal_multi
-                  (double_quote))))))))))
+                  (double_quote))
+                (multstr_end)))))))))
 
 ================================================================================
 # in string
@@ -250,6 +264,8 @@ m%"#tre"%m
           (atom
             (str_chunks
               (str_chunks_multi
+                (multstr_start)
                 (chunk_literal_multi
-                  (mult_str_literal)))))))))
+                  (mult_str_literal))
+                (multstr_end))))))))
   (comment))

@@ -504,8 +504,10 @@ let Contract = {
                             (atom
                               (str_chunks
                                 (str_chunks_multi
+                                  (multstr_start)
                                   (chunk_literal_multi
-                                    (mult_str_literal))))))))))
+                                    (mult_str_literal))
+                                  (multstr_end)))))))))
                   (term
                     (uni_term
                       (fun_expr
@@ -648,8 +650,10 @@ let Contract = {
                                                 (atom
                                                   (str_chunks
                                                     (str_chunks_multi
+                                                      (multstr_start)
                                                       (chunk_literal_multi
-                                                        (mult_str_literal)))))))
+                                                        (mult_str_literal))
+                                                      (multstr_end))))))
                                             (record_operand
                                               (atom
                                                 (ident)))))))

@@ -983,41 +983,28 @@
   {
     "type": "static_string",
     "named": true,
-    "fields": {
-      "end": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "multstr_end",
-            "named": true
-          }
-        ]
-      },
-      "s": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "chunk_literal_multi",
-            "named": true
-          },
-          {
-            "type": "chunk_literal_single",
-            "named": true
-          }
-        ]
-      },
-      "start": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "multstr_start",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "chunk_literal_multi",
+          "named": true
+        },
+        {
+          "type": "chunk_literal_single",
+          "named": true
+        },
+        {
+          "type": "multstr_end",
+          "named": true
+        },
+        {
+          "type": "multstr_start",
+          "named": true
+        }
+      ]
     }
   },
   {

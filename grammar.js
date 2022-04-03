@@ -14,6 +14,17 @@
 // operators differently from others. This means we can unify them with the
 // other _b_op rules.
 
+// NOTE[scanner] The Nickel scanner is a modal one, this parser and grammar
+// takes a different approach. Several special characters that may occur in
+// strings (", %, #) are scanned in src/scanner.cc. In particular for % we have
+// to take a strange approach. Scanners in tree-sitter may only produce a
+// single token and may not look ahead. So, when scanning %-signs in multiline
+// strings, we always attempt to scan the end of the multistring. If that
+// fails, we abort, and parse a single %-sign. This requires several changes in
+// the grammar (compared to the lalrpop grammar). For instance we static
+// strings may consist of multiple chunks, and interpolation and string chunks
+// do not strictly alternate.
+
 module.exports = grammar({
   name: 'nickel',
 
@@ -318,16 +329,17 @@ module.exports = grammar({
     //NOTE: We deal with this in the lexer.
     //interpolation: $ => choice(
     //  $._interpolation_start,
-    //  $._multstr_start,
+    //  $.multstr_start,
     //),
 
     //grammar.lalrpop: 496
-    //Field names differ from lalrpop grammar
+    //Field names differ from lalrpop grammar.
+    //See NOTE[scanner].
     static_string: $ => choice(
       // "Single line"
       seq($._str_start, repeat($.chunk_literal_single), $._str_end),
       // m%"Multi line"%m
-      seq($._multstr_start, repeat($.chunk_literal_multi), $._multstr_end),
+      seq($.multstr_start, repeat($.chunk_literal_multi), $.multstr_end),
     ),
 
     //grammar.lalrpop: 498
@@ -337,12 +349,14 @@ module.exports = grammar({
     ),
 
     //grammar.lalrpop: 503
+    //See NOTE[scanner].
     chunk_literal_single: $ => choice(
       $.str_esc_char,
       $.str_literal,
       $.percent,
     ),
 
+    //See NOTE[scanner].
     chunk_literal_multi: $ => choice(
       $.str_esc_char,
       $.mult_str_literal,
