@@ -34,9 +34,6 @@
         "queries/highlights.scm"
       ],
       "injection-regex": "^(ncl|nickel)$",
-      "locals": [
-        "queries/locals.scm"
-      ],
       "scope": "source.ncl"
     }
   ]

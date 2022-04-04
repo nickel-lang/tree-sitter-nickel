@@ -19,6 +19,16 @@
     "type": "annot_atom",
     "named": true,
     "fields": {
+      "doc": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "static_string",
+            "named": true
+          }
+        ]
+      },
       "ty": {
         "multiple": false,
         "required": false,
@@ -29,16 +39,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "static_string",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -207,6 +207,26 @@
     "type": "chunk_expr",
     "named": true,
     "fields": {
+      "end": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interpolation_end",
+            "named": true
+          }
+        ]
+      },
+      "start": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interpolation_start",
+            "named": true
+          }
+        ]
+      },
       "t": {
         "multiple": false,
         "required": true,
@@ -1518,6 +1538,14 @@
   {
     "type": "in",
     "named": false
+  },
+  {
+    "type": "interpolation_end",
+    "named": true
+  },
+  {
+    "type": "interpolation_start",
+    "named": true
   },
   {
     "type": "let",

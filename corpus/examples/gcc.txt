@@ -278,13 +278,15 @@ let Contract = {
                                                 (chunk_literal_single
                                                   (str_literal))
                                                 (chunk_expr
+                                                  (interpolation_start)
                                                   (term
                                                     (uni_term
                                                       (infix_expr
                                                         (applicative
                                                           (record_operand
                                                             (atom
-                                                              (ident)))))))))))))
+                                                              (ident)))))))
+                                                  (interpolation_end)))))))
                                       (record_operand
                                         (atom
                                           (ident))))))))))
@@ -431,6 +433,7 @@ let Contract = {
                                                             (chunk_literal_single
                                                               (str_literal))
                                                             (chunk_expr
+                                                              (interpolation_start)
                                                               (term
                                                                 (uni_term
                                                                   (infix_expr
@@ -440,7 +443,8 @@ let Contract = {
                                                                           (record_operand
                                                                             (atom
                                                                               (ident)))
-                                                                          (ident)))))))))))))
+                                                                          (ident)))))))
+                                                              (interpolation_end)))))))
                                                   (record_operand
                                                     (atom
                                                       (ident))))))))))
