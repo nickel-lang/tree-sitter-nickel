@@ -66,8 +66,12 @@
               "value": "doc"
             },
             {
-              "type": "SYMBOL",
-              "name": "static_string"
+              "type": "FIELD",
+              "name": "doc",
+              "content": {
+                "type": "SYMBOL",
+                "name": "static_string"
+              }
             }
           ]
         },
@@ -1251,7 +1255,7 @@
           "name": "start",
           "content": {
             "type": "SYMBOL",
-            "name": "_interpolation_start"
+            "name": "interpolation_start"
           }
         },
         {
@@ -1267,7 +1271,7 @@
           "name": "end",
           "content": {
             "type": "SYMBOL",
-            "name": "_interpolation_end"
+            "name": "interpolation_end"
           }
         }
       ]
@@ -2175,11 +2179,11 @@
     },
     {
       "type": "SYMBOL",
-      "name": "_interpolation_start"
+      "name": "interpolation_start"
     },
     {
       "type": "SYMBOL",
-      "name": "_interpolation_end"
+      "name": "interpolation_end"
     },
     {
       "type": "SYMBOL",

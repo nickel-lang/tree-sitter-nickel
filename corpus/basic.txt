@@ -492,13 +492,15 @@ u.v."x%{y}z"
                 (chunk_literal_single
                   (str_literal))
                 (chunk_expr
+                  (interpolation_start)
                   (term
                     (uni_term
                       (infix_expr
                         (applicative
                           (record_operand
                             (atom
-                              (ident))))))))
+                              (ident)))))))
+                  (interpolation_end))
                 (chunk_literal_single
                   (str_literal))))))))))
 

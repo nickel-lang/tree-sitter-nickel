@@ -44,8 +44,8 @@ module.exports = grammar({
     $.multstr_end,
     $._str_start,
     $._str_end,
-    $._interpolation_start,
-    $._interpolation_end,
+    $.interpolation_start,
+    $.interpolation_end,
     $.comment,
   ],
 
@@ -78,7 +78,7 @@ module.exports = grammar({
     annot_atom: $ => choice(
       seq("|", field("ty", $.types)),
       seq("|", "default"),
-      seq("|", "doc", $.static_string),
+      seq("|", "doc", field("doc", $.static_string)),
       seq(":", field("ty", $.types)),
     ),
 
@@ -320,9 +320,9 @@ module.exports = grammar({
     //grammar.lalrpop: 492
     //Field names not from lalrpop grammar
     chunk_expr: $ => seq(
-      field("start", $._interpolation_start),
+      field("start", $.interpolation_start),
       field("t", $.term),
-      field("end", $._interpolation_end),
+      field("end", $.interpolation_end),
     ),
 
     //grammar.lalrpop: 492
