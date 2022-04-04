@@ -956,8 +956,12 @@
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "ident"
+          "type": "FIELD",
+          "name": "id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ident"
+          }
         }
       ]
     },
