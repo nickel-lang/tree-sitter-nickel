@@ -248,7 +248,7 @@ module.exports = grammar({
     // The right hand side of an `=` inside a destructuring pattern.
     pattern: $ => choice(
       seq(optional(field("id", seq($.ident, "@"))), field("pat", $.destruct)),
-      $.ident,
+      field("id", $.ident),
     ),
 
     //grammar.lalrpop: 380
