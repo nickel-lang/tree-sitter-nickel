@@ -33,7 +33,7 @@ development of the grammar.
 
 # `shell.nix`
 The project comes with a `shell.nix` containing everything needed to work on
-the grammar itself. Including the clangd language server for `scanner.cc`.
+the grammar itself.
 
 # Node and Rust bindings
 As with other tree-sitter grammars, this repository comes with Node and Rust

@@ -50,7 +50,7 @@ struct Scanner {
     return i;
   }
 
-  void deserialize(const char *buffer, unsigned length) {
+  void deserialize(const char *buffer, uint8_t length) {
     // We have a constant size state, so this case should never happen. In case
     // it does, we initialize a fresh state.
     expected_percent_count.clear();
@@ -268,7 +268,8 @@ void tree_sitter_nickel_external_scanner_deserialize(void *payload,
                                                      const char *buffer,
                                                      unsigned length) {
   Scanner *scanner = static_cast<Scanner *>(payload);
-  scanner->deserialize(buffer, length);
+  uint8_t length_uint8 = (uint8_t) length;
+  scanner->deserialize(buffer, length_uint8);
 }
 
 void tree_sitter_nickel_external_scanner_destroy(void *payload) {

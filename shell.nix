@@ -5,9 +5,9 @@ pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
     tree-sitter
     nodejs # tree-sitter generate
-    graphviz # tree-sitter test --debug-graph && xdg-open log.html
+    graphviz # tree-sitter test --debug-graph
 
-    clang-tools # C language server
+    cargo
   ];
 
   buildInputs = with pkgs; [
