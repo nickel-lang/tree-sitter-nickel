@@ -31,6 +31,15 @@ However, keep in mind these queries will eventually be upstreamed to the neovim
 tree-sitter repository, so the above should probably only be done during
 development of the grammar.
 
+## Structure
+`grammar.js` is the main grammar file of this project, with a custom scanner in
+`src/scanner.cc`. The `corpus/` directory contains a multitude of tests.
+
+Building the new grammar is done with `tree-sitter generate`.
+Testing against the corpus is done with `tree-sitter test`. Finally, parsing a
+specified file is done with `tree-sitter parse FILENAME`, and testing highlight
+queries is done with `tree-sitter highlight FILENAME`.
+
 # `shell.nix`
 The project comes with a `shell.nix` containing everything needed to work on
 the grammar itself.
