@@ -57,3 +57,7 @@
     (ident) @variable.parameter
   )+
 )
+
+(applicative t1:
+  (applicative (record_operand) @function)
+)
