@@ -107,6 +107,7 @@ module.exports = grammar({
 
     let_expr: $ => seq(
       "let",
+      optional("rec"),
       field("pat", $.pattern),
       field("meta", optional($.annot)),
       "=",
