@@ -1572,6 +1572,10 @@
     "named": true
   },
   {
+    "type": "rec",
+    "named": false
+  },
+  {
     "type": "str_esc_char",
     "named": true
   },

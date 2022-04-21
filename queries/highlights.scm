@@ -9,6 +9,7 @@
   "let"
   "default"
   "doc"
+  "rec"
 ] @keyword
 
 "fun" @keyword.function
