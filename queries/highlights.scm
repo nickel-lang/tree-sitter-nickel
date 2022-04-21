@@ -1,64 +1,77 @@
-(comment) @comment
+; NOTE: Nickel has no block comments
+(comment) @comment.line
 
 [
-  "if"
-  "then"
-  "else"
-  "forall"
-  "in"
-  "let"
-  "default"
-  "doc"
-  "rec"
-] @keyword
-
-"fun" @keyword.function
-
-"import" @include
-
-[ "if" "then" "else" ] @conditional
-"switch" @conditional
-
-(types) @type
-"Array" @type.builtin
-
-; BUILTIN Constants
-(bool) @constant.builtin
-"null" @constant.builtin
-
-(num_literal) @number
-
-(infix_op) @operator
-
-(type_atom) @type
-(enum_tag) @variable
-
-(chunk_literal_single) @string
-(chunk_literal_multi) @string
-
-(str_esc_char) @string.escape
-
+  "."
+] @punctuation.delimiter
 [
- "{" "}"
- "(" ")"
- "[|" "|]"
+  "{" "}"
+  "(" ")"
+  "[|" "|]"
+  "[" "]"
 ] @punctuation.bracket
-
 (multstr_start) @punctuation.bracket
 (multstr_end) @punctuation.bracket
 (interpolation_start) @punctuation.bracket
 (interpolation_end) @punctuation.bracket
 
-(record_field) @field
+"null" @constant.builtin
+(bool) @boolean
+(str_esc_char) @string.escape
+(num_literal) @number
+
+(fun_expr
+  "fun" @keyword.function
+  "rec"? @keyword
+  pats:
+    (pattern
+      id: (ident) @parameter
+    )+
+  "=>" @operator
+)
+
+(types) @type
+(type_builtin) @type.builtin
+"Array" @type.builtin
+
+(enum_tag) @definition.enum
+
+(str_chunks) @string
+
+; Nickel doesn't use comments for documentation, ideally this would be
+; `@documentation` or something similar
+(annot_atom
+  doc: (static_string) @definition.doc
+)
+
+(record_operand (atom (ident) @variable))
+(let_expr
+  "let" @keyword
+  "rec"? @keyword
+  pat: (pattern
+    (ident) @variable
+  )
+  "in" @keyword
+)
+(record_field) @variable.other.member
+
+"import" @keyword.control.import
+(applicative
+  "import"
+  s: (static_string) @definition.import
+)
+
+(applicative
+  t1: (applicative
+    (record_operand) @function
+  )
+)
+
+["forall" "default" "doc"] @keyword
+["if" "then" "else" "switch"] @conditional
+
+(infix_expr
+  op: (_) @operator
+)
 
 (builtin) @function.builtin
-
-(fun_expr pats:
-  (pattern id:
-    (ident) @variable.parameter
-  )+
-)
-
-(applicative t1:
-  (applicative (record_operand) @function)
-)
