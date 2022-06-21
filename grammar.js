@@ -66,7 +66,7 @@ module.exports = grammar({
 
     num_literal: _ => /[0-9]*\.?[0-9]+/,
 
-    ident: _ => /_?[a-zA-Z][_a-zA-Z0-9-]*/,
+    ident: _ => /_?[a-zA-Z][_a-zA-Z0-9-']*/,
 
     ////////////////////////////
     // PARSER RULES (grammar.lalrpop)
