@@ -19,7 +19,7 @@
     },
     "ident": {
       "type": "PATTERN",
-      "value": "_?[a-zA-Z][_a-zA-Z0-9-]*"
+      "value": "_?[a-zA-Z][_a-zA-Z0-9-']*"
     },
     "annot_atom": {
       "type": "CHOICE",
