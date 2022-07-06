@@ -190,6 +190,16 @@ struct Scanner {
   }
 
   bool scan(TSLexer *lexer, const bool *valid_symbols) {
+    // During error recovery we don't run the external scanner. This produces
+    // less accurate results, but avoids a large deal of complexity in this
+    // scanner.
+    if (valid_symbols[MULTSTR_START] && valid_symbols[MULTSTR_END] &&
+        valid_symbols[STR_START] && valid_symbols[STR_END] &&
+        valid_symbols[INTERPOLATION_START] &&
+        valid_symbols[INTERPOLATION_END] && valid_symbols[COMMENT]) {
+      return false;
+    }
+
     // Skip over all whitespace
     while (iswspace(lookahead(lexer))) {
       skip(lexer);
@@ -268,7 +278,7 @@ void tree_sitter_nickel_external_scanner_deserialize(void *payload,
                                                      const char *buffer,
                                                      unsigned length) {
   Scanner *scanner = static_cast<Scanner *>(payload);
-  uint8_t length_uint8 = (uint8_t) length;
+  uint8_t length_uint8 = (uint8_t)length;
   scanner->deserialize(buffer, length_uint8);
 }
 
