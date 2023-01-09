@@ -10,12 +10,16 @@
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "if|then|else|forall|in|let|switch|null|true|false|fun|import|merge|default|doc"
+        "value": "if|then|else|forall|in|let|switch|null|true|false|fun|import|merge|default|doc|force|optional|priority"
       }
     },
     "num_literal": {
       "type": "PATTERN",
       "value": "[0-9]*\\.?[0-9]+"
+    },
+    "signed_num_literal": {
+      "type": "PATTERN",
+      "value": "-?[0-9]*\\.?[0-9]+"
     },
     "ident": {
       "type": "PATTERN",
@@ -63,6 +67,53 @@
             },
             {
               "type": "STRING",
+              "value": "force"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "|"
+            },
+            {
+              "type": "STRING",
+              "value": "optional"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "|"
+            },
+            {
+              "type": "STRING",
+              "value": "priority"
+            },
+            {
+              "type": "FIELD",
+              "name": "priority",
+              "content": {
+                "type": "SYMBOL",
+                "name": "signed_num_literal"
+              }
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "|"
+            },
+            {
+              "type": "STRING",
               "value": "doc"
             },
             {
@@ -72,6 +123,40 @@
                 "type": "SYMBOL",
                 "name": "static_string"
               }
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "|"
+            },
+            {
+              "type": "STRING",
+              "value": "rec"
+            },
+            {
+              "type": "STRING",
+              "value": "force"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "|"
+            },
+            {
+              "type": "STRING",
+              "value": "rec"
+            },
+            {
+              "type": "STRING",
+              "value": "default"
             }
           ]
         },
