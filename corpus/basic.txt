@@ -85,7 +85,7 @@ _a_''''_'_
             (ident)))))))
 
 ================================================================================
-identifier (enum tag)
+enum tag (raw)
 ================================================================================
 
 `abc
@@ -100,6 +100,30 @@ identifier (enum tag)
           (atom
             (enum_tag
               (raw_enum_tag))))))))
+
+================================================================================
+enum tag (quoted)
+================================================================================
+
+`"a + %{b} + c"
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (enum_tag
+              (quoted_enum_tag
+                (quoted_enum_tag_start)
+                  (chunk_literal_single
+                    (str_literal))
+                  (chunk_literal_single
+                    (percent))
+                  (chunk_literal_single
+                    (str_literal))))))))))
 
 ================================================================================
 identifier (builtin function)
