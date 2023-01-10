@@ -17,7 +17,7 @@
 "import" @include
 
 [ "if" "then" "else" ] @conditional
-"switch" @conditional
+"match" @conditional
 
 (types) @type
 "Array" @type.builtin
