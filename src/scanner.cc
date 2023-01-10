@@ -14,8 +14,16 @@ enum TokenType {
   STR_END,
   INTERPOLATION_START,
   INTERPOLATION_END,
+  // We use a regular STR_END to close a quoted enum tag, so we just need a
+  // start symbol
+  QUOTED_ENUM_TAG_START,
   COMMENT,
 };
+
+// Zero is used, as an expected percent count, to represent the case where no
+// interpolation is allowed. In this case, the string must be static and any
+// sequence %..%{ should just be considered part of the string literal.
+const uint8_t NO_INTERPOLATION = 0;
 
 struct Scanner {
   // For every nested string we push the expected percent count to this vector.
@@ -101,6 +109,7 @@ struct Scanner {
     uint8_t count = expected_percent_count.back();
 
     // Consume all %-signs
+    // count should never be zero here, as we are lexing a multiline string.
     while (lookahead(lexer) == '%' && count > 0) {
       count--;
       advance(lexer);
@@ -147,6 +156,12 @@ struct Scanner {
     bool brace = false;
     uint8_t count = expected_percent_count.back();
 
+    // If count == NO_INTERPOLATION, interpolation is disallowed in the current string (used
+    // for quoted enum tag, which must be static strings)
+    if (count == NO_INTERPOLATION) {
+      return false;
+    }
+
     while (lookahead(lexer) == '%') {
       count--;
       advance(lexer);
@@ -163,6 +178,18 @@ struct Scanner {
   // Precondition of this function is that the lookahead is '}'
   bool scan_interpolation_end(TSLexer *lexer) {
     lexer->result_symbol = INTERPOLATION_END;
+
+    advance(lexer);
+
+    return true;
+  }
+
+  // Precondition of this function is that the lookahead is '"'.
+  bool scan_quoted_enum_tag_start(TSLexer *lexer) {
+    lexer->result_symbol = QUOTED_ENUM_TAG_START;
+
+    // zero is a special value meaning that no interpolation is allowed.
+    expected_percent_count.push_back(NO_INTERPOLATION);
 
     advance(lexer);
 
@@ -196,7 +223,8 @@ struct Scanner {
     if (valid_symbols[MULTSTR_START] && valid_symbols[MULTSTR_END] &&
         valid_symbols[STR_START] && valid_symbols[STR_END] &&
         valid_symbols[INTERPOLATION_START] &&
-        valid_symbols[INTERPOLATION_END] && valid_symbols[COMMENT]) {
+        valid_symbols[INTERPOLATION_END] && valid_symbols[COMMENT]
+        && valid_symbols[QUOTED_ENUM_TAG_START]) {
       return false;
     }
 
@@ -234,6 +262,14 @@ struct Scanner {
     case '}':
       if (valid_symbols[INTERPOLATION_END]) {
         return scan_interpolation_end(lexer);
+      }
+      break;
+    case '`':
+      if (valid_symbols[QUOTED_ENUM_TAG_START]) {
+        advance(lexer);
+        if (lookahead(lexer) == '"') {
+            return scan_quoted_enum_tag_start(lexer);
+        }
       }
       break;
     case '#':

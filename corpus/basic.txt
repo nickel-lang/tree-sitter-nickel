@@ -99,7 +99,7 @@ identifier (enum tag)
         (record_operand
           (atom
             (enum_tag
-              (ident))))))))
+              (raw_enum_tag))))))))
 
 ================================================================================
 identifier (builtin function)
