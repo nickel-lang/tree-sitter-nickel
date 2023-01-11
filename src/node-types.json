@@ -373,11 +373,11 @@
       "required": true,
       "types": [
         {
-          "type": "ident",
+          "type": "quoted_enum_tag",
           "named": true
         },
         {
-          "type": "static_string",
+          "type": "raw_enum_tag",
           "named": true
         }
       ]
@@ -848,22 +848,22 @@
     "type": "match_case",
     "named": true,
     "fields": {
-      "id": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "enum_tag",
-            "named": true
-          }
-        ]
-      },
       "t": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "term",
+            "named": true
+          }
+        ]
+      },
+      "tag": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "enum_tag",
             "named": true
           }
         ]
@@ -924,6 +924,25 @@
     "type": "percent",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "quoted_enum_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "chunk_literal_single",
+          "named": true
+        },
+        {
+          "type": "quoted_enum_tag_start",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "record_field",
@@ -1213,7 +1232,7 @@
             "named": false
           },
           {
-            "type": "enum_tag",
+            "type": "ident",
             "named": true
           }
         ]
@@ -1488,10 +1507,6 @@
     "named": false
   },
   {
-    "type": "`",
-    "named": false
-  },
-  {
     "type": "comment",
     "named": true
   },
@@ -1586,6 +1601,14 @@
   {
     "type": "priority",
     "named": false
+  },
+  {
+    "type": "quoted_enum_tag_start",
+    "named": true
+  },
+  {
+    "type": "raw_enum_tag",
+    "named": true
   },
   {
     "type": "rec",

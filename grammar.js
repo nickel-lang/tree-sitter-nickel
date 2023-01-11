@@ -46,6 +46,7 @@ module.exports = grammar({
     $._str_end,
     $.interpolation_start,
     $.interpolation_end,
+    $.quoted_enum_tag_start,
     $.comment,
   ],
 
@@ -68,7 +69,14 @@ module.exports = grammar({
 
     signed_num_literal: _ => /-?[0-9]*\.?[0-9]+/,
 
+    // **IMPORTANT**
+    // This regex should be kept in sync with the one for enum_tag above.
     ident: _ => /_?[a-zA-Z][_a-zA-Z0-9-']*/,
+
+    // Standard, unquoted enum tag.
+    // **IMPORTANT**
+    // This regex should be kept in sync with the one for identifier above.
+    raw_enum_tag: _ => /`_?[a-zA-Z][_a-zA-Z0-9-']*/,
 
     ////////////////////////////
     // PARSER RULES (grammar.lalrpop)
@@ -216,7 +224,7 @@ module.exports = grammar({
       // DIFERENT from lalrpop grammar. See NOTE[builtin].
       $.builtin,
       $.uni_record,
-      seq("`", $.enum_tag),
+      $.enum_tag,
       // NOTE: Arrays may have a trailing comma in Nickel
       square(field("terms", seq(commaSep($.term), optional(",")))),
       $.type_atom,
@@ -349,10 +357,15 @@ module.exports = grammar({
       seq($.multstr_start, repeat($.chunk_literal_multi), $.multstr_end),
     ),
 
+    // grammar.lalrpop (c30ad1fc6cf43a450126b3c9dd4bbe68d53ca3b2): L55
+    // An enum tag escaped with double quotes, like `"enum$tag$with$spec$chars"
+    quoted_enum_tag: $ =>
+      seq($.quoted_enum_tag_start, repeat($.chunk_literal_single), $._str_end),
+
     //grammar.lalrpop: 498
     enum_tag: $ => choice(
-      $.ident,
-      $.static_string,
+      $.raw_enum_tag,
+      $.quoted_enum_tag,
     ),
 
     //grammar.lalrpop: 503
@@ -389,7 +402,7 @@ module.exports = grammar({
 
     //grammar.lalrpop (be9afc26055ec17fec42d39f701c459e9c9cf012): L601
     match_case: $ => choice(
-      seq("`", field("id", $.enum_tag), "=>", field("t", $.term)),
+      seq(field("tag", $.enum_tag), "=>", field("t", $.term)),
       seq("_", "=>", field("t", $.term)),
     ),
 
@@ -521,7 +534,7 @@ module.exports = grammar({
       seq(
         "[|",
         field("rows", commaSep($.enum_tag)),
-        field("tail", optional(seq(";", $.enum_tag))),
+        field("tail", optional(seq(";", $.ident))),
         "|]",
       ),
       seq(
@@ -543,10 +556,6 @@ function sep(rule, separator) {
 
 function sep1(rule, separator) {
   return seq(rule, repeat(seq(separator, rule)));
-}
-
-function commaSep1(rule) {
-  return sep1(rule, ",");
 }
 
 function commaSep(rule) {

@@ -26,7 +26,7 @@ let Container = {
 } in
 
 let KubernetesConfig = {
-  kind | [| ReplicationController, ReplicaSet, Pod |]
+  kind | [| `ReplicationController, `ReplicaSet, `Pod |]
        | doc "The kind of the element being configured."
        | default = `Pod,
 
@@ -300,11 +300,11 @@ let metadata_ = {
                                                     (atom
                                                       (type_atom
                                                         (enum_tag
-                                                          (ident))
+                                                          (raw_enum_tag))
                                                         (enum_tag
-                                                          (ident))
+                                                          (raw_enum_tag))
                                                         (enum_tag
-                                                          (ident)))))))))
+                                                          (raw_enum_tag)))))))))
                                           (annot_atom
                                             (static_string
                                               (chunk_literal_single
@@ -317,7 +317,7 @@ let metadata_ = {
                                                 (record_operand
                                                   (atom
                                                     (enum_tag
-                                                      (ident)))))))))
+                                                      (raw_enum_tag)))))))))
                                       (record_field
                                         (field_path
                                           (field_path_elem
@@ -538,7 +538,7 @@ let metadata_ = {
                                                               (record_operand
                                                                 (atom
                                                                   (enum_tag
-                                                                    (ident)))))))))
+                                                                    (raw_enum_tag)))))))))
                                                     (record_field
                                                       (field_path
                                                         (field_path_elem
