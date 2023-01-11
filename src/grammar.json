@@ -25,6 +25,10 @@
       "type": "PATTERN",
       "value": "_?[a-zA-Z][_a-zA-Z0-9-']*"
     },
+    "raw_enum_tag": {
+      "type": "PATTERN",
+      "value": "`_?[a-zA-Z][_a-zA-Z0-9-']*"
+    },
     "annot_atom": {
       "type": "CHOICE",
       "members": [
@@ -787,17 +791,8 @@
           "name": "uni_record"
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "`"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "enum_tag"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "enum_tag"
         },
         {
           "type": "SEQ",
@@ -1410,16 +1405,36 @@
         }
       ]
     },
+    "quoted_enum_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "quoted_enum_tag_start"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "chunk_literal_single"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_str_end"
+        }
+      ]
+    },
     "enum_tag": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "ident"
+          "name": "raw_enum_tag"
         },
         {
           "type": "SYMBOL",
-          "name": "static_string"
+          "name": "quoted_enum_tag"
         }
       ]
     },
@@ -1505,12 +1520,8 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "`"
-            },
-            {
               "type": "FIELD",
-              "name": "id",
+              "name": "tag",
               "content": {
                 "type": "SYMBOL",
                 "name": "enum_tag"
@@ -2185,7 +2196,7 @@
                       },
                       {
                         "type": "SYMBOL",
-                        "name": "enum_tag"
+                        "name": "ident"
                       }
                     ]
                   },
@@ -2273,6 +2284,10 @@
     {
       "type": "SYMBOL",
       "name": "interpolation_end"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "quoted_enum_tag_start"
     },
     {
       "type": "SYMBOL",

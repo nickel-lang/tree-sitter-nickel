@@ -22,7 +22,7 @@ x |> match {
               (record_operand
                 (atom
                   (enum_tag
-                    (ident))))))))
+                    (raw_enum_tag))))))))
       (term
         (uni_term
           (infix_expr
@@ -37,7 +37,7 @@ x |> match {
                 (match_expr
                   (match_case
                     (enum_tag
-                      (ident))
+                      (raw_enum_tag))
                     (term
                       (uni_term
                         (infix_expr
@@ -47,7 +47,7 @@ x |> match {
                                 (num_literal))))))))
                   (match_case
                     (enum_tag
-                      (ident))
+                      (raw_enum_tag))
                     (term
                       (uni_term
                         (infix_expr
@@ -76,7 +76,7 @@ match {
         (match_expr
           (match_case
             (enum_tag
-              (ident))
+              (raw_enum_tag))
             (term
               (uni_term
                 (infix_expr
@@ -86,7 +86,7 @@ match {
                         (bool))))))))
           (match_case
             (enum_tag
-              (ident))
+              (raw_enum_tag))
             (term
               (uni_term
                 (infix_expr
@@ -96,7 +96,7 @@ match {
                         (bool))))))))
           (match_case
             (enum_tag
-              (ident))
+              (raw_enum_tag))
             (term
               (uni_term
                 (infix_expr
@@ -134,7 +134,7 @@ f `a
               (match_expr
                 (match_case
                   (enum_tag
-                    (ident))
+                    (raw_enum_tag))
                   (term
                     (uni_term
                       (infix_expr
@@ -144,7 +144,7 @@ f `a
                               (num_literal))))))))
                 (match_case
                   (enum_tag
-                    (ident))
+                    (raw_enum_tag))
                   (term
                     (uni_term
                       (infix_expr
@@ -163,5 +163,5 @@ f `a
               (record_operand
                 (atom
                   (enum_tag
-                    (ident)))))))))))
+                    (raw_enum_tag)))))))))))
 
