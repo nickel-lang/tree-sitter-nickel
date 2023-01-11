@@ -29,6 +29,16 @@
           }
         ]
       },
+      "priority": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "signed_num_literal",
+            "named": true
+          }
+        ]
+      },
       "ty": {
         "multiple": false,
         "required": false,
@@ -1520,6 +1530,10 @@
     "named": false
   },
   {
+    "type": "force",
+    "named": false
+  },
+  {
     "type": "fun",
     "named": false
   },
@@ -1572,8 +1586,20 @@
     "named": true
   },
   {
+    "type": "optional",
+    "named": false
+  },
+  {
+    "type": "priority",
+    "named": false
+  },
+  {
     "type": "rec",
     "named": false
+  },
+  {
+    "type": "signed_num_literal",
+    "named": true
   },
   {
     "type": "str_esc_char",

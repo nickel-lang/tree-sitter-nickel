@@ -62,9 +62,11 @@ module.exports = grammar({
     ////////////////////////////
     // LEXER RELATED RULES (lexer.rs)
     ////////////////////////////
-    keyword: _ => token(/if|then|else|forall|in|let|switch|null|true|false|fun|import|merge|default|doc/),
+    keyword: _ => token(/if|then|else|forall|in|let|switch|null|true|false|fun|import|merge|default|doc|force|optional|priority/),
 
     num_literal: _ => /[0-9]*\.?[0-9]+/,
+
+    signed_num_literal: _ => /-?[0-9]*\.?[0-9]+/,
 
     ident: _ => /_?[a-zA-Z][_a-zA-Z0-9-']*/,
 
@@ -78,7 +80,12 @@ module.exports = grammar({
     annot_atom: $ => choice(
       seq("|", field("ty", $.types)),
       seq("|", "default"),
+      seq("|", "force"),
+      seq("|", "optional"),
+      seq("|", "priority", field("priority", $.signed_num_literal)),
       seq("|", "doc", field("doc", $.static_string)),
+      seq("|", "rec", "force"),
+      seq("|", "rec", "default"),
       seq(":", field("ty", $.types)),
     ),
 
