@@ -1,9 +1,6 @@
-(comment) @comment
+(comment) @comment @spell
 
 [
-  "if"
-  "then"
-  "else"
   "forall"
   "in"
   "let"
@@ -23,7 +20,7 @@
 "Array" @type.builtin
 
 ; BUILTIN Constants
-(bool) @constant.builtin
+(bool) @boolean
 "null" @constant.builtin
 
 (num_literal) @number
@@ -55,8 +52,8 @@
 
 (fun_expr pats:
   (pattern id:
-    (ident) @variable.parameter
-  )+
+    (ident) @parameter
+  )
 )
 
 (applicative t1:
