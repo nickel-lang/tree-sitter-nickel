@@ -62,7 +62,7 @@ module.exports = grammar({
     ////////////////////////////
     // LEXER RELATED RULES (lexer.rs)
     ////////////////////////////
-    keyword: _ => token(/if|then|else|forall|in|let|switch|null|true|false|fun|import|merge|default|doc|force|optional|priority/),
+    keyword: _ => token(/if|then|else|forall|in|let|match|null|true|false|fun|import|merge|default|doc|force|optional|priority/),
 
     num_literal: _ => /[0-9]*\.?[0-9]+/,
 
@@ -108,7 +108,6 @@ module.exports = grammar({
       $.forall,
       $.let_expr,
       $.fun_expr,
-      $.switch_expr,
       $.ite_expr, // if then else
     ),
 
@@ -130,12 +129,11 @@ module.exports = grammar({
       field("t", $.term),
     ),
 
-    switch_expr: $ => seq(
-      "switch",
+    match_expr: $ => seq(
+      "match",
       "{",
-      field("cases", seq(commaSep($.switch_case), optional(","))),
+      field("cases", seq(commaSep($.match_case), optional(","))),
       "}",
-      field("exp", $.term),
     ),
 
     ite_expr: $ => seq(
@@ -172,6 +170,7 @@ module.exports = grammar({
       //seq($.u_op, $.record_operand),
       //seq($.b_op_pre, $.record_operand, $.atom),
       //seq($.n_op_pre),
+      $.match_expr,
       $.record_operand,
     ),
 
@@ -388,8 +387,8 @@ module.exports = grammar({
       "%",
     ),
 
-    //grammar.lalrpop: 546
-    switch_case: $ => choice(
+    //grammar.lalrpop (be9afc26055ec17fec42d39f701c459e9c9cf012): L601
+    match_case: $ => choice(
       seq("`", field("id", $.enum_tag), "=>", field("t", $.term)),
       seq("_", "=>", field("t", $.term)),
     ),

@@ -10,7 +10,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "if|then|else|forall|in|let|switch|null|true|false|fun|import|merge|default|doc|force|optional|priority"
+        "value": "if|then|else|forall|in|let|match|null|true|false|fun|import|merge|default|doc|force|optional|priority"
       }
     },
     "num_literal": {
@@ -228,10 +228,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "switch_expr"
-        },
-        {
-          "type": "SYMBOL",
           "name": "ite_expr"
         }
       ]
@@ -337,12 +333,12 @@
         }
       ]
     },
-    "switch_expr": {
+    "match_expr": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
-          "value": "switch"
+          "value": "match"
         },
         {
           "type": "STRING",
@@ -362,7 +358,7 @@
                     "members": [
                       {
                         "type": "SYMBOL",
-                        "name": "switch_case"
+                        "name": "match_case"
                       },
                       {
                         "type": "REPEAT",
@@ -375,7 +371,7 @@
                             },
                             {
                               "type": "SYMBOL",
-                              "name": "switch_case"
+                              "name": "match_case"
                             }
                           ]
                         }
@@ -405,14 +401,6 @@
         {
           "type": "STRING",
           "value": "}"
-        },
-        {
-          "type": "FIELD",
-          "name": "exp",
-          "content": {
-            "type": "SYMBOL",
-            "name": "term"
-          }
         }
       ]
     },
@@ -554,6 +542,10 @@
               }
             }
           ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "match_expr"
         },
         {
           "type": "SYMBOL",
@@ -1506,7 +1498,7 @@
         }
       ]
     },
-    "switch_case": {
+    "match_case": {
       "type": "CHOICE",
       "members": [
         {
