@@ -240,6 +240,27 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "FIELD",
+          "name": "var",
+          "content": {
+            "type": "SYMBOL",
+            "name": "let_in_block"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "t2",
+          "content": {
+            "type": "SYMBOL",
+            "name": "term"
+          }
+        }
+      ]
+    },
+    "let_in_block": {
+      "type": "SEQ",
+      "members": [
+        {
           "type": "STRING",
           "value": "let"
         },
@@ -294,14 +315,6 @@
         {
           "type": "STRING",
           "value": "in"
-        },
-        {
-          "type": "FIELD",
-          "name": "t2",
-          "content": {
-            "type": "SYMBOL",
-            "name": "term"
-          }
         }
       ]
     },

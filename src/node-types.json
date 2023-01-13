@@ -746,6 +746,32 @@
     "type": "let_expr",
     "named": true,
     "fields": {
+      "t2": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "term",
+            "named": true
+          }
+        ]
+      },
+      "var": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "let_in_block",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "let_in_block",
+    "named": true,
+    "fields": {
       "meta": {
         "multiple": false,
         "required": false,
@@ -767,16 +793,6 @@
         ]
       },
       "t1": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "term",
-            "named": true
-          }
-        ]
-      },
-      "t2": {
         "multiple": false,
         "required": true,
         "types": [
