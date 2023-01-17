@@ -172,7 +172,7 @@ module.exports = grammar({
       seq("import", field("s", $.static_string)),
       $.type_array,
       seq(field("t1", $.applicative), field("t2", $.record_operand)),
-      // We don't explicitly have the the following three rules. Instead we
+      // We don't explicitly have the following three rules. Instead we
       // match generically on builtin functions.
       // This is different from the lalrpop grammar. See NOTE[builtin].
       //seq($.u_op, $.record_operand),
@@ -221,7 +221,7 @@ module.exports = grammar({
       $.bool,
       $.str_chunks,
       $.ident,
-      // DIFERENT from lalrpop grammar. See NOTE[builtin].
+      // DIFFERENT from lalrpop grammar. See NOTE[builtin].
       $.builtin,
       $.uni_record,
       $.enum_tag,
