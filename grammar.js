@@ -120,6 +120,11 @@ module.exports = grammar({
     ),
 
     let_expr: $ => seq(
+      field("binding", $.let_in_block),
+      field("t2", $.term),
+    ),
+
+    let_in_block: $ => seq(
       "let",
       optional("rec"),
       field("pat", $.pattern),
@@ -127,7 +132,6 @@ module.exports = grammar({
       "=",
       field("t1", $.term),
       "in",
-      field("t2", $.term),
     ),
 
     fun_expr: $ => seq(
