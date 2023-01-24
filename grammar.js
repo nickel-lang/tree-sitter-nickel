@@ -120,7 +120,7 @@ module.exports = grammar({
     ),
 
     let_expr: $ => seq(
-      field("var", $.let_in_block),
+      field("binding", $.let_in_block),
       field("t2", $.term),
     ),
 
