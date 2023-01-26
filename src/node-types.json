@@ -746,22 +746,22 @@
     "type": "let_expr",
     "named": true,
     "fields": {
+      "binding": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "let_in_block",
+            "named": true
+          }
+        ]
+      },
       "t2": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "term",
-            "named": true
-          }
-        ]
-      },
-      "var": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "let_in_block",
             "named": true
           }
         ]

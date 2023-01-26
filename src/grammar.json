@@ -241,7 +241,7 @@
       "members": [
         {
           "type": "FIELD",
-          "name": "var",
+          "name": "binding",
           "content": {
             "type": "SYMBOL",
             "name": "let_in_block"
