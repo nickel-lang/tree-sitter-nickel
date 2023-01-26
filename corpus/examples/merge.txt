@@ -16,27 +16,29 @@ server & security & {firewall.enabled = false}
   (comment)
   (uni_term
     (let_expr
-      (pattern
-        (ident))
-      (term
-        (uni_term
-          (infix_expr
-            (applicative
-              (static_string
-                (chunk_literal_single
-                  (str_literal)))))))
+      (let_in_block
+        (pattern
+          (ident))
+        (term
+          (uni_term
+            (infix_expr
+              (applicative
+                (static_string
+                  (chunk_literal_single
+                    (str_literal))))))))
       (term
         (uni_term
           (let_expr
-            (pattern
-              (ident))
-            (term
-              (uni_term
-                (infix_expr
-                  (applicative
-                    (static_string
-                      (chunk_literal_single
-                        (str_literal)))))))
+            (let_in_block
+              (pattern
+                (ident))
+              (term
+                (uni_term
+                  (infix_expr
+                    (applicative
+                      (static_string
+                        (chunk_literal_single
+                          (str_literal))))))))
             (comment)
             (term
               (uni_term

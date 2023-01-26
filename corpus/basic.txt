@@ -420,15 +420,16 @@ let a = b in c
 (term
   (uni_term
     (let_expr
-      (pattern
-        (ident))
-      (term
-        (uni_term
-          (infix_expr
-            (applicative
-              (record_operand
-                (atom
-                  (ident)))))))
+      (let_in_block
+        (pattern
+          (ident))
+        (term
+          (uni_term
+            (infix_expr
+              (applicative
+                (record_operand
+                  (atom
+                    (ident))))))))
       (term
         (uni_term
           (infix_expr
@@ -454,17 +455,18 @@ in
 (term
   (uni_term
     (let_expr
-      (comment)
-      (pattern
-        (ident))
-      (term
-        (uni_term
-          (infix_expr
-            (applicative
-              (record_operand
-                (atom
-                  (ident)))))))
-      (comment)
+      (let_in_block
+        (comment)
+        (pattern
+          (ident))
+        (term
+          (uni_term
+            (infix_expr
+              (applicative
+                (record_operand
+                  (atom
+                    (ident)))))))
+        (comment))
       (comment)
       (term
         (uni_term
@@ -506,15 +508,16 @@ let a = 1 in { }
 (term
   (uni_term
     (let_expr
-      (pattern
-        (ident))
-      (term
-        (uni_term
-          (infix_expr
-            (applicative
-              (record_operand
-                (atom
-                  (num_literal)))))))
+      (let_in_block
+        (pattern
+          (ident))
+        (term
+          (uni_term
+            (infix_expr
+              (applicative
+                (record_operand
+                  (atom
+                    (num_literal))))))))
       (term
         (uni_term
           (infix_expr
@@ -624,23 +627,24 @@ in y
 (term
   (uni_term
     (let_expr
-      (pattern
-        (ident))
-      (term
-        (uni_term
-          (infix_expr
-            (applicative
+      (let_in_block
+        (pattern
+          (ident))
+        (term
+          (uni_term
+            (infix_expr
               (applicative
                 (applicative
+                  (applicative
+                    (record_operand
+                      (atom
+                        (ident))))
                   (record_operand
                     (atom
                       (ident))))
                 (record_operand
                   (atom
-                    (ident))))
-              (record_operand
-                (atom
-                  (num_literal)))))))
+                    (num_literal))))))))
       (term
         (uni_term
           (infix_expr
