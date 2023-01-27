@@ -13,16 +13,17 @@ x |> match {
 (term
   (uni_term
     (let_expr
-      (pattern
-        (ident))
-      (term
-        (uni_term
-          (infix_expr
-            (applicative
-              (record_operand
-                (atom
-                  (enum_tag
-                    (raw_enum_tag))))))))
+      (let_in_block
+        (pattern
+          (ident))
+        (term
+          (uni_term
+            (infix_expr
+              (applicative
+                (record_operand
+                  (atom
+                    (enum_tag
+                      (raw_enum_tag)))))))))
       (term
         (uni_term
           (infix_expr
@@ -125,33 +126,34 @@ f `a
 (term
   (uni_term
     (let_expr
-      (pattern
-        (ident))
-      (term
-        (uni_term
-          (infix_expr
-            (applicative
-              (match_expr
-                (match_case
-                  (enum_tag
-                    (raw_enum_tag))
-                  (term
-                    (uni_term
-                      (infix_expr
-                        (applicative
-                          (record_operand
-                            (atom
-                              (num_literal))))))))
-                (match_case
-                  (enum_tag
-                    (raw_enum_tag))
-                  (term
-                    (uni_term
-                      (infix_expr
-                        (applicative
-                          (record_operand
-                            (atom
-                              (num_literal)))))))))))))
+      (let_in_block
+        (pattern
+          (ident))
+        (term
+          (uni_term
+            (infix_expr
+              (applicative
+                (match_expr
+                  (match_case
+                    (enum_tag
+                      (raw_enum_tag))
+                    (term
+                      (uni_term
+                        (infix_expr
+                          (applicative
+                            (record_operand
+                              (atom
+                                (num_literal))))))))
+                  (match_case
+                    (enum_tag
+                      (raw_enum_tag))
+                    (term
+                      (uni_term
+                        (infix_expr
+                          (applicative
+                            (record_operand
+                              (atom
+                                (num_literal))))))))))))))
       (term
         (uni_term
           (infix_expr

@@ -9,15 +9,16 @@ let rec x = x in x
 (term
   (uni_term
     (let_expr
-      (pattern
-        (ident))
-      (term
-        (uni_term
-          (infix_expr
-            (applicative
-              (record_operand
-                (atom
-                  (ident)))))))
+      (let_in_block
+        (pattern
+          (ident))
+        (term
+          (uni_term
+            (infix_expr
+              (applicative
+                (record_operand
+                  (atom
+                    (ident))))))))
       (term
         (uni_term
           (infix_expr
