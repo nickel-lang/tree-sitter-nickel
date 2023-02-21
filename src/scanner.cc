@@ -104,7 +104,6 @@ struct Scanner {
   // Scans the multistring end. Assumes that the " has already been consumed
   bool scan_multstr_end(TSLexer *lexer) {
     lexer->result_symbol = MULTSTR_END;
-    bool m = false;
 
     uint8_t count = expected_percent_count.back();
 
@@ -115,16 +114,11 @@ struct Scanner {
       advance(lexer);
     }
 
-    if (lookahead(lexer) == 'm') {
-      m = true;
-      advance(lexer);
-    }
-
     expected_percent_count.pop_back();
 
     // An END is fully scanned when we started with an '"' (precondition of
-    // this function), consumed all %-signs and ended with an m.
-    return (m && count == 0);
+    // this function) and consumed all %-signs.
+    return count == 0;
   }
 
   // Precondition of this function is that the lookahead is '"'
