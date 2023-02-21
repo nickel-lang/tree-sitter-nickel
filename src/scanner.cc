@@ -35,6 +35,8 @@ struct Scanner {
 
   void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
 
+  bool eof(TSLexer *lexer) { return lexer->eof(lexer); }
+
   int32_t lookahead(TSLexer *lexer) { return lexer->lookahead; }
 
   unsigned serialize(char *buffer) {
@@ -75,14 +77,87 @@ struct Scanner {
     }
   }
 
-  // Scans the multistring start. Assumes that the m indicating a multistring
-  // was already consumed.
+  bool valid_symtag_start(int32_t lookahead) {
+    return ('a' <= lookahead && lookahead <= 'z') || ('A' <= lookahead && lookahead <= 'Z');
+  }
+
+  bool valid_symtag_middle(int32_t lookahead) {
+    return valid_symtag_start(lookahead) || ('0' <= lookahead && lookahead <= '9') || lookahead == '-' || lookahead == '\'' || lookahead == '_';
+  }
+
+  bool scan_until_sstr_start_end(TSLexer *lexer, bool m_scanned) {
+    enum RecognizerState {
+      START,
+      MIDDLE,
+      DASH,
+      S,
+      PERCENT
+    } state = START;
+    if (m_scanned) {
+      state = MIDDLE;
+    }
+    while (!eof(lexer)) {
+      int32_t current = lookahead(lexer);
+      switch (state) {
+        case START:
+          if (valid_symtag_start(current)) {
+            advance(lexer);
+            state = MIDDLE;
+          } else {
+            return false;
+          }
+          break;
+        case MIDDLE:
+          if (!valid_symtag_middle(current)) {
+            return false;
+          }
+          if (current == '-') {
+            state = DASH;
+          }
+          advance(lexer);
+          break;
+        case DASH:
+          if (current == 's') {
+            state = S;
+            advance(lexer);
+          } else {
+            state = MIDDLE;
+          }
+          break;
+        case S:
+          if (current == '%') {
+            state = PERCENT;
+            advance(lexer);
+          } else {
+            state = MIDDLE;
+          }
+          break;
+        case PERCENT:
+          return true;
+      }
+    }
+    return false; // We ran into EOF without completely scanning a symbolic string start
+  }
+
+  // Scans a multistring start.
   bool scan_multstr_start(TSLexer *lexer) {
     lexer->result_symbol = MULTSTR_START;
-    uint8_t count = 0;
-    bool quote = false;
 
-    // Count the number of percentages
+    bool m_scanned = false;
+
+    if (lookahead(lexer) == 'm') {
+      advance(lexer);
+      m_scanned = true;
+    }
+
+    if (m_scanned && lookahead(lexer) == '%') {
+      advance(lexer);
+    } else if (!scan_until_sstr_start_end(lexer, m_scanned)) {
+      return false;
+    }
+
+    uint8_t count = 1;
+    bool quote = false;
     while (lookahead(lexer) == '%') {
       count++;
       advance(lexer);
@@ -94,10 +169,7 @@ struct Scanner {
     }
 
     expected_percent_count.push_back(count);
-
-    // A START is fully scanned when we started with an 'm' (precondition of
-    // this function), more than 0 percent signs (precondition of this
-    // function), and a quote character.
+    
     return quote;
   }
 
@@ -228,14 +300,6 @@ struct Scanner {
     }
 
     switch (lookahead(lexer)) {
-    case 'm':
-      if (valid_symbols[MULTSTR_START]) {
-        advance(lexer);
-        if (lookahead(lexer) == '%') {
-          return scan_multstr_start(lexer);
-        }
-      }
-      break;
     case '"':
       if (valid_symbols[MULTSTR_END]) {
         advance(lexer);
@@ -269,6 +333,11 @@ struct Scanner {
     case '#':
       if (valid_symbols[COMMENT]) {
         return scan_comment(lexer);
+      }
+      break;
+    default:
+      if (valid_symbols[MULTSTR_START]) {
+        return scan_multstr_start(lexer);
       }
       break;
     }

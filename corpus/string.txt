@@ -277,3 +277,50 @@ m%"#tre"%
                   (mult_str_literal))
                 (multstr_end))))))))
   (comment))
+
+================================================================================
+symbolic string with interpolation
+================================================================================
+
+nix-s%"%{foo}"%
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (str_chunks
+              (str_chunks_multi
+                (multstr_start)
+                (chunk_expr
+                  (interpolation_start)
+                  (term
+                    (uni_term
+                      (infix_expr
+                        (applicative
+                          (record_operand
+                            (atom
+                              (ident)))))))
+                  (interpolation_end))
+                (multstr_end)))))))))
+
+================================================================================
+symbolic string with weird prefix
+================================================================================
+
+mix-s-s%%""%%
+
+--------------------------------------------------------------------------------
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (str_chunks
+              (str_chunks_multi
+                (multstr_start)
+                (multstr_end)))))))))
