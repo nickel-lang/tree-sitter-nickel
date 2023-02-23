@@ -8,6 +8,10 @@
   "default"
   "doc"
   "rec"
+  "optional"
+  "priority"
+  "force"
+  "not_exported"
 ] @keyword
 
 "fun" @keyword.function

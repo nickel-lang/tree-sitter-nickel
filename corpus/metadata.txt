@@ -220,3 +220,53 @@ metadata prio
                                 (chunk_literal_single
                                   (str_literal))))))))))))))))))
 
+
+================================================================================
+metadata not_exported
+================================================================================
+
+{
+  "not_exported"
+    | not_exported
+    = 5,
+  exported
+    = 6
+}
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (uni_record
+              (record_field
+                (field_path
+                  (field_path_elem
+                    (str_chunks
+                      (str_chunks_single
+                        (chunk_literal_single
+                          (str_literal))))))
+                (annot
+                  (annot_atom))
+                (term
+                  (uni_term
+                    (infix_expr
+                      (applicative
+                        (record_operand
+                          (atom
+                            (num_literal))))))))
+              (record_last_field
+                (record_field
+                  (field_path
+                    (field_path_elem
+                      (ident)))
+                  (term
+                    (uni_term
+                      (infix_expr
+                        (applicative
+                          (record_operand
+                            (atom
+                              (num_literal))))))))))))))))
