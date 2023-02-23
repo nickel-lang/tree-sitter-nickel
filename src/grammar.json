@@ -10,7 +10,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "if|then|else|forall|in|let|match|null|true|false|fun|import|merge|default|doc|force|optional|priority"
+        "value": "if|then|else|forall|in|let|rec|match|null|true|false|fun|import|merge|default|doc|force|optional|priority|not_exported"
       }
     },
     "num_literal": {
@@ -161,6 +161,19 @@
             {
               "type": "STRING",
               "value": "default"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "|"
+            },
+            {
+              "type": "STRING",
+              "value": "not_exported"
             }
           ]
         },

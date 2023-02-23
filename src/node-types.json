@@ -1603,6 +1603,10 @@
     "named": true
   },
   {
+    "type": "not_exported",
+    "named": false
+  },
+  {
     "type": "null",
     "named": false
   },

@@ -63,7 +63,7 @@ module.exports = grammar({
     ////////////////////////////
     // LEXER RELATED RULES (lexer.rs)
     ////////////////////////////
-    keyword: _ => token(/if|then|else|forall|in|let|match|null|true|false|fun|import|merge|default|doc|force|optional|priority/),
+    keyword: _ => token(/if|then|else|forall|in|let|rec|match|null|true|false|fun|import|merge|default|doc|force|optional|priority|not_exported/),
 
     num_literal: _ => /[0-9]*\.?[0-9]+/,
 
@@ -94,6 +94,7 @@ module.exports = grammar({
       seq("|", "doc", field("doc", $.static_string)),
       seq("|", "rec", "force"),
       seq("|", "rec", "default"),
+      seq("|", "not_exported"),
       seq(":", field("ty", $.types)),
     ),
 
