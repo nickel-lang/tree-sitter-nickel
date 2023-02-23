@@ -46,7 +46,7 @@ metadata doc
   bar
     | doc m%"
         Some documentation about bar.
-    "%m,
+    "%,
   baz
     | doc "Some other doc" = null,
 }
