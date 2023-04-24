@@ -331,7 +331,7 @@ struct Scanner {
         return scan_interpolation_end(lexer);
       }
       break;
-    case '`':
+    case '\'':
       if (valid_symbols[QUOTED_ENUM_TAG_START]) {
         advance(lexer);
         if (lookahead(lexer) == '"') {
