@@ -1499,11 +1499,11 @@
     "named": false
   },
   {
-    "type": "Num",
+    "type": "Number",
     "named": false
   },
   {
-    "type": "Str",
+    "type": "String",
     "named": false
   },
   {

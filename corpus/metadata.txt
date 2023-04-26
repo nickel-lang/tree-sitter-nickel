@@ -3,7 +3,7 @@ metadata basics
 ================================================================================
 
 {
-  foo | Num
+  foo | Number
       | default = 5,
 }
 
@@ -94,7 +94,7 @@ metadata prio
 {
   bar | priority 5,
   baz | priority -2.3,
-  foo | Str
+  foo | String
       | optional,
   foo' | rec default = {bar = 1},
   foo'' | rec force = {bar = 2},

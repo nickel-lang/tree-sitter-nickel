@@ -76,7 +76,7 @@ module.exports = grammar({
     // Standard, unquoted enum tag.
     // **IMPORTANT**
     // This regex should be kept in sync with the one for identifier above.
-    raw_enum_tag: _ => /`_?[a-zA-Z][_a-zA-Z0-9-']*/,
+    raw_enum_tag: _ => /'_?[a-zA-Z][_a-zA-Z0-9-']*/,
 
     ////////////////////////////
     // PARSER RULES (grammar.lalrpop)
@@ -528,9 +528,9 @@ module.exports = grammar({
     //grammar.lalrpop: 736
     type_builtin: _ => choice(
       "Dyn",
-      "Num",
+      "Number",
       "Bool",
-      "Str",
+      "String",
     ),
 
     //grammar.lalrpop: 743

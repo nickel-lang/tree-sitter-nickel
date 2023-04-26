@@ -27,7 +27,7 @@
     },
     "raw_enum_tag": {
       "type": "PATTERN",
-      "value": "`_?[a-zA-Z][_a-zA-Z0-9-']*"
+      "value": "'_?[a-zA-Z][_a-zA-Z0-9-']*"
     },
     "annot_atom": {
       "type": "CHOICE",
@@ -2144,7 +2144,7 @@
         },
         {
           "type": "STRING",
-          "value": "Num"
+          "value": "Number"
         },
         {
           "type": "STRING",
@@ -2152,7 +2152,7 @@
         },
         {
           "type": "STRING",
-          "value": "Str"
+          "value": "String"
         }
       ]
     },
