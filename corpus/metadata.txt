@@ -270,3 +270,71 @@ metadata not_exported
                           (record_operand
                             (atom
                               (num_literal))))))))))))))))
+
+================================================================================
+dictionary contract
+================================================================================
+
+{
+  dict | { _ | Number },
+  complicated-dict | { _ | {
+    foo,
+    bar,
+  } }
+}
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (uni_record
+              (record_field
+                (field_path
+                  (field_path_elem
+                    (ident)))
+                (annot
+                  (annot_atom
+                    (types
+                      (infix_expr
+                        (applicative
+                          (record_operand
+                            (atom
+                              (type_atom
+                                (types
+                                  (infix_expr
+                                    (applicative
+                                      (record_operand
+                                        (atom
+                                          (type_atom
+                                            (type_builtin))))))))))))))))
+              (record_last_field
+                (record_field
+                  (field_path
+                    (field_path_elem
+                      (ident)))
+                  (annot
+                    (annot_atom
+                      (types
+                        (infix_expr
+                          (applicative
+                            (record_operand
+                              (atom
+                                (type_atom
+                                  (types
+                                    (infix_expr
+                                      (applicative
+                                        (record_operand
+                                          (atom
+                                            (uni_record
+                                              (record_field
+                                                (field_path
+                                                  (field_path_elem
+                                                    (ident))))
+                                              (record_field
+                                                (field_path
+                                                  (field_path_elem
+                                                    (ident)))))))))))))))))))))))))))
