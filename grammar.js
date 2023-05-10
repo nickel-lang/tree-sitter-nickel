@@ -549,6 +549,13 @@ module.exports = grammar({
         field("types", $.types),
         "}",
       ),
+      seq(
+        "{",
+        "_",
+        "|",
+        field("types", $.types),
+        "}",
+      ),
     ),
 
   },
