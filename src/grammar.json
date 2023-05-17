@@ -10,7 +10,7 @@
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "if|then|else|forall|in|let|match|null|true|false|fun|import|merge|default|doc|force|optional|priority"
+        "value": "if|then|else|forall|in|let|rec|match|null|true|false|fun|import|merge|default|doc|force|optional|priority|not_exported"
       }
     },
     "num_literal": {
@@ -27,7 +27,7 @@
     },
     "raw_enum_tag": {
       "type": "PATTERN",
-      "value": "`_?[a-zA-Z][_a-zA-Z0-9-']*"
+      "value": "'_?[a-zA-Z][_a-zA-Z0-9-']*"
     },
     "annot_atom": {
       "type": "CHOICE",
@@ -161,6 +161,19 @@
             {
               "type": "STRING",
               "value": "default"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "|"
+            },
+            {
+              "type": "STRING",
+              "value": "not_exported"
             }
           ]
         },
@@ -2131,7 +2144,7 @@
         },
         {
           "type": "STRING",
-          "value": "Num"
+          "value": "Number"
         },
         {
           "type": "STRING",
@@ -2139,7 +2152,7 @@
         },
         {
           "type": "STRING",
-          "value": "Str"
+          "value": "String"
         }
       ]
     },
@@ -2239,6 +2252,35 @@
             {
               "type": "STRING",
               "value": ":"
+            },
+            {
+              "type": "FIELD",
+              "name": "types",
+              "content": {
+                "type": "SYMBOL",
+                "name": "types"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": "}"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "{"
+            },
+            {
+              "type": "STRING",
+              "value": "_"
+            },
+            {
+              "type": "STRING",
+              "value": "|"
             },
             {
               "type": "FIELD",

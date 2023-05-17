@@ -63,7 +63,7 @@ module.exports = grammar({
     ////////////////////////////
     // LEXER RELATED RULES (lexer.rs)
     ////////////////////////////
-    keyword: _ => token(/if|then|else|forall|in|let|match|null|true|false|fun|import|merge|default|doc|force|optional|priority/),
+    keyword: _ => token(/if|then|else|forall|in|let|rec|match|null|true|false|fun|import|merge|default|doc|force|optional|priority|not_exported/),
 
     num_literal: _ => /[0-9]*\.?[0-9]+/,
 
@@ -76,7 +76,7 @@ module.exports = grammar({
     // Standard, unquoted enum tag.
     // **IMPORTANT**
     // This regex should be kept in sync with the one for identifier above.
-    raw_enum_tag: _ => /`_?[a-zA-Z][_a-zA-Z0-9-']*/,
+    raw_enum_tag: _ => /'_?[a-zA-Z][_a-zA-Z0-9-']*/,
 
     ////////////////////////////
     // PARSER RULES (grammar.lalrpop)
@@ -94,6 +94,7 @@ module.exports = grammar({
       seq("|", "doc", field("doc", $.static_string)),
       seq("|", "rec", "force"),
       seq("|", "rec", "default"),
+      seq("|", "not_exported"),
       seq(":", field("ty", $.types)),
     ),
 
@@ -527,9 +528,9 @@ module.exports = grammar({
     //grammar.lalrpop: 736
     type_builtin: _ => choice(
       "Dyn",
-      "Num",
+      "Number",
       "Bool",
-      "Str",
+      "String",
     ),
 
     //grammar.lalrpop: 743
@@ -545,6 +546,13 @@ module.exports = grammar({
         "{",
         "_",
         ":",
+        field("types", $.types),
+        "}",
+      ),
+      seq(
+        "{",
+        "_",
+        "|",
         field("types", $.types),
         "}",
       ),

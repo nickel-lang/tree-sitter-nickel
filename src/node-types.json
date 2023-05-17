@@ -1499,11 +1499,11 @@
     "named": false
   },
   {
-    "type": "Num",
+    "type": "Number",
     "named": false
   },
   {
-    "type": "Str",
+    "type": "String",
     "named": false
   },
   {
@@ -1601,6 +1601,10 @@
   {
     "type": "multstr_start",
     "named": true
+  },
+  {
+    "type": "not_exported",
+    "named": false
   },
   {
     "type": "null",

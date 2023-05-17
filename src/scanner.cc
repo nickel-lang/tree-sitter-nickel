@@ -35,6 +35,8 @@ struct Scanner {
 
   void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
 
+  bool eof(TSLexer *lexer) { return lexer->eof(lexer); }
+
   int32_t lookahead(TSLexer *lexer) { return lexer->lookahead; }
 
   unsigned serialize(char *buffer) {
@@ -75,36 +77,114 @@ struct Scanner {
     }
   }
 
-  // Scans the multistring start. Assumes that the m indicating a multistring
-  // was already consumed.
+  // Check if `lookahead` is a valid character at the start of a symbolic string tag
+  bool valid_symtag_start(int32_t lookahead) {
+    return ('a' <= lookahead && lookahead <= 'z') || ('A' <= lookahead && lookahead <= 'Z');
+  }
+
+  // Check if `lookahead` is a valid character in the middle of a symbolic string tag
+  bool valid_symtag_middle(int32_t lookahead) {
+    return valid_symtag_start(lookahead) || ('0' <= lookahead && lookahead <= '9') || lookahead == '-' || lookahead == '\'' || lookahead == '_';
+  }
+
+  // Finite state automaton to recognize a symbolic string with a tag, matching
+  // the regular expression /[a-zA-Z][_a-zA-Z0-9-']*-s%/. If we have already
+  // consumed an 'm' before calling this function, we set `m_scanned` to `true`
+  // and the start state of the automaton is changed to MIDDLE.
+  bool scan_until_sstr_start_end(TSLexer *lexer, bool m_scanned) {
+    enum RecognizerState {
+      START,
+      MIDDLE,
+      DASH,
+      S,
+      PERCENT
+    } state = START;
+    if (m_scanned) {
+      state = MIDDLE;
+    }
+    while (!eof(lexer)) {
+      int32_t current = lookahead(lexer);
+      switch (state) {
+        case START:
+          if (valid_symtag_start(current)) {
+            advance(lexer);
+            state = MIDDLE;
+          } else {
+            return false;
+          }
+          break;
+        case MIDDLE:
+          if (!valid_symtag_middle(current)) {
+            return false;
+          }
+          if (current == '-') {
+            state = DASH;
+          }
+          advance(lexer);
+          break;
+        case DASH:
+          if (current == 's') {
+            state = S;
+            advance(lexer);
+          } else {
+            state = MIDDLE;
+          }
+          break;
+        case S:
+          if (current == '%') {
+            state = PERCENT;
+            advance(lexer);
+          } else {
+            state = MIDDLE;
+          }
+          break;
+        case PERCENT:
+          return true;
+      }
+    }
+    return false; // We ran into EOF without completely scanning a symbolic string start
+  }
+
+  // Scans a multistring start, either normal (`m%"`) or symbolic (`some-prefix-s%"`).
   bool scan_multstr_start(TSLexer *lexer) {
     lexer->result_symbol = MULTSTR_START;
-    uint8_t count = 0;
-    bool quote = false;
 
-    // Count the number of percentages
+    bool m_scanned = false;
+
+    if (lookahead(lexer) == 'm') {
+      advance(lexer);
+      m_scanned = true;
+    }
+
+    if (m_scanned && lookahead(lexer) == '%') {
+      advance(lexer);
+    } else if (!scan_until_sstr_start_end(lexer, m_scanned)) {
+      return false;
+    }
+
+    // At this point we have either scanned `m%` or `some-prefix-s%`, hence
+    // `count` should be 1. We now find all following `%` to get the final count.
+    uint8_t count = 1;
     while (lookahead(lexer) == '%') {
       count++;
       advance(lexer);
     }
 
+    bool quote = false;
     if (lookahead(lexer) == '"') {
       quote = true;
       advance(lexer);
     }
 
     expected_percent_count.push_back(count);
-
-    // A START is fully scanned when we started with an 'm' (precondition of
-    // this function), more than 0 percent signs (precondition of this
-    // function), and a quote character.
+    
+    // A MULTSTR_START is fully scanned, if we have gotten to this point and actually found a `"`.
     return quote;
   }
 
   // Scans the multistring end. Assumes that the " has already been consumed
   bool scan_multstr_end(TSLexer *lexer) {
     lexer->result_symbol = MULTSTR_END;
-    bool m = false;
 
     uint8_t count = expected_percent_count.back();
 
@@ -115,16 +195,11 @@ struct Scanner {
       advance(lexer);
     }
 
-    if (lookahead(lexer) == 'm') {
-      m = true;
-      advance(lexer);
-    }
-
     expected_percent_count.pop_back();
 
     // An END is fully scanned when we started with an '"' (precondition of
-    // this function), consumed all %-signs and ended with an m.
-    return (m && count == 0);
+    // this function) and consumed all %-signs.
+    return count == 0;
   }
 
   // Precondition of this function is that the lookahead is '"'
@@ -234,14 +309,6 @@ struct Scanner {
     }
 
     switch (lookahead(lexer)) {
-    case 'm':
-      if (valid_symbols[MULTSTR_START]) {
-        advance(lexer);
-        if (lookahead(lexer) == '%') {
-          return scan_multstr_start(lexer);
-        }
-      }
-      break;
     case '"':
       if (valid_symbols[MULTSTR_END]) {
         advance(lexer);
@@ -264,7 +331,7 @@ struct Scanner {
         return scan_interpolation_end(lexer);
       }
       break;
-    case '`':
+    case '\'':
       if (valid_symbols[QUOTED_ENUM_TAG_START]) {
         advance(lexer);
         if (lookahead(lexer) == '"') {
@@ -275,6 +342,11 @@ struct Scanner {
     case '#':
       if (valid_symbols[COMMENT]) {
         return scan_comment(lexer);
+      }
+      break;
+    default:
+      if (valid_symbols[MULTSTR_START]) {
+        return scan_multstr_start(lexer);
       }
       break;
     }

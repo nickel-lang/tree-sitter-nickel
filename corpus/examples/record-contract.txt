@@ -15,26 +15,26 @@ let Port | doc "A contract for a port number" = contract.from_predicate (fun val
 let PortElt
   | doc "A contract for a port element of a Kubernetes configuration"
   = {
-    name | Str,
+    name | String,
     containerPort | Port,
   } in
 
 let Container = {
-  name | Str,
-  image | Str,
+  name | String,
+  image | String,
   ports | Array PortElt,
 } in
 
 let KubernetesConfig = {
-  kind | [| `ReplicationController, `ReplicaSet, `Pod |]
+  kind | [| 'ReplicationController, 'ReplicaSet, 'Pod |]
        | doc "The kind of the element being configured."
-       | default = `Pod,
+       | default = 'Pod,
 
-  apiVersion | Str,
+  apiVersion | String,
 
   metadata = {
-    name | Str,
-    labels.app | Str,
+    name | String,
+    labels.app | String,
   },
 
   spec = {
@@ -42,10 +42,10 @@ let KubernetesConfig = {
              | doc "The number of replicas"
              | default = 1,
 
-    selector.matchLabels.app | Str,
+    selector.matchLabels.app | String,
 
     template = {
-      metadata.labels.app | Str,
+      metadata.labels.app | String,
       spec.containers | Array Container,
     },
   },
@@ -58,7 +58,7 @@ let metadata_ = {
   } in
 
 {
-  kind = `ReplicationController,
+  kind = 'ReplicationController,
   apiVersion = "1.1.0",
   metadata = metadata_,
   spec = {
