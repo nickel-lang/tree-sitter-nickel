@@ -197,9 +197,10 @@ struct Scanner {
 
     expected_percent_count.pop_back();
 
-    // An END is fully scanned when we started with an '"' (precondition of
-    // this function) and consumed all %-signs.
-    return count == 0;
+    // An END is fully scanned when we started with an '"' (precondition of this
+    // function) and consumed all %-signs, assuming the next character doesn't
+    // indicate the start of an interpolation.
+    return count == 0 && lookahead(lexer) != '{';
   }
 
   // Precondition of this function is that the lookahead is '"'
