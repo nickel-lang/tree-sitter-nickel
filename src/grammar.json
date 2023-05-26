@@ -2164,6 +2164,10 @@
           "name": "type_builtin"
         },
         {
+          "type": "STRING",
+          "value": "_"
+        },
+        {
           "type": "SEQ",
           "members": [
             {
