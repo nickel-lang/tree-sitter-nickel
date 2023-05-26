@@ -324,3 +324,45 @@ mix-s-s%%""%%
               (str_chunks_multi
                 (multstr_start)
                 (multstr_end)))))))))
+
+================================================================================
+ambiguous interpolation
+================================================================================
+
+
+nix-s%"
+export PATH="%{inputs.coreutils}/bin:$PATH"
+"%
+
+--------------------------------------------------------------------------------
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (str_chunks
+              (str_chunks_multi
+                (multstr_start)
+                (chunk_literal_multi
+                  (mult_str_literal))
+                (chunk_literal_multi
+                  (double_quote))
+                (chunk_expr
+                  (interpolation_start)
+                  (term
+                    (uni_term
+                      (infix_expr
+                        (applicative
+                          (record_operand
+                            (record_operation_chain
+                              (record_operand
+                                (atom
+                                  (ident)))
+                              (ident)))))))
+                  (interpolation_end))
+                (chunk_literal_multi
+                  (mult_str_literal))
+                (chunk_literal_multi
+                  (double_quote))
+                (multstr_end)))))))))
