@@ -536,6 +536,7 @@ module.exports = grammar({
     //grammar.lalrpop: 743
     type_atom: $ => choice(
       $.type_builtin,
+      "_",
       seq(
         "[|",
         field("rows", commaSep($.enum_tag)),
