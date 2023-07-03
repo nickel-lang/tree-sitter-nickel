@@ -200,7 +200,8 @@ struct Scanner {
     // An END is fully scanned when we started with an '"' (precondition of this
     // function) and consumed all %-signs, assuming the next character doesn't
     // indicate the start of an interpolation.
-    return count == 0 && lookahead(lexer) != '{';
+    int32_t next = lookahead(lexer);
+    return count == 0 && next != '{' && next != '%';
   }
 
   // Precondition of this function is that the lookahead is '"'

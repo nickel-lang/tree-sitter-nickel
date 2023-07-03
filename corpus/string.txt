@@ -49,6 +49,41 @@ string (interpolation)
                   (str_literal))))))))))
 
 ================================================================================
+string (interpolation with %)
+================================================================================
+
+m%%""%%%{s}""%%
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (str_chunks
+              (str_chunks_multi
+                (multstr_start)
+                (chunk_literal_multi
+                  (double_quote))
+                (chunk_literal_multi
+                  (percent))
+                (chunk_expr
+                  (interpolation_start)
+                  (term
+                    (uni_term
+                      (infix_expr
+                        (applicative
+                          (record_operand
+                            (atom
+                              (ident)))))))
+                  (interpolation_end))
+                (chunk_literal_multi
+                  (double_quote))
+                (multstr_end)))))))))
+
+================================================================================
 multistring
 ================================================================================
 
@@ -314,6 +349,7 @@ symbolic string with weird prefix
 mix-s-s%%""%%
 
 --------------------------------------------------------------------------------
+
 (term
   (uni_term
     (infix_expr
@@ -335,6 +371,7 @@ export PATH="%{inputs.coreutils}/bin:$PATH"
 "%
 
 --------------------------------------------------------------------------------
+
 (term
   (uni_term
     (infix_expr
