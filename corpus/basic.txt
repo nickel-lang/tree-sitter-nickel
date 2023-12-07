@@ -708,3 +708,27 @@ parens
                   (record_operand
                     (atom
                       (num_literal))))))))))))
+
+================================================================================
+scientific notation
+================================================================================
+
+-1.5e4 + 1e2
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (infix_expr
+        (infix_expr
+          (applicative
+            (record_operand
+              (atom
+                (num_literal))))))
+      (infix_b_op_4)
+      (infix_expr
+        (applicative
+          (record_operand
+            (atom
+              (num_literal))))))))

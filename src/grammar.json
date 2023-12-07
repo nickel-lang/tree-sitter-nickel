@@ -15,11 +15,11 @@
     },
     "num_literal": {
       "type": "PATTERN",
-      "value": "[0-9]*\\.?[0-9]+"
+      "value": "[0-9]*\\.?[0-9]+([eE][+\\-]?[0-9]+)?"
     },
     "signed_num_literal": {
       "type": "PATTERN",
-      "value": "-?[0-9]*\\.?[0-9]+"
+      "value": "-?[0-9]*\\.?[0-9]+([eE][+\\-]?[0-9]+)?"
     },
     "ident": {
       "type": "PATTERN",
