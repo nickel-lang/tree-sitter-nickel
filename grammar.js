@@ -65,9 +65,9 @@ module.exports = grammar({
     ////////////////////////////
     keyword: _ => token(/if|then|else|forall|in|let|rec|match|null|true|false|fun|import|merge|default|doc|force|optional|priority|not_exported/),
 
-    num_literal: _ => /[0-9]*\.?[0-9]+/,
+    num_literal: _ => /[0-9]*\.?[0-9]+([eE][+\-]?[0-9]+)?/,
 
-    signed_num_literal: _ => /-?[0-9]*\.?[0-9]+/,
+    signed_num_literal: _ => /-?[0-9]*\.?[0-9]+([eE][+\-]?[0-9]+)?/,
 
     // **IMPORTANT**
     // This regex should be kept in sync with the one for enum_tag above.
