@@ -491,6 +491,15 @@ module.exports = grammar({
     //grammar.lalrpop: 617
     curried_op: $ => choice(
       $.infix_op,
+      // Field access isn't a proper infix operator, it's a form with special
+      // treatment (in particular because the second argument isn't necessarily
+      // a string but can be a statically known identifier, which can't be
+      // encoded as a generic operator application). It is thus not included in
+      // `infix_op`.
+      //
+      // Still, Nickel allows to use it as a curried operator as in `(.) foo
+      // bar`, so we add it here manually.
+      ".",
       // NOTE: Removed, see NOTE[special-infix].
       //"|>",
       //"!=",

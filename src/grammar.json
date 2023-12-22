@@ -1772,6 +1772,10 @@
         {
           "type": "SYMBOL",
           "name": "infix_op"
+        },
+        {
+          "type": "STRING",
+          "value": "."
         }
       ]
     },
