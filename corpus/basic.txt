@@ -732,3 +732,49 @@ scientific notation
           (record_operand
             (atom
               (num_literal))))))))
+
+================================================================================
+curried dot operator
+================================================================================
+
+"foo"
+|> (.) { foo = "bar" }
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (infix_expr
+        (applicative
+          (record_operand
+            (atom
+              (str_chunks
+                (str_chunks_single
+                  (chunk_literal_single
+                    (str_literal))))))))
+      (infix_b_op_6)
+      (infix_expr
+        (applicative
+          (applicative
+            (record_operand
+              (atom
+                (curried_op))))
+          (record_operand
+            (atom
+              (uni_record
+                (record_last_field
+                  (record_field
+                    (field_path
+                      (field_path_elem
+                        (ident)))
+                    (term
+                      (uni_term
+                        (infix_expr
+                          (applicative
+                            (record_operand
+                              (atom
+                                (str_chunks
+                                  (str_chunks_single
+                                    (chunk_literal_single
+                                      (str_literal))))))))))))))))))))
