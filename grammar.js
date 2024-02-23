@@ -52,11 +52,6 @@ module.exports = grammar({
 
   word: $ => $.keyword,
 
-  conflicts: $ => [
-    [ $.str_literal,
-    ],
-  ],
-
   rules: {
     term: $ => $.uni_term,
 

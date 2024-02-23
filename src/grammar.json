@@ -2317,11 +2317,7 @@
       "name": "comment"
     }
   ],
-  "conflicts": [
-    [
-      "str_literal"
-    ]
-  ],
+  "conflicts": [],
   "precedences": [],
   "externals": [
     {
@@ -2360,4 +2356,3 @@
   "inline": [],
   "supertypes": []
 }
-
