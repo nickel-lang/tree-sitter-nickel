@@ -16,7 +16,7 @@
 
 // NOTE[scanner] The Nickel scanner is a modal one, this parser and grammar
 // takes a different approach. Several special characters that may occur in
-// strings (", %, #) are scanned in src/scanner.cc. In particular for % we have
+// strings (", %, #) are scanned in src/scanner.c. In particular for % we have
 // to take a strange approach. Scanners in tree-sitter may only produce a
 // single token and may not look ahead. So, when scanning %-signs in multiline
 // strings, we always attempt to scan the end of the multistring. If that

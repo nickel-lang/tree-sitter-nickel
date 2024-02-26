@@ -35,7 +35,7 @@ or customization purpose:
     parser_config.nickel = {
       install_info = {
         url = "PATH_TO_WHERE_YOU_CLONED_IT",
-        files = {"src/parser.c", "src/scanner.cc"},
+        files = {"src/parser.c", "src/scanner.c"},
         branch = "main",
         generate_requires_npm = false,
         requires_generate_from_grammar = false,
@@ -50,7 +50,7 @@ or customization purpose:
 - `grammar.js` is the main grammar definition. Most other files are generated
     from `grammar.js` and this is most probably the file you want to modify
     when updating the grammar
-- `src/scanner.cc` contains a custom scanner required by the Nickel grammar
+- `src/scanner.c` contains a custom scanner required by the Nickel grammar
 - `src/*` most other files in `src` are auto-generated and shouldn't be modified
     directly
 - `corpus/` contains a test suite

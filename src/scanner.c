@@ -6,7 +6,7 @@
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 #define VEC_RESIZE(vec, _cap)                                                                                          \
-    void *tmp = realloc((vec).data, (_cap) * sizeof((vec).data[0]));                                                   \
+    uint8_t *tmp = realloc((vec).data, (_cap) * sizeof((vec).data[0]));                                                   \
     assert(tmp != NULL);                                                                                               \
     (vec).data = tmp;                                                                                                  \
     (vec).cap = (_cap);
@@ -79,7 +79,7 @@ static unsigned serialize(Scanner *scanner, char *buffer) {
 
     // We serialize to and from uint8_t's, we cannot currently serialize any
     // value above that.
-    uint8_t len = scanner->expected_percent_count.len;
+    uint32_t len = scanner->expected_percent_count.len;
     if (len > UINT8_MAX) {
         len = UINT8_MAX;
     }
