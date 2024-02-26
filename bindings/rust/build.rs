@@ -20,7 +20,7 @@ fn main() {
         .flag_if_supported("-Wno-unused-parameter")
         .flag_if_supported("-Wno-unused-but-set-variable")
         .flag_if_supported("-O");
-    let scanner_path = src_dir.join("scanner.cc");
+    let scanner_path = src_dir.join("scanner.c");
     cpp_config.file(&scanner_path);
     cpp_config.compile("scanner");
     println!("cargo:rerun-if-changed={}", scanner_path.to_str().unwrap());
