@@ -87,9 +87,9 @@ my_array_lib.fold (fun x acc => x * acc) l 1
                         (term
                           (uni_term
                             (fun_expr
-                              (pattern
+                              (pattern_fun
                                 (ident))
-                              (pattern
+                              (pattern_fun
                                 (ident))
                               (term
                                 (uni_term
@@ -240,11 +240,11 @@ my_array_lib.fold (fun x acc => x * acc) l 1
                         (term
                           (uni_term
                             (fun_expr
-                              (pattern
+                              (pattern_fun
                                 (ident))
-                              (pattern
+                              (pattern_fun
                                 (ident))
-                              (pattern
+                              (pattern_fun
                                 (ident))
                               (term
                                 (uni_term
@@ -364,7 +364,7 @@ my_array_lib.fold (fun x acc => x * acc) l 1
                           (atom
                             (uni_term
                               (fun_expr
-                                (pattern
+                                (pattern_fun
                                   (ident))
                                 (term
                                   (uni_term
@@ -441,9 +441,9 @@ my_array_lib.fold (fun x acc => x * acc) l 1
                           (atom
                             (uni_term
                               (fun_expr
-                                (pattern
+                                (pattern_fun
                                   (ident))
-                                (pattern
+                                (pattern_fun
                                   (ident))
                                 (term
                                   (uni_term

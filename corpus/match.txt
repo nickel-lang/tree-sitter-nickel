@@ -37,8 +37,9 @@ x |> match {
               (applicative
                 (match_expr
                   (match_case
-                    (enum_tag
-                      (raw_enum_tag))
+                    (pattern
+                      (enum_tag
+                        (raw_enum_tag)))
                     (term
                       (uni_term
                         (infix_expr
@@ -47,8 +48,9 @@ x |> match {
                               (atom
                                 (num_literal))))))))
                   (match_case
-                    (enum_tag
-                      (raw_enum_tag))
+                    (pattern
+                      (enum_tag
+                        (raw_enum_tag)))
                     (term
                       (uni_term
                         (infix_expr
@@ -76,8 +78,9 @@ match {
       (applicative
         (match_expr
           (match_case
-            (enum_tag
-              (raw_enum_tag))
+            (pattern
+              (enum_tag
+                (raw_enum_tag)))
             (term
               (uni_term
                 (infix_expr
@@ -86,8 +89,9 @@ match {
                       (atom
                         (bool))))))))
           (match_case
-            (enum_tag
-              (raw_enum_tag))
+            (pattern
+              (enum_tag
+                (raw_enum_tag)))
             (term
               (uni_term
                 (infix_expr
@@ -96,8 +100,9 @@ match {
                       (atom
                         (bool))))))))
           (match_case
-            (enum_tag
-              (raw_enum_tag))
+            (pattern
+              (enum_tag
+                (raw_enum_tag)))
             (term
               (uni_term
                 (infix_expr
@@ -135,8 +140,9 @@ f 'a
               (applicative
                 (match_expr
                   (match_case
-                    (enum_tag
-                      (raw_enum_tag))
+                    (pattern
+                      (enum_tag
+                        (raw_enum_tag)))
                     (term
                       (uni_term
                         (infix_expr
@@ -145,8 +151,9 @@ f 'a
                               (atom
                                 (num_literal))))))))
                   (match_case
-                    (enum_tag
-                      (raw_enum_tag))
+                    (pattern
+                      (enum_tag
+                        (raw_enum_tag)))
                     (term
                       (uni_term
                         (infix_expr

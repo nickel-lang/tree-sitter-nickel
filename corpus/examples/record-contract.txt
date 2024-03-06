@@ -118,7 +118,7 @@ let metadata_ = {
                   (atom
                     (uni_term
                       (fun_expr
-                        (pattern
+                        (pattern_fun
                           (ident))
                         (term
                           (uni_term

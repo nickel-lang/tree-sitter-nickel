@@ -345,7 +345,7 @@
             "type": "REPEAT1",
             "content": {
               "type": "SYMBOL",
-              "name": "pattern"
+              "name": "pattern_fun"
             }
           }
         },
@@ -551,6 +551,10 @@
         {
           "type": "SYMBOL",
           "name": "type_array"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "enum_variant"
         },
         {
           "type": "SEQ",
@@ -998,12 +1002,12 @@
         }
       ]
     },
-    "last_match": {
+    "last_field_pat": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "match"
+          "name": "field_pattern"
         },
         {
           "type": "SEQ",
@@ -1039,7 +1043,7 @@
               "members": [
                 {
                   "type": "FIELD",
-                  "name": "id",
+                  "name": "alias",
                   "content": {
                     "type": "SEQ",
                     "members": [
@@ -1063,23 +1067,183 @@
               "type": "FIELD",
               "name": "pat",
               "content": {
-                "type": "SYMBOL",
-                "name": "destruct"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "record_pattern"
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "enum_tag"
+                      },
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "FIELD",
+                            "name": "tag",
+                            "content": {
+                              "type": "SYMBOL",
+                              "name": "enum_tag"
+                            }
+                          },
+                          {
+                            "type": "FIELD",
+                            "name": "pat",
+                            "content": {
+                              "type": "SYMBOL",
+                              "name": "pattern_fun"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": "("
+                          },
+                          {
+                            "type": "SEQ",
+                            "members": [
+                              {
+                                "type": "FIELD",
+                                "name": "tag",
+                                "content": {
+                                  "type": "SYMBOL",
+                                  "name": "enum_tag"
+                                }
+                              },
+                              {
+                                "type": "FIELD",
+                                "name": "pat",
+                                "content": {
+                                  "type": "SYMBOL",
+                                  "name": "pattern_fun"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "STRING",
+                            "value": ")"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "ident"
+                  }
+                ]
               }
             }
           ]
-        },
-        {
-          "type": "FIELD",
-          "name": "id",
-          "content": {
-            "type": "SYMBOL",
-            "name": "ident"
-          }
         }
       ]
     },
-    "destruct": {
+    "pattern_fun": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "alias",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "ident"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "@"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "FIELD",
+              "name": "pat",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "record_pattern"
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "enum_tag"
+                      },
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": "("
+                          },
+                          {
+                            "type": "SEQ",
+                            "members": [
+                              {
+                                "type": "FIELD",
+                                "name": "tag",
+                                "content": {
+                                  "type": "SYMBOL",
+                                  "name": "enum_tag"
+                                }
+                              },
+                              {
+                                "type": "FIELD",
+                                "name": "pat",
+                                "content": {
+                                  "type": "SYMBOL",
+                                  "name": "pattern_fun"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "STRING",
+                            "value": ")"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "ident"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "record_pattern": {
       "type": "SEQ",
       "members": [
         {
@@ -1087,45 +1251,40 @@
           "value": "{"
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "matches",
-              "content": {
-                "type": "REPEAT",
-                "content": {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "match"
-                    },
-                    {
-                      "type": "STRING",
-                      "value": ","
-                    }
-                  ]
+          "type": "FIELD",
+          "name": "patterns",
+          "content": {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "field_pattern"
+                },
+                {
+                  "type": "STRING",
+                  "value": ","
                 }
-              }
-            },
-            {
-              "type": "FIELD",
-              "name": "last",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "last_match"
-                  },
-                  {
-                    "type": "BLANK"
-                  }
-                ]
-              }
+              ]
             }
-          ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "last",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "last_field_pat"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
         },
         {
           "type": "STRING",
@@ -1133,110 +1292,73 @@
         }
       ]
     },
-    "match": {
-      "type": "CHOICE",
+    "field_pattern": {
+      "type": "SEQ",
       "members": [
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "left",
-              "content": {
-                "type": "SYMBOL",
-                "name": "ident"
-              }
-            },
-            {
-              "type": "FIELD",
-              "name": "anns",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "annot"
-                  },
-                  {
-                    "type": "BLANK"
-                  }
-                ]
-              }
-            },
-            {
-              "type": "FIELD",
-              "name": "default",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "default_annot"
-                  },
-                  {
-                    "type": "BLANK"
-                  }
-                ]
-              }
-            },
-            {
-              "type": "STRING",
-              "value": "="
-            },
-            {
-              "type": "FIELD",
-              "name": "right",
-              "content": {
-                "type": "SYMBOL",
-                "name": "pattern"
-              }
-            }
-          ]
+          "type": "FIELD",
+          "name": "id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ident"
+          }
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "id",
-              "content": {
+          "type": "FIELD",
+          "name": "anns",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
                 "type": "SYMBOL",
-                "name": "ident"
+                "name": "annot"
+              },
+              {
+                "type": "BLANK"
               }
-            },
-            {
-              "type": "FIELD",
-              "name": "anns",
-              "content": {
-                "type": "CHOICE",
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "default",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "default_annot"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "pat",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
                 "members": [
                   {
-                    "type": "SYMBOL",
-                    "name": "annot"
+                    "type": "STRING",
+                    "value": "="
                   },
                   {
-                    "type": "BLANK"
-                  }
-                ]
-              }
-            },
-            {
-              "type": "FIELD",
-              "name": "default",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
                     "type": "SYMBOL",
-                    "name": "default_annot"
-                  },
-                  {
-                    "type": "BLANK"
+                    "name": "pattern"
                   }
                 ]
+              },
+              {
+                "type": "BLANK"
               }
-            }
-          ]
+            ]
+          }
         }
       ]
     },
@@ -1464,6 +1586,31 @@
         }
       ]
     },
+    "enum_variant": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "tag",
+            "content": {
+              "type": "SYMBOL",
+              "name": "enum_tag"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "arg",
+            "content": {
+              "type": "SYMBOL",
+              "name": "record_operand"
+            }
+          }
+        ]
+      }
+    },
     "chunk_literal_single": {
       "type": "CHOICE",
       "members": [
@@ -1547,10 +1694,10 @@
           "members": [
             {
               "type": "FIELD",
-              "name": "tag",
+              "name": "pat",
               "content": {
                 "type": "SYMBOL",
-                "name": "enum_tag"
+                "name": "pattern"
               }
             },
             {

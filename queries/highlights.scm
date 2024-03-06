@@ -68,7 +68,7 @@
 (builtin) @function.builtin
 
 (fun_expr pats:
-  (pattern id:
+  (pattern_fun
     (ident) @parameter
   )
 )

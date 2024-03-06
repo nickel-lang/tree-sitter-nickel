@@ -132,7 +132,7 @@ module.exports = grammar({
 
     fun_expr: $ => seq(
       "fun",
-      field("pats", repeat1($.pattern)),
+      field("pats", repeat1($.pattern_fun)),
       "=>",
       field("t", $.term),
     ),
@@ -171,6 +171,10 @@ module.exports = grammar({
     applicative: $ => choice(
       seq("import", field("s", $.static_string)),
       $.type_array,
+      // To avoid ambiguity with vanilla function application, we use
+      // precedence, while the original LALRPOP grammar does things a bit
+      // differently (see the `enum_variant` rule for more details).
+      $.enum_variant,
       seq(field("t1", $.applicative), field("t2", $.record_operand)),
       // We don't explicitly have the following three rules. Instead we
       // match generically on builtin functions.
@@ -243,50 +247,46 @@ module.exports = grammar({
       "..",
     ),
 
-    //grammar.lalrpop: 354
     // No field since we only have one child here
     field_path: $ => sep1($.field_path_elem, "."),
 
-    //grammar.lalrpop: 361
     field_path_elem: $ => choice(
       $.ident,
       $.str_chunks,
     ),
 
-    //grammar.lalrpop: 361
-    last_match: $ => choice(
-      $.match,
+    last_field_pat: $ => choice(
+      $.field_pattern,
       seq("..", optional($.ident)),
     ),
 
-    //grammar.lalrpop: 374
-    // The right hand side of an `=` inside a destructuring pattern.
-    pattern: $ => choice(
-      seq(optional(field("id", seq($.ident, "@"))), field("pat", $.destruct)),
-      field("id", $.ident),
-    ),
+    // Patterns
+    //
+    // The LALRPOP grammar use conditional macros to derive two flavors of
+    // patterns and their constituent parts: one for function arguments or the
+    // pattern argument of enum variant, and a general one. The former is
+    // slightly more restricted in that enum variant patterns must be
+    // parenthesized.
+    //
+    // We mirror the LALRPOP grammar by adding parametric rules with the `F`
+    // suffix and with the following possible values for the parameter:
+    // - an empty string for the general rule
+    // - "function" for the function argument and enum variant argument flavour.
+    pattern: $ => patternF($, ""),
+    pattern_fun: $ => patternF($, "function"),
 
-    //grammar.lalrpop: 380
-    destruct: $ => seq(
+    record_pattern: $ => seq(
       "{",
-      seq(field("matches", repeat(seq($.match, ","))), field("last", optional($.last_match))),
+      field("patterns", repeat(seq($.field_pattern, ","))),
+      field("last", optional($.last_field_pat)),
       "}",
     ),
 
-    //grammar.lalrpop: 396
-    match: $ => choice(
-      seq(
-        field("left", $.ident),
-        field("anns", optional($.annot)),
-        field("default", optional($.default_annot)),
-        "=",
-        field("right", $.pattern),
-      ),
-      seq(
-        field("id", $.ident),
-        field("anns", optional($.annot)),
-        field("default", optional($.default_annot)),
-      ),
+    field_pattern: $ => seq(
+      field("id", $.ident),
+      field("anns", optional($.annot)),
+      field("default", optional($.default_annot)),
+      field("pat", optional(seq("=", $.pattern))),
     ),
 
     //grammar.lalrpop: 428
@@ -368,6 +368,17 @@ module.exports = grammar({
       $.quoted_enum_tag,
     ),
 
+    // There's no enum_variant rule in the original grammar: an enum variant is
+    // parsed as an enum tag applied (as a function) to an argument, and this
+    // special case is then matched on in the action code. We don't have actions
+    // in tree-sitter (we don't build the AST explicitly), and for highlighting
+    // and formatting purpose, it's better to have a dedicated rule for enum
+    // variants.
+    enum_variant: $ => prec(1, seq(
+      field("tag", $.enum_tag),
+      field("arg", $.record_operand),
+    )),
+
     //grammar.lalrpop: 503
     //See NOTE[scanner].
     chunk_literal_single: $ => choice(
@@ -402,7 +413,7 @@ module.exports = grammar({
 
     //grammar.lalrpop (be9afc26055ec17fec42d39f701c459e9c9cf012): L601
     match_case: $ => choice(
-      seq(field("tag", $.enum_tag), "=>", field("t", $.term)),
+      seq(field("pat", $.pattern), "=>", field("t", $.term)),
       seq("_", "=>", field("t", $.term)),
     ),
 
@@ -462,19 +473,19 @@ module.exports = grammar({
 
     //grammar.lalrpop: 597
     infix_b_op: $ => choice(
-        $.infix_b_op_2,
-        $.infix_b_op_3,
-        $.infix_b_op_4,
-        $.infix_b_op_6,
-        $.infix_b_op_7,
-        $.infix_b_op_8,
+      $.infix_b_op_2,
+      $.infix_b_op_3,
+      $.infix_b_op_4,
+      $.infix_b_op_6,
+      $.infix_b_op_7,
+      $.infix_b_op_8,
     ),
 
     //grammar.lalrpop: 606
     infix_u_op_or_lazy_b_op: $ => choice(
-        $.infix_u_op_5,
-        $.infix_lazy_b_op_9,
-        $.infix_lazy_b_op_10,
+      $.infix_u_op_5,
+      $.infix_lazy_b_op_9,
+      $.infix_lazy_b_op_10,
     ),
 
     //grammar.lalrpop: 606
@@ -566,6 +577,38 @@ module.exports = grammar({
   },
 });
 
+// Because tree-sitter rules can't be proper functions, we need to relocate the
+// actual rule definitions here as free standing functions.
+function pattern_dataF($, flavour) {
+  return choice(
+    $.record_pattern,
+    enum_patternF($, flavour),
+    $.ident,
+  )
+}
+
+function patternF($, flavour) {
+  return choice(
+    seq(optional(field("alias", seq($.ident, "@"))), field("pat", pattern_dataF($, flavour))),
+  )
+}
+
+function enum_patternF($, flavour) {
+  let adtPattern = seq(field("tag", $.enum_tag), field("pat", $.pattern_fun))
+
+  if (flavour == "function") {
+    return choice(
+      $.enum_tag,
+      parens(adtPattern),
+    )
+  } else {
+    return choice(
+      $.enum_tag,
+      adtPattern,
+      parens(adtPattern),
+    )
+  }
+}
 
 function sep(rule, separator) {
   return optional(sep1(rule, separator));

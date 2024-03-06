@@ -35,11 +35,11 @@ not true
         (term
           (uni_term
             (fun_expr
-              (pattern
+              (pattern_fun
                 (ident))
-              (pattern
+              (pattern_fun
                 (ident))
-              (pattern
+              (pattern_fun
                 (ident))
               (term
                 (uni_term
@@ -140,7 +140,7 @@ not true
                           (term
                             (uni_term
                               (fun_expr
-                                (pattern
+                                (pattern_fun
                                   (ident))
                                 (term
                                   (uni_term
@@ -197,9 +197,9 @@ let DivBy3 = fun label value =>
         (term
           (uni_term
             (fun_expr
-              (pattern
+              (pattern_fun
                 (ident))
-              (pattern
+              (pattern_fun
                 (ident))
               (term
                 (uni_term
@@ -269,9 +269,9 @@ let DivBy3 = fun label value =>
               (term
                 (uni_term
                   (fun_expr
-                    (pattern
+                    (pattern_fun
                       (ident))
-                    (pattern
+                    (pattern_fun
                       (ident))
                     (term
                       (uni_term
