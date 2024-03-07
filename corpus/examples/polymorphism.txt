@@ -45,9 +45,9 @@ let id : forall a. a -> a = fun x => x in
         (term
           (uni_term
             (fun_expr
-              (pattern
+              (pattern_fun
                 (ident))
-              (pattern
+              (pattern_fun
                 (ident))
               (term
                 (uni_term
@@ -101,9 +101,9 @@ let id : forall a. a -> a = fun x => x in
               (term
                 (uni_term
                   (fun_expr
-                    (pattern
+                    (pattern_fun
                       (ident))
-                    (pattern
+                    (pattern_fun
                       (ident))
                     (term
                       (uni_term
@@ -142,7 +142,7 @@ let id : forall a. a -> a = fun x => x in
                     (term
                       (uni_term
                         (fun_expr
-                          (pattern
+                          (pattern_fun
                             (ident))
                           (term
                             (uni_term

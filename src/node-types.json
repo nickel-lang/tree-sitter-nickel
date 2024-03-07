@@ -117,6 +117,10 @@
       "required": false,
       "types": [
         {
+          "type": "enum_variant",
+          "named": true
+        },
+        {
           "type": "match_expr",
           "named": true
         },
@@ -335,36 +339,6 @@
     }
   },
   {
-    "type": "destruct",
-    "named": true,
-    "fields": {
-      "last": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "last_match",
-            "named": true
-          }
-        ]
-      },
-      "matches": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "match",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "enum_tag",
     "named": true,
     "fields": {},
@@ -381,6 +355,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "enum_variant",
+    "named": true,
+    "fields": {
+      "arg": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "record_operand",
+            "named": true
+          }
+        ]
+      },
+      "tag": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "enum_tag",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -418,6 +418,56 @@
     }
   },
   {
+    "type": "field_pattern",
+    "named": true,
+    "fields": {
+      "anns": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "annot",
+            "named": true
+          }
+        ]
+      },
+      "default": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "default_annot",
+            "named": true
+          }
+        ]
+      },
+      "id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      },
+      "pat": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "=",
+            "named": false
+          },
+          {
+            "type": "pattern",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "forall",
     "named": true,
     "fields": {
@@ -452,7 +502,7 @@
         "required": true,
         "types": [
           {
-            "type": "pattern",
+            "type": "pattern_fun",
             "named": true
           }
         ]
@@ -724,7 +774,7 @@
     }
   },
   {
-    "type": "last_match",
+    "type": "last_field_pat",
     "named": true,
     "fields": {},
     "children": {
@@ -732,11 +782,11 @@
       "required": false,
       "types": [
         {
-          "type": "ident",
+          "type": "field_pattern",
           "named": true
         },
         {
-          "type": "match",
+          "type": "ident",
           "named": true
         }
       ]
@@ -805,50 +855,10 @@
     }
   },
   {
-    "type": "match",
+    "type": "match_case",
     "named": true,
     "fields": {
-      "anns": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "annot",
-            "named": true
-          }
-        ]
-      },
-      "default": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "default_annot",
-            "named": true
-          }
-        ]
-      },
-      "id": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "ident",
-            "named": true
-          }
-        ]
-      },
-      "left": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "ident",
-            "named": true
-          }
-        ]
-      },
-      "right": {
+      "pat": {
         "multiple": false,
         "required": false,
         "types": [
@@ -857,29 +867,13 @@
             "named": true
           }
         ]
-      }
-    }
-  },
-  {
-    "type": "match_case",
-    "named": true,
-    "fields": {
+      },
       "t": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "term",
-            "named": true
-          }
-        ]
-      },
-      "tag": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "enum_tag",
             "named": true
           }
         ]
@@ -910,7 +904,7 @@
     "type": "pattern",
     "named": true,
     "fields": {
-      "id": {
+      "alias": {
         "multiple": true,
         "required": false,
         "types": [
@@ -925,11 +919,101 @@
         ]
       },
       "pat": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "enum_tag",
+            "named": true
+          },
+          {
+            "type": "ident",
+            "named": true
+          },
+          {
+            "type": "pattern_fun",
+            "named": true
+          },
+          {
+            "type": "record_pattern",
+            "named": true
+          }
+        ]
+      },
+      "tag": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "destruct",
+            "type": "enum_tag",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "pattern_fun",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "@",
+            "named": false
+          },
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      },
+      "pat": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "enum_tag",
+            "named": true
+          },
+          {
+            "type": "ident",
+            "named": true
+          },
+          {
+            "type": "pattern_fun",
+            "named": true
+          },
+          {
+            "type": "record_pattern",
+            "named": true
+          }
+        ]
+      },
+      "tag": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "enum_tag",
             "named": true
           }
         ]
@@ -1064,6 +1148,36 @@
         "types": [
           {
             "type": "str_chunks",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "record_pattern",
+    "named": true,
+    "fields": {
+      "last": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "last_field_pat",
+            "named": true
+          }
+        ]
+      },
+      "patterns": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "field_pattern",
             "named": true
           }
         ]
