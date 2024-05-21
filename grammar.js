@@ -65,13 +65,13 @@ module.exports = grammar({
     signed_num_literal: _ => /-?[0-9]*\.?[0-9]+([eE][+\-]?[0-9]+)?/,
 
     // **IMPORTANT**
-    // This regex should be kept in sync with the one for enum_tag above.
-    ident: _ => /_?[a-zA-Z][_a-zA-Z0-9-']*/,
+    // This regex should be kept in sync with the one for raw_enum_tag below.
+    ident: _ => /_*[a-zA-Z][_a-zA-Z0-9-']*/,
 
     // Standard, unquoted enum tag.
     // **IMPORTANT**
     // This regex should be kept in sync with the one for identifier above.
-    raw_enum_tag: _ => /'_?[a-zA-Z][_a-zA-Z0-9-']*/,
+    raw_enum_tag: _ => /'_*[a-zA-Z][_a-zA-Z0-9-']*/,
 
     ////////////////////////////
     // PARSER RULES (grammar.lalrpop)
@@ -140,7 +140,7 @@ module.exports = grammar({
     match_expr: $ => seq(
       "match",
       "{",
-      field("cases", seq(commaSep($.match_case), optional(","))),
+      field("cases", seq(commaSep($.match_branch), optional(","))),
       "}",
     ),
 
@@ -260,20 +260,33 @@ module.exports = grammar({
       seq("..", optional($.ident)),
     ),
 
+    last_elem_pat: $ => choice(
+      $.pattern,
+      seq("..", optional($.ident)),
+    ),
+
     // Patterns
     //
-    // The LALRPOP grammar use conditional macros to derive two flavors of
-    // patterns and their constituent parts: one for function arguments or the
-    // pattern argument of enum variant, and a general one. The former is
-    // slightly more restricted in that enum variant patterns must be
-    // parenthesized.
+    // The LALRPOP grammar use macros to derive various flavors of patterns and
+    // their constituent parts, around parenthesization and parsing or-patterns.
     //
     // We mirror the LALRPOP grammar by adding parametric rules with the `F`
-    // suffix and with the following possible values for the parameter:
-    // - an empty string for the general rule
-    // - "function" for the function argument and enum variant argument flavour.
-    pattern: $ => patternF($, ""),
-    pattern_fun: $ => patternF($, "function"),
+    // suffix and with the following possible values for the parameter.
+    //
+    // The tree-sitter grammar doesn't currently correctly handle the `or`
+    // keyword used as an identifier in a pattern. This requires to either
+    // update the scanner or to play with token precedence, with is left for
+    // future work.
+    pattern: $ => patternF($, $.enum_pattern, $.or_pattern, $.ident),
+    pattern_fun: $ => patternF($, $.enum_pattern_parens, $.or_pattern_parens, $.ident),
+    pattern_or_branch: $ => pattern_dataF($, $.enum_pattern_parens, $.or_pattern_parens, $.ident_no_or),
+
+    constant_pattern: $ => choice(
+      $.signed_num_literal,
+      $.bool,
+      $.static_string,
+      "null",
+    ),
 
     record_pattern: $ => seq(
       "{",
@@ -282,11 +295,51 @@ module.exports = grammar({
       "}",
     ),
 
+    array_pattern: $ => seq(
+      "[",
+      field("patterns", repeat(seq($.pattern, ","))),
+      field("last", optional($.last_elem_pat)),
+      "]",
+    ),
+
     field_pattern: $ => seq(
       field("id", $.ident),
       field("anns", optional($.annot)),
       field("default", optional($.default_annot)),
       field("pat", optional(seq("=", $.pattern))),
+    ),
+
+    enum_variant_pattern: $ => seq(
+      field("tag", $.enum_tag),
+      field("pat", patternF($, $.enum_pattern_parens, $.or_pattern_parens)),
+    ),
+
+    enum_pattern_unparens: $ => choice(
+      $.enum_tag,
+      $.enum_variant_pattern,
+    ),
+
+    enum_pattern_parens: $ => choice(
+      $.enum_tag,
+      parens($.enum_variant_pattern),
+    ),
+
+    enum_pattern: $ => choice(
+      $.enum_tag,
+      $.enum_variant_pattern,
+      parens($.enum_variant_pattern),
+    ),
+
+    or_pattern_unparens: $ => seq(
+      field("patterns", repeat1(seq($.pattern_or_branch, "or"))),
+      field("last", $.pattern_or_branch),
+    ),
+
+    or_pattern_parens: $ => parens($.or_pattern_unparens),
+
+    or_pattern: $ => choice(
+      $.or_pattern_unparens,
+      $.or_pattern_parens,
     ),
 
     //grammar.lalrpop: 428
@@ -411,10 +464,16 @@ module.exports = grammar({
       "%",
     ),
 
-    //grammar.lalrpop (be9afc26055ec17fec42d39f701c459e9c9cf012): L601
-    match_case: $ => choice(
-      seq(field("pat", $.pattern), "=>", field("t", $.term)),
-      seq("_", "=>", field("t", $.term)),
+    pattern_guard: $ => seq(
+      "if",
+      $.term,
+    ),
+
+    match_branch: $ => seq(
+      field("pat", $.pattern),
+      field("guard", optional($.pattern_guard)),
+      "=>",
+      field("body", $.term)
     ),
 
     //grammar.lalrpop: 554
@@ -578,36 +637,26 @@ module.exports = grammar({
 });
 
 // Because tree-sitter rules can't be proper functions, we need to relocate the
-// actual rule definitions here as free standing functions.
-function pattern_dataF($, flavour) {
+// macro rule definitions here as free standing functions.
+function pattern_dataF($, enum_rule, or_rule) {
   return choice(
     $.record_pattern,
-    enum_patternF($, flavour),
+    $.array_pattern,
+    $.constant_pattern,
+    enum_rule,
     $.ident,
+    "_",
+    or_rule,
   )
 }
 
-function patternF($, flavour) {
+function patternF($, enum_rule, or_rule) {
   return choice(
-    seq(optional(field("alias", seq($.ident, "@"))), field("pat", pattern_dataF($, flavour))),
+    seq(
+      optional(field("alias", seq($.ident, "@"))),
+      field("pat", pattern_dataF($, enum_rule, or_rule))
+     ),
   )
-}
-
-function enum_patternF($, flavour) {
-  let adtPattern = seq(field("tag", $.enum_tag), field("pat", $.pattern_fun))
-
-  if (flavour == "function") {
-    return choice(
-      $.enum_tag,
-      parens(adtPattern),
-    )
-  } else {
-    return choice(
-      $.enum_tag,
-      adtPattern,
-      parens(adtPattern),
-    )
-  }
 }
 
 function sep(rule, separator) {

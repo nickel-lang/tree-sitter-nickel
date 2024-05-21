@@ -136,6 +136,36 @@
     }
   },
   {
+    "type": "array_pattern",
+    "named": true,
+    "fields": {
+      "last": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "last_elem_pat",
+            "named": true
+          }
+        ]
+      },
+      "patterns": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "pattern",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "atom",
     "named": true,
     "fields": {
@@ -308,6 +338,29 @@
     }
   },
   {
+    "type": "constant_pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "bool",
+          "named": true
+        },
+        {
+          "type": "signed_num_literal",
+          "named": true
+        },
+        {
+          "type": "static_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "curried_op",
     "named": true,
     "fields": {},
@@ -339,6 +392,44 @@
     }
   },
   {
+    "type": "enum_pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "enum_tag",
+          "named": true
+        },
+        {
+          "type": "enum_variant_pattern",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enum_pattern_parens",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "enum_tag",
+          "named": true
+        },
+        {
+          "type": "enum_variant_pattern",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "enum_tag",
     "named": true,
     "fields": {},
@@ -367,6 +458,70 @@
         "types": [
           {
             "type": "record_operand",
+            "named": true
+          }
+        ]
+      },
+      "tag": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "enum_tag",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "enum_variant_pattern",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "@",
+            "named": false
+          },
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      },
+      "pat": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_",
+            "named": false
+          },
+          {
+            "type": "array_pattern",
+            "named": true
+          },
+          {
+            "type": "constant_pattern",
+            "named": true
+          },
+          {
+            "type": "enum_pattern_parens",
+            "named": true
+          },
+          {
+            "type": "ident",
+            "named": true
+          },
+          {
+            "type": "or_pattern_parens",
+            "named": true
+          },
+          {
+            "type": "record_pattern",
             "named": true
           }
         ]
@@ -774,6 +929,25 @@
     }
   },
   {
+    "type": "last_elem_pat",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "pattern",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "last_field_pat",
     "named": true,
     "fields": {},
@@ -855,25 +1029,35 @@
     }
   },
   {
-    "type": "match_case",
+    "type": "match_branch",
     "named": true,
     "fields": {
-      "pat": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "pattern",
-            "named": true
-          }
-        ]
-      },
-      "t": {
+      "body": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "term",
+            "named": true
+          }
+        ]
+      },
+      "guard": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "pattern_guard",
+            "named": true
+          }
+        ]
+      },
+      "pat": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "pattern",
             "named": true
           }
         ]
@@ -893,7 +1077,71 @@
             "named": false
           },
           {
-            "type": "match_case",
+            "type": "match_branch",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "or_pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "or_pattern_parens",
+          "named": true
+        },
+        {
+          "type": "or_pattern_unparens",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "or_pattern_parens",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "or_pattern_unparens",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "or_pattern_unparens",
+    "named": true,
+    "fields": {
+      "last": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "pattern_or_branch",
+            "named": true
+          }
+        ]
+      },
+      "patterns": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "or",
+            "named": false
+          },
+          {
+            "type": "pattern_or_branch",
             "named": true
           }
         ]
@@ -919,19 +1167,23 @@
         ]
       },
       "pat": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "(",
+            "type": "_",
             "named": false
           },
           {
-            "type": ")",
-            "named": false
+            "type": "array_pattern",
+            "named": true
           },
           {
-            "type": "enum_tag",
+            "type": "constant_pattern",
+            "named": true
+          },
+          {
+            "type": "enum_pattern",
             "named": true
           },
           {
@@ -939,21 +1191,11 @@
             "named": true
           },
           {
-            "type": "pattern_fun",
+            "type": "or_pattern",
             "named": true
           },
           {
             "type": "record_pattern",
-            "named": true
-          }
-        ]
-      },
-      "tag": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "enum_tag",
             "named": true
           }
         ]
@@ -979,19 +1221,23 @@
         ]
       },
       "pat": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "(",
+            "type": "_",
             "named": false
           },
           {
-            "type": ")",
-            "named": false
+            "type": "array_pattern",
+            "named": true
           },
           {
-            "type": "enum_tag",
+            "type": "constant_pattern",
+            "named": true
+          },
+          {
+            "type": "enum_pattern_parens",
             "named": true
           },
           {
@@ -999,7 +1245,7 @@
             "named": true
           },
           {
-            "type": "pattern_fun",
+            "type": "or_pattern_parens",
             "named": true
           },
           {
@@ -1007,17 +1253,57 @@
             "named": true
           }
         ]
-      },
-      "tag": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "enum_tag",
-            "named": true
-          }
-        ]
       }
+    }
+  },
+  {
+    "type": "pattern_guard",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "term",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pattern_or_branch",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "array_pattern",
+          "named": true
+        },
+        {
+          "type": "constant_pattern",
+          "named": true
+        },
+        {
+          "type": "enum_pattern_parens",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "or_pattern_parens",
+          "named": true
+        },
+        {
+          "type": "record_pattern",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1730,6 +2016,10 @@
   },
   {
     "type": "optional",
+    "named": false
+  },
+  {
+    "type": "or",
     "named": false
   },
   {
