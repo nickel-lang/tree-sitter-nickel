@@ -27,7 +27,8 @@ match {
                       (enum_pattern
                         (enum_variant_pattern
                           (enum_tag
-                            (raw_enum_tag)))))))))
+                            (raw_enum_tag))
+                          (pattern_fun))))))))
             (term
               (uni_term
                 (infix_expr
@@ -174,8 +175,9 @@ match {
                       (enum_variant_pattern
                         (enum_tag
                           (raw_enum_tag))
-                        (constant_pattern
-                          (signed_num_literal))))))
+                        (pattern_fun
+                          (constant_pattern
+                            (signed_num_literal)))))))
                 (last_field_pat
                   (field_pattern
                     (ident)
@@ -184,10 +186,11 @@ match {
                         (enum_variant_pattern
                           (enum_tag
                             (raw_enum_tag))
-                          (constant_pattern
-                            (static_string
-                              (chunk_literal_single
-                                (str_literal)))))))))))
+                          (pattern_fun
+                            (constant_pattern
+                              (static_string
+                                (chunk_literal_single
+                                  (str_literal))))))))))))
             (term
               (uni_term
                 (infix_expr
@@ -248,7 +251,8 @@ match {
                     (enum_variant_pattern
                       (enum_tag
                         (raw_enum_tag))
-                      (ident))))
+                      (pattern_fun
+                        (ident)))))
                 (last_elem_pat
                   (pattern
                     (record_pattern
@@ -550,19 +554,22 @@ match {
                       (enum_variant_pattern
                         (enum_tag
                           (raw_enum_tag))
-                        (ident))))
+                        (pattern_fun
+                          (ident)))))
                   (pattern_or_branch
                     (enum_pattern_parens
                       (enum_variant_pattern
                         (enum_tag
                           (raw_enum_tag))
-                        (ident))))
+                        (pattern_fun
+                          (ident)))))
                   (pattern_or_branch
                     (enum_pattern_parens
                       (enum_variant_pattern
                         (enum_tag
                           (raw_enum_tag))
-                        (ident)))))))
+                        (pattern_fun
+                          (ident))))))))
             (term
               (uni_term
                 (infix_expr

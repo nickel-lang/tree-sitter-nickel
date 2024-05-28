@@ -277,9 +277,9 @@ module.exports = grammar({
     // keyword used as an identifier in a pattern. This requires to either
     // update the scanner or to play with token precedence, with is left for
     // future work.
-    pattern: $ => patternF($, $.enum_pattern, $.or_pattern, $.ident),
-    pattern_fun: $ => patternF($, $.enum_pattern_parens, $.or_pattern_parens, $.ident),
-    pattern_or_branch: $ => pattern_dataF($, $.enum_pattern_parens, $.or_pattern_parens, $.ident_no_or),
+    pattern: $ => patternF($, $.enum_pattern, $.or_pattern),
+    pattern_fun: $ => patternF($, $.enum_pattern_parens, $.or_pattern_parens),
+    pattern_or_branch: $ => pattern_dataF($, $.enum_pattern_parens, $.or_pattern_parens),
 
     constant_pattern: $ => choice(
       $.signed_num_literal,
@@ -311,7 +311,7 @@ module.exports = grammar({
 
     enum_variant_pattern: $ => seq(
       field("tag", $.enum_tag),
-      field("pat", patternF($, $.enum_pattern_parens, $.or_pattern_parens)),
+      field("pat", $.pattern_fun),
     ),
 
     enum_pattern_unparens: $ => choice(

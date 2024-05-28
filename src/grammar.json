@@ -1443,76 +1443,8 @@
           "type": "FIELD",
           "name": "pat",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "FIELD",
-                        "name": "alias",
-                        "content": {
-                          "type": "SEQ",
-                          "members": [
-                            {
-                              "type": "SYMBOL",
-                              "name": "ident"
-                            },
-                            {
-                              "type": "STRING",
-                              "value": "@"
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "FIELD",
-                    "name": "pat",
-                    "content": {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "record_pattern"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "array_pattern"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "constant_pattern"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "enum_pattern_parens"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "ident"
-                        },
-                        {
-                          "type": "STRING",
-                          "value": "_"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "or_pattern_parens"
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "pattern_fun"
           }
         }
       ]

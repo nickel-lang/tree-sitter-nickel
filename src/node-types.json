@@ -478,50 +478,12 @@
     "type": "enum_variant_pattern",
     "named": true,
     "fields": {
-      "alias": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "@",
-            "named": false
-          },
-          {
-            "type": "ident",
-            "named": true
-          }
-        ]
-      },
       "pat": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "_",
-            "named": false
-          },
-          {
-            "type": "array_pattern",
-            "named": true
-          },
-          {
-            "type": "constant_pattern",
-            "named": true
-          },
-          {
-            "type": "enum_pattern_parens",
-            "named": true
-          },
-          {
-            "type": "ident",
-            "named": true
-          },
-          {
-            "type": "or_pattern_parens",
-            "named": true
-          },
-          {
-            "type": "record_pattern",
+            "type": "pattern_fun",
             "named": true
           }
         ]
