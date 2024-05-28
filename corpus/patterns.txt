@@ -11,13 +11,15 @@ let 'Foo ('Bar x) = 'Foo ('Bar std.array) in x
     (let_expr
       (let_in_block
         (pattern
-          (enum_tag
-            (raw_enum_tag))
-          (pattern_fun
-            (enum_tag
-              (raw_enum_tag))
-            (pattern_fun
-              (ident))))
+          (enum_pattern
+            (enum_variant_pattern
+              (enum_tag
+                (raw_enum_tag))
+              (enum_pattern_parens
+                (enum_variant_pattern
+                  (enum_tag
+                    (raw_enum_tag))
+                  (ident))))))
         (term
           (uni_term
             (infix_expr
@@ -51,7 +53,7 @@ let 'Foo ('Bar x) = 'Foo ('Bar std.array) in x
 Function destructuring
 ================================================================================
 
-fun {x,y} {y,z} ('Foo e) 'Bar 'Baz => x + y + z
+fun {x,y} {y,z} ('Foo e) 'Bar or 'Baz => x + y + z
 
 --------------------------------------------------------------------------------
 
@@ -73,16 +75,21 @@ fun {x,y} {y,z} ('Foo e) 'Bar 'Baz => x + y + z
             (field_pattern
               (ident)))))
       (pattern_fun
-        (enum_tag
-          (raw_enum_tag))
-        (pattern_fun
-          (ident)))
+        (enum_pattern_parens
+          (enum_variant_pattern
+            (enum_tag
+              (raw_enum_tag))
+            (ident))))
       (pattern_fun
-        (enum_tag
-          (raw_enum_tag)))
+        (enum_pattern_parens
+          (enum_tag
+            (raw_enum_tag))))
       (pattern_fun
-        (enum_tag
-          (raw_enum_tag)))
+        (ident))
+      (pattern_fun
+        (enum_pattern_parens
+          (enum_tag
+            (raw_enum_tag))))
       (term
         (uni_term
           (infix_expr
@@ -154,7 +161,7 @@ match {
     (infix_expr
       (applicative
         (match_expr
-          (match_case
+          (match_branch
             (pattern
               (record_pattern
                 (field_pattern
@@ -168,10 +175,11 @@ match {
                     (ident)
                     (pattern
                       (ident)
-                      (enum_tag
-                        (raw_enum_tag))
-                      (pattern_fun
-                        (ident)))))))
+                        (enum_pattern
+                          (enum_variant_pattern
+                            (enum_tag
+                              (raw_enum_tag))
+                            (ident))))))))
             (term
               (uni_term
                 (infix_expr
@@ -179,7 +187,7 @@ match {
                     (record_operand
                       (atom
                         (ident))))))))
-          (match_case
+          (match_branch
             (pattern
               (record_pattern
                 (field_pattern
@@ -193,7 +201,7 @@ match {
                     (record_operand
                       (atom
                         (ident))))))))
-          (match_case
+          (match_branch
             (pattern
               (record_pattern
                 (field_pattern
@@ -207,22 +215,24 @@ match {
                   (field_pattern
                     (ident)
                     (pattern
-                      (enum_tag
-                        (raw_enum_tag))
-                      (pattern_fun
-                        (record_pattern
-                          (field_pattern
-                            (ident))
-                          (last_field_pat
+                      (enum_pattern
+                        (enum_variant_pattern
+                          (enum_tag
+                            (raw_enum_tag))
+                          (record_pattern
                             (field_pattern
-                              (ident))))))))))
+                              (ident))
+                            (last_field_pat
+                              (field_pattern
+                                (ident)))))))))))
             (term
               (uni_term
                 (infix_expr
                   (applicative
                     (record_operand
                       (atom)))))))
-          (match_case
+          (match_branch
+            (pattern)
             (term
               (uni_term
                 (infix_expr

@@ -36,10 +36,11 @@ x |> match {
             (infix_expr
               (applicative
                 (match_expr
-                  (match_case
+                  (match_branch
                     (pattern
-                      (enum_tag
-                        (raw_enum_tag)))
+                      (enum_pattern
+                        (enum_tag
+                          (raw_enum_tag))))
                     (term
                       (uni_term
                         (infix_expr
@@ -47,10 +48,11 @@ x |> match {
                             (record_operand
                               (atom
                                 (num_literal))))))))
-                  (match_case
+                  (match_branch
                     (pattern
-                      (enum_tag
-                        (raw_enum_tag)))
+                      (enum_pattern
+                        (enum_tag
+                          (raw_enum_tag))))
                     (term
                       (uni_term
                         (infix_expr
@@ -77,10 +79,11 @@ match {
     (infix_expr
       (applicative
         (match_expr
-          (match_case
+          (match_branch
             (pattern
-              (enum_tag
-                (raw_enum_tag)))
+              (enum_pattern
+                (enum_tag
+                  (raw_enum_tag))))
             (term
               (uni_term
                 (infix_expr
@@ -88,10 +91,11 @@ match {
                     (record_operand
                       (atom
                         (bool))))))))
-          (match_case
+          (match_branch
             (pattern
-              (enum_tag
-                (raw_enum_tag)))
+              (enum_pattern
+                (enum_tag
+                  (raw_enum_tag))))
             (term
               (uni_term
                 (infix_expr
@@ -99,10 +103,11 @@ match {
                     (record_operand
                       (atom
                         (bool))))))))
-          (match_case
+          (match_branch
             (pattern
-              (enum_tag
-                (raw_enum_tag)))
+              (enum_pattern
+                (enum_tag
+                  (raw_enum_tag))))
             (term
               (uni_term
                 (infix_expr
@@ -110,7 +115,8 @@ match {
                     (record_operand
                       (atom
                         (bool))))))))
-          (match_case
+          (match_branch
+            (pattern)
             (term
               (uni_term
                 (infix_expr
@@ -139,10 +145,11 @@ f 'a
             (infix_expr
               (applicative
                 (match_expr
-                  (match_case
+                  (match_branch
                     (pattern
-                      (enum_tag
-                        (raw_enum_tag)))
+                      (enum_pattern
+                        (enum_tag
+                          (raw_enum_tag))))
                     (term
                       (uni_term
                         (infix_expr
@@ -150,10 +157,11 @@ f 'a
                             (record_operand
                               (atom
                                 (num_literal))))))))
-                  (match_case
+                  (match_branch
                     (pattern
-                      (enum_tag
-                        (raw_enum_tag)))
+                      (enum_pattern
+                        (enum_tag
+                          (raw_enum_tag))))
                     (term
                       (uni_term
                         (infix_expr
