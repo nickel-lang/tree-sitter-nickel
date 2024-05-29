@@ -15,11 +15,13 @@ let 'Foo ('Bar x) = 'Foo ('Bar std.array) in x
             (enum_variant_pattern
               (enum_tag
                 (raw_enum_tag))
-              (enum_pattern_parens
-                (enum_variant_pattern
-                  (enum_tag
-                    (raw_enum_tag))
-                  (ident))))))
+              (pattern_fun
+                (enum_pattern_parens
+                  (enum_variant_pattern
+                    (enum_tag
+                      (raw_enum_tag))
+                    (pattern_fun
+                      (ident))))))))
         (term
           (uni_term
             (infix_expr
@@ -79,7 +81,8 @@ fun {x,y} {y,z} ('Foo e) 'Bar or 'Baz => x + y + z
           (enum_variant_pattern
             (enum_tag
               (raw_enum_tag))
-            (ident))))
+            (pattern_fun
+              (ident)))))
       (pattern_fun
         (enum_pattern_parens
           (enum_tag
@@ -179,7 +182,8 @@ match {
                           (enum_variant_pattern
                             (enum_tag
                               (raw_enum_tag))
-                            (ident))))))))
+                            (pattern_fun
+                              (ident)))))))))
             (term
               (uni_term
                 (infix_expr
@@ -219,12 +223,13 @@ match {
                         (enum_variant_pattern
                           (enum_tag
                             (raw_enum_tag))
-                          (record_pattern
-                            (field_pattern
-                              (ident))
-                            (last_field_pat
+                          (pattern_fun
+                            (record_pattern
                               (field_pattern
-                                (ident)))))))))))
+                                (ident))
+                              (last_field_pat
+                                (field_pattern
+                                  (ident))))))))))))
             (term
               (uni_term
                 (infix_expr
