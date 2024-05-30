@@ -392,6 +392,25 @@
     }
   },
   {
+    "type": "enum",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "enum_tag",
+          "named": true
+        },
+        {
+          "type": "enum_variant",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "enum_pattern",
     "named": true,
     "fields": {},
@@ -1596,7 +1615,7 @@
             "named": false
           },
           {
-            "type": "enum_tag",
+            "type": "enum",
             "named": true
           }
         ]
