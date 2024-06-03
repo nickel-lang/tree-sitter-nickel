@@ -139,8 +139,7 @@ identifier (builtin function)
       (applicative
         (record_operand
           (atom
-            (builtin
-              (ident))))))))
+            (builtin)))))))
 
 ================================================================================
 number int
