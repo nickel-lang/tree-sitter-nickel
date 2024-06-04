@@ -239,17 +239,7 @@
   {
     "type": "builtin",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "ident",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "chunk_expr",
