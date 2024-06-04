@@ -4,3 +4,9 @@ Cargo.lock
 package-lock.json
 target/
 result*
+
+# tree-sitter now generates a bunch of object files in the repository
+*.a
+*.so
+*.o
+*.pc
