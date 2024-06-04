@@ -463,9 +463,15 @@ module.exports = grammar({
     //grammar.lalrpop: 509
     // Different from lalrpop grammar, we parse all possible builtins, not just
     // the defined ones.
-    builtin: $ => seq(
+    builtin: _ => seq(
       "%",
-      $.ident,
+      // We are a bit more liberal with what can go in a builtin function than
+      // for identifiers, because builtins are properly delimited by `%`.
+      // Upstream Nickel added `/` as a valid character already, so there's a
+      // precendent for extensions (although it's not very likely), so we try to
+      // be a bit future-proof. We just make sure the builtin starts with either
+      // a letter or an undescore, to ensure reasonable names.
+      /_*[a-zA-Z][a-zA-Z0-9./_'-]*/,
       "%",
     ),
 
