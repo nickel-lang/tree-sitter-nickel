@@ -432,6 +432,11 @@ module.exports = grammar({
       field("arg", $.record_operand),
     )),
 
+    enum: $ => choice(
+      $.enum_tag,
+      $.enum_variant,
+    ),
+
     //grammar.lalrpop: 503
     //See NOTE[scanner].
     chunk_literal_single: $ => choice(
@@ -613,7 +618,7 @@ module.exports = grammar({
       "_",
       seq(
         "[|",
-        field("rows", commaSep($.enum_tag)),
+        field("rows", commaSep($.enum)),
         field("tail", optional(seq(";", $.ident))),
         "|]",
       ),

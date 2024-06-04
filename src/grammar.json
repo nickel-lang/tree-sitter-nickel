@@ -1830,6 +1830,19 @@
         ]
       }
     },
+    "enum": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "enum_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "enum_variant"
+        }
+      ]
+    },
     "chunk_literal_single": {
       "type": "CHOICE",
       "members": [
@@ -2558,7 +2571,7 @@
                     "members": [
                       {
                         "type": "SYMBOL",
-                        "name": "enum_tag"
+                        "name": "enum"
                       },
                       {
                         "type": "REPEAT",
@@ -2571,7 +2584,7 @@
                             },
                             {
                               "type": "SYMBOL",
-                              "name": "enum_tag"
+                              "name": "enum"
                             }
                           ]
                         }

@@ -303,12 +303,15 @@ let metadata_ = {
                                                     (record_operand
                                                       (atom
                                                         (type_atom
-                                                          (enum_tag
-                                                            (raw_enum_tag))
-                                                          (enum_tag
-                                                            (raw_enum_tag))
-                                                          (enum_tag
-                                                            (raw_enum_tag)))))))))
+                                                          (enum
+                                                            (enum_tag
+                                                              (raw_enum_tag)))
+                                                          (enum
+                                                            (enum_tag
+                                                              (raw_enum_tag)))
+                                                          (enum
+                                                            (enum_tag
+                                                              (raw_enum_tag))))))))))
                                             (annot_atom
                                               (static_string
                                                 (chunk_literal_single
