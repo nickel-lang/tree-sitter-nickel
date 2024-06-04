@@ -54,17 +54,19 @@ or customization purpose:
 - `src/*` most other files in `src` are auto-generated and shouldn't be modified
     directly
 - `corpus/` contains a test suite
+- `bindings/` contains the bindings to this parser for various languages.
 
 ### Requirements
 
-The project comes with a `shell.nix` containing everything needed to work on the
-grammar itself via [Nix](https://nixos.org/). Just run `nix-shell` at the root
-of this repository to be dropped in a shell with all the needed commands
-available.
+The project comes with a `flake.nix` containing everything needed to work on the
+grammar itself via [Nix](https://nixos.org/). With a
+[flake-enabled](https://nixos.wiki/wiki/flakes) Nix, Just run `nix develop` at
+the root of this repository to be dropped in a shell with all the needed
+commands available.
 
 Without Nix, you have to install `tree-sitter` and other dependencies manually.
 You should be able to deduce a list of requirements easily by reading
-`shell.nix`.
+`flake.nix`.
 
 ### Actions
 
@@ -75,6 +77,12 @@ You should be able to deduce a list of requirements easily by reading
 
 ## Bindings
 
-As with other tree-sitter grammars, this repository comes with Node and Rust
-bindings. These will eventually be uploaded to `crates.io` for use with cargo
-and npm.
+As with other tree-sitter grammars, this repository comes with bindings for the
+following languages:
+
+- C
+- Go
+- Node
+- Python
+- Rust
+- Swift
