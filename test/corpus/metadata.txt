@@ -94,6 +94,8 @@ metadata prio
 {
   bar | priority 5,
   baz | priority -2.3,
+  bin | priority -0b1,
+  hex | priority 0xF,
   foo | String
       | optional,
   foo' | rec default = {bar = 1},
@@ -116,6 +118,20 @@ metadata prio
         (record_operand
           (atom
             (uni_record
+              (record_field
+                (field_path
+                  (field_path_elem
+                    (ident)))
+                (annot
+                  (annot_atom
+                    (signed_num_literal))))
+              (record_field
+                (field_path
+                  (field_path_elem
+                    (ident)))
+                (annot
+                  (annot_atom
+                    (signed_num_literal))))
               (record_field
                 (field_path
                   (field_path_elem
