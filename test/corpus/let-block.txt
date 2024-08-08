@@ -1,8 +1,8 @@
 ================================================================================
-let rec
+let block
 ================================================================================
 
-let rec x = x in x
+let x = 1, y = 2 in x
 
 --------------------------------------------------------------------------------
 
@@ -19,7 +19,17 @@ let rec x = x in x
                 (applicative
                   (record_operand
                     (atom
-                      (ident)))))))))
+                      (num_literal))))))))
+        (let_binding
+          (pattern
+            (ident))
+          (term
+            (uni_term
+              (infix_expr
+                (applicative
+                  (record_operand
+                    (atom
+                      (num_literal)))))))))
       (term
         (uni_term
           (infix_expr
