@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/nickel-lang/tree-sitter-nickel",
   "dependencies": {
-    "node-addon-api": "^7.1.0",
+    "node-addon-api": "^8.1.0",
     "node-gyp-build": "^4.8.0"
   },
   "peerDependencies": {
@@ -34,7 +34,7 @@
     }
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.20.0",
+    "tree-sitter-cli": "^0.22.6",
     "prebuildify": "^6.0.0"
   },
   "tree-sitter": [
