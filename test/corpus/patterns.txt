@@ -10,46 +10,47 @@ let 'Foo ('Bar x) = 'Foo ('Bar std.array) in x
   (uni_term
     (let_expr
       (let_in_block
-        (pattern
-          (enum_pattern
-            (enum_variant_pattern
-              (enum_tag
-                (raw_enum_tag))
-              (pattern_fun
-                (enum_pattern_parens
-                  (enum_variant_pattern
-                    (enum_tag
-                      (raw_enum_tag))
-                    (pattern_fun
-                      (ident))))))))
-        (term
-          (uni_term
-            (infix_expr
-              (applicative
-                (enum_variant
-                  (enum_tag
-                    (raw_enum_tag))
-                  (record_operand
-                    (atom
-                      (uni_term
-                        (infix_expr
-                          (applicative
-                            (enum_variant
-                              (enum_tag
-                                (raw_enum_tag))
-                              (record_operand
-                                (record_operation_chain
-                                  (record_operand
-                                    (atom
-                                      (ident)))
-                                  (ident)))))))))))))))
+        (let_binding
+          (pattern
+            (enum_pattern
+              (enum_variant_pattern
+                (enum_tag
+                  (raw_enum_tag))
+                (pattern_fun
+                  (enum_pattern_parens
+                    (enum_variant_pattern
+                      (enum_tag
+                        (raw_enum_tag))
+                      (pattern_fun
+                        (ident))))))))
           (term
             (uni_term
               (infix_expr
                 (applicative
-                  (record_operand
-                    (atom
-                      (ident))))))))))
+                  (enum_variant
+                    (enum_tag
+                      (raw_enum_tag))
+                    (record_operand
+                      (atom
+                        (uni_term
+                          (infix_expr
+                            (applicative
+                              (enum_variant
+                                (enum_tag
+                                  (raw_enum_tag))
+                                (record_operand
+                                  (record_operation_chain
+                                    (record_operand
+                                      (atom
+                                        (ident)))
+                                    (ident))))))))))))))))
+      (term
+        (uni_term
+          (infix_expr
+            (applicative
+              (record_operand
+                (atom
+                  (ident))))))))))
 
 ================================================================================
 Function destructuring
@@ -127,16 +128,17 @@ let x @ {} = {} in x
   (uni_term
     (let_expr
       (let_in_block
-        (pattern
-          (ident)
-          (record_pattern))
-        (term
-          (uni_term
-            (infix_expr
-              (applicative
-                (record_operand
-                  (atom
-                    (uni_record))))))))
+        (let_binding
+          (pattern
+            (ident)
+            (record_pattern))
+          (term
+            (uni_term
+              (infix_expr
+                (applicative
+                  (record_operand
+                    (atom
+                      (uni_record)))))))))
       (term
         (uni_term
           (infix_expr
@@ -144,7 +146,6 @@ let x @ {} = {} in x
               (record_operand
                 (atom
                   (ident))))))))))
-
 
 ================================================================================
 Record pattern matching
@@ -178,12 +179,12 @@ match {
                     (ident)
                     (pattern
                       (ident)
-                        (enum_pattern
-                          (enum_variant_pattern
-                            (enum_tag
-                              (raw_enum_tag))
-                            (pattern_fun
-                              (ident)))))))))
+                      (enum_pattern
+                        (enum_variant_pattern
+                          (enum_tag
+                            (raw_enum_tag))
+                          (pattern_fun
+                            (ident)))))))))
             (term
               (uni_term
                 (infix_expr
@@ -244,4 +245,3 @@ match {
                   (applicative
                     (record_operand
                       (atom))))))))))))
-

@@ -938,6 +938,42 @@
     }
   },
   {
+    "type": "let_binding",
+    "named": true,
+    "fields": {
+      "meta": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "annot",
+            "named": true
+          }
+        ]
+      },
+      "pat": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "pattern",
+            "named": true
+          }
+        ]
+      },
+      "t1": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "term",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "let_expr",
     "named": true,
     "fields": {
@@ -967,32 +1003,16 @@
     "type": "let_in_block",
     "named": true,
     "fields": {
-      "meta": {
-        "multiple": false,
+      "bindings": {
+        "multiple": true,
         "required": false,
         "types": [
           {
-            "type": "annot",
-            "named": true
-          }
-        ]
-      },
-      "pat": {
-        "multiple": false,
-        "required": true,
-        "types": [
+            "type": ",",
+            "named": false
+          },
           {
-            "type": "pattern",
-            "named": true
-          }
-        ]
-      },
-      "t1": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "term",
+            "type": "let_binding",
             "named": true
           }
         ]
