@@ -29,6 +29,14 @@
       });
     in
     {
+      overlays = {
+        tree-sitter-grammars = final: prev: {
+          tree-sitter-grammars = prev.tree-sitter-grammars // {
+            tree-sitter-nickel = self.packages.${prev.system}.tree-sitter-nickel;
+          };
+        };
+      };
+
       packages = forAllSystems ({ system, pkgs, ... }: {
         tree-sitter-nickel = pkgs.callPackage (nixpkgs + "/pkgs/development/tools/parsing/tree-sitter/grammar.nix") { }
           {
