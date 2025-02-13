@@ -1585,6 +1585,7 @@
   {
     "type": "term",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": false,
@@ -1915,7 +1916,8 @@
   },
   {
     "type": "comment",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "default",
