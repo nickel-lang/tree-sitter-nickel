@@ -214,8 +214,8 @@ module.exports = grammar({
     //grammar.lalrpop: 276
     uni_record: $ => seq(
       "{",
-      field("fields", repeat(seq($.record_field, ","))),
-      field("last", optional($.record_last_field)),
+      field("fields", repeat(seq($.field_decl, ","))),
+      field("last", optional($.last_field)),
       field("tail", optional(seq(";", $.row_tail))),
       "}",
     ),
@@ -233,21 +233,37 @@ module.exports = grammar({
       $.builtin,
       $.uni_record,
       $.enum_tag,
-      // NOTE: Arrays may have a trailing comma in Nickel
-      square(field("terms", seq(commaSep($.term), optional(",")))),
+      list($.term, "terms"),
       $.type_atom,
     ),
 
     //grammar.lalrpop: 328
-    record_field: $ => seq(
+    field_def: $ => seq(
       field("path", $.field_path),
       field("ann", optional($.annot)),
       field("t", optional(seq("=", $.term))),
     ),
 
+    record_include: $ => seq(
+      "include",
+      field("id", $.ident),
+      field("ann", optional($.annot)),
+    ),
+
+    record_include_list: $ => seq(
+      "include",
+      list($.ident, "ids"),
+    ),
+
+    field_decl:$ => choice(
+      $.field_def,
+      $.record_include,
+      $.record_include_list,
+    ),
+
     //grammar.lalrpop: 348
-    record_last_field: $ => choice(
-      $.record_field,
+    last_field: $ => choice(
+      $.field_def,
       "..",
     ),
 
@@ -690,6 +706,18 @@ function parens(rule) {
   return seq("(", rule, ")");
 }
 
-function square(rule) {
-  return seq("[", rule, "]");
+/**
+ * Recognizes a comma-separated, bracketed list of elements.
+ *
+ * @param {function} rule - The rule to use for the elements of the list.
+ * @param {string|null} field_label - The name of the field to wrap the elements in,
+ *                              or `null` if no field should be used.
+ */
+function list(rule, field_label = null) {
+  if (field_label != null) {
+    return seq("[", (field(field_label, seq(commaSep(rule), optional(",")))), "]");
+  }
+  else {
+    return seq("[", (seq(commaSep(rule), optional(","))), "]");
+  }
 }

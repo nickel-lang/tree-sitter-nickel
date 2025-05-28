@@ -40,8 +40,8 @@ fibonacci 10
                       (record_operand
                         (atom
                           (uni_record
-                            (record_last_field
-                              (record_field
+                            (last_field
+                              (field_def
                                 (field_path
                                   (field_path_elem
                                     (ident)))

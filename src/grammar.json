@@ -758,7 +758,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "record_field"
+                  "name": "field_decl"
                 },
                 {
                   "type": "STRING",
@@ -776,7 +776,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "record_last_field"
+                "name": "last_field"
               },
               {
                 "type": "BLANK"
@@ -957,7 +957,7 @@
         }
       ]
     },
-    "record_field": {
+    "field_def": {
       "type": "SEQ",
       "members": [
         {
@@ -1011,12 +1011,138 @@
         }
       ]
     },
-    "record_last_field": {
+    "record_include": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "include"
+        },
+        {
+          "type": "FIELD",
+          "name": "id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ident"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "ann",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "annot"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "record_include_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "include"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "["
+            },
+            {
+              "type": "FIELD",
+              "name": "ids",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "ident"
+                          },
+                          {
+                            "type": "REPEAT",
+                            "content": {
+                              "type": "SEQ",
+                              "members": [
+                                {
+                                  "type": "STRING",
+                                  "value": ","
+                                },
+                                {
+                                  "type": "SYMBOL",
+                                  "name": "ident"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "STRING",
+              "value": "]"
+            }
+          ]
+        }
+      ]
+    },
+    "field_decl": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "record_field"
+          "name": "field_def"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "record_include"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "record_include_list"
+        }
+      ]
+    },
+    "last_field": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "field_def"
         },
         {
           "type": "STRING",
