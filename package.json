@@ -44,5 +44,11 @@
     "bindings/node/*",
     "queries/*",
     "src/**"
+  ],
+  "tree-sitter": [
+    {
+      "scope": "source.nickel",
+      "injection-regex": "^nickel$"
+    }
   ]
 }

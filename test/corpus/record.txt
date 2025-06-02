@@ -14,8 +14,8 @@ Record Merge
           (record_operand
             (atom
               (uni_record
-                (record_last_field
-                  (record_field
+                (last_field
+                  (field_def
                     (field_path
                       (field_path_elem
                         (ident)))
@@ -32,8 +32,8 @@ Record Merge
           (record_operand
             (atom
               (uni_record
-                (record_last_field
-                  (record_field
+                (last_field
+                  (field_def
                     (field_path
                       (field_path_elem
                         (ident)))
@@ -80,33 +80,35 @@ Record
         (record_operand
           (atom
             (uni_record
-              (record_field
-                (field_path
-                  (field_path_elem
-                    (ident)))
-                (term
-                  (uni_term
-                    (infix_expr
-                      (applicative
-                        (record_operand
-                          (atom
-                            (num_literal))))))))
-              (record_field
-                (field_path
-                  (field_path_elem
-                    (str_chunks
-                      (str_chunks_single
-                        (chunk_literal_single
-                          (str_literal))))))
-                (term
-                  (uni_term
-                    (infix_expr
-                      (applicative
-                        (record_operand
-                          (atom
-                            (num_literal))))))))
-              (record_last_field
-                (record_field
+              (field_decl
+                (field_def
+                  (field_path
+                    (field_path_elem
+                      (ident)))
+                  (term
+                    (uni_term
+                      (infix_expr
+                        (applicative
+                          (record_operand
+                            (atom
+                              (num_literal)))))))))
+              (field_decl
+                (field_def
+                  (field_path
+                    (field_path_elem
+                      (str_chunks
+                        (str_chunks_single
+                          (chunk_literal_single
+                            (str_literal))))))
+                  (term
+                    (uni_term
+                      (infix_expr
+                        (applicative
+                          (record_operand
+                            (atom
+                              (num_literal)))))))))
+              (last_field
+                (field_def
                   (field_path
                     (field_path_elem
                       (ident))
@@ -143,25 +145,144 @@ Record with dangling comma
         (record_operand
           (atom
             (uni_record
-              (record_field
-                (field_path
-                  (field_path_elem
+              (field_decl
+                (field_def
+                  (field_path
+                    (field_path_elem
+                      (ident)))
+                  (term
+                    (uni_term
+                      (infix_expr
+                        (applicative
+                          (record_operand
+                            (atom
+                              (num_literal)))))))))
+              (field_decl
+                (field_def
+                  (field_path
+                    (field_path_elem
+                      (ident)))
+                  (term
+                    (uni_term
+                      (infix_expr
+                        (applicative
+                          (record_operand
+                            (atom
+                              (num_literal))))))))))))))))
+
+================================================================================
+Record with simple includes
+================================================================================
+
+{
+  include foo,
+  bar = 1,
+}
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (uni_record
+              (field_decl
+                (record_include
+                  (ident)))
+              (field_decl
+                (field_def
+                  (field_path
+                    (field_path_elem
+                      (ident)))
+                  (term
+                    (uni_term
+                      (infix_expr
+                        (applicative
+                          (record_operand
+                            (atom
+                              (num_literal))))))))))))))))
+
+================================================================================
+Record with include list
+================================================================================
+
+{
+  include [a, b, c],
+  include d,
+  e = true,
+}
+
+--------------------------------------------------------------------------------
+
+(term
+    (uni_term
+      (infix_expr
+        (applicative
+          (record_operand
+            (atom
+              (uni_record
+                (field_decl
+                  (record_include_list
+                    (ident)
+                    (ident)
                     (ident)))
-                (term
-                  (uni_term
-                    (infix_expr
-                      (applicative
-                        (record_operand
-                          (atom
-                            (num_literal))))))))
-              (record_field
-                (field_path
-                  (field_path_elem
+                (field_decl
+                  (record_include
                     (ident)))
-                (term
-                  (uni_term
-                    (infix_expr
-                      (applicative
-                        (record_operand
-                          (atom
-                            (num_literal)))))))))))))))
+                (field_decl
+                  (field_def
+                    (field_path
+                      (field_path_elem
+                        (ident)))
+                    (term
+                      (uni_term
+                        (infix_expr
+                          (applicative
+                            (record_operand
+                              (atom
+                                (bool))))))))))))))))
+
+================================================================================
+Record with include annotations
+================================================================================
+
+{
+  include a
+    | doc "hello"
+    | Number,
+  include d
+    | optional,
+}
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (uni_record
+              (field_decl
+                (record_include
+                  (ident)
+                  (annot
+                    (annot_atom
+                      (static_string
+                        (chunk_literal_single
+                          (str_literal))))
+                    (annot_atom
+                      (types
+                        (infix_expr
+                          (applicative
+                            (record_operand
+                              (atom
+                                (type_atom
+                                  (type_builtin)))))))))))
+              (field_decl
+                (record_include
+                  (ident)
+                  (annot
+                    (annot_atom)))))))))))
