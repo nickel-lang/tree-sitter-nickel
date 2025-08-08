@@ -263,7 +263,7 @@ module.exports = grammar({
 
     //grammar.lalrpop: 348
     last_field: $ => choice(
-      $.field_def,
+      $.field_decl,
       "..",
     ),
 

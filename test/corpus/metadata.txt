@@ -183,17 +183,18 @@ metadata prio
                             (atom
                               (uni_record
                                 (last_field
-                                  (field_def
-                                    (field_path
-                                      (field_path_elem
-                                        (ident)))
-                                    (term
-                                      (uni_term
-                                        (infix_expr
-                                          (applicative
-                                            (record_operand
-                                              (atom
-                                                (num_literal))))))))))))))))))
+                                  (field_decl
+                                    (field_def
+                                      (field_path
+                                        (field_path_elem
+                                          (ident)))
+                                      (term
+                                        (uni_term
+                                          (infix_expr
+                                            (applicative
+                                              (record_operand
+                                                (atom
+                                                  (num_literal)))))))))))))))))))
               (field_decl
                 (field_def
                   (field_path
@@ -209,17 +210,18 @@ metadata prio
                             (atom
                               (uni_record
                                 (last_field
-                                  (field_def
-                                    (field_path
-                                      (field_path_elem
-                                        (ident)))
-                                    (term
-                                      (uni_term
-                                        (infix_expr
-                                          (applicative
-                                            (record_operand
-                                              (atom
-                                                (num_literal))))))))))))))))))
+                                  (field_decl
+                                    (field_def
+                                      (field_path
+                                        (field_path_elem
+                                          (ident)))
+                                      (term
+                                        (uni_term
+                                          (infix_expr
+                                            (applicative
+                                              (record_operand
+                                                (atom
+                                                  (num_literal)))))))))))))))))))
               (field_decl
                 (field_def
                   (field_path
@@ -246,7 +248,6 @@ metadata prio
                                 (str_chunks_single
                                   (chunk_literal_single
                                     (str_literal)))))))))))))))))))
-
 
 ================================================================================
 metadata not_exported
@@ -287,17 +288,18 @@ metadata not_exported
                             (atom
                               (num_literal)))))))))
               (last_field
-                (field_def
-                  (field_path
-                    (field_path_elem
-                      (ident)))
-                  (term
-                    (uni_term
-                      (infix_expr
-                        (applicative
-                          (record_operand
-                            (atom
-                              (num_literal))))))))))))))))
+                (field_decl
+                  (field_def
+                    (field_path
+                      (field_path_elem
+                        (ident)))
+                    (term
+                      (uni_term
+                        (infix_expr
+                          (applicative
+                            (record_operand
+                              (atom
+                                (num_literal)))))))))))))))))
 
 ================================================================================
 dictionary contract
@@ -341,31 +343,32 @@ dictionary contract
                                             (type_atom
                                               (type_builtin)))))))))))))))))
               (last_field
-                (field_def
-                  (field_path
-                    (field_path_elem
-                      (ident)))
-                  (annot
-                    (annot_atom
-                      (types
-                        (infix_expr
-                          (applicative
-                            (record_operand
-                              (atom
-                                (type_atom
-                                  (types
-                                    (infix_expr
-                                      (applicative
-                                        (record_operand
-                                          (atom
-                                            (uni_record
-                                              (field_decl
-                                                (field_def
-                                                  (field_path
-                                                    (field_path_elem
-                                                      (ident)))))
-                                              (field_decl
-                                                (field_def
-                                                  (field_path
-                                                    (field_path_elem
-                                                      (ident))))))))))))))))))))))))))))
+                (field_decl
+                  (field_def
+                    (field_path
+                      (field_path_elem
+                        (ident)))
+                    (annot
+                      (annot_atom
+                        (types
+                          (infix_expr
+                            (applicative
+                              (record_operand
+                                (atom
+                                  (type_atom
+                                    (types
+                                      (infix_expr
+                                        (applicative
+                                          (record_operand
+                                            (atom
+                                              (uni_record
+                                                (field_decl
+                                                  (field_def
+                                                    (field_path
+                                                      (field_path_elem
+                                                        (ident)))))
+                                                (field_decl
+                                                  (field_def
+                                                    (field_path
+                                                      (field_path_elem
+                                                        (ident)))))))))))))))))))))))))))))

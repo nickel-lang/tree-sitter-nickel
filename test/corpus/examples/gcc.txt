@@ -951,20 +951,21 @@ let Contract = {
                                                                                                 (chunk_literal_single
                                                                                                   (str_literal))))))))))))
                                                                             (last_field
-                                                                              (field_def
-                                                                                (field_path
-                                                                                  (field_path_elem
-                                                                                    (ident)))
-                                                                                (term
-                                                                                  (uni_term
-                                                                                    (infix_expr
-                                                                                      (applicative
-                                                                                        (record_operand
-                                                                                          (atom
-                                                                                            (str_chunks
-                                                                                              (str_chunks_single
-                                                                                                (chunk_literal_single
-                                                                                                  (str_literal)))))))))))))))))))))))))))
+                                                                              (field_decl
+                                                                                (field_def
+                                                                                  (field_path
+                                                                                    (field_path_elem
+                                                                                      (ident)))
+                                                                                  (term
+                                                                                    (uni_term
+                                                                                      (infix_expr
+                                                                                        (applicative
+                                                                                          (record_operand
+                                                                                            (atom
+                                                                                              (str_chunks
+                                                                                                (str_chunks_single
+                                                                                                  (chunk_literal_single
+                                                                                                    (str_literal))))))))))))))))))))))))))))
                                               (field_decl
                                                 (field_def
                                                   (field_path
