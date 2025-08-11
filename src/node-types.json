@@ -990,7 +990,7 @@
       "required": false,
       "types": [
         {
-          "type": "field_def",
+          "type": "field_decl",
           "named": true
         }
       ]

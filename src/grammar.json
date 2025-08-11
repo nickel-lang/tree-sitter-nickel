@@ -1142,7 +1142,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "field_def"
+          "name": "field_decl"
         },
         {
           "type": "STRING",

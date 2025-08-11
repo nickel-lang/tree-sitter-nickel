@@ -15,17 +15,18 @@ Record Merge
             (atom
               (uni_record
                 (last_field
-                  (field_def
-                    (field_path
-                      (field_path_elem
-                        (ident)))
-                    (term
-                      (uni_term
-                        (infix_expr
-                          (applicative
-                            (record_operand
-                              (atom
-                                (num_literal))))))))))))))
+                  (field_decl
+                    (field_def
+                      (field_path
+                        (field_path_elem
+                          (ident)))
+                      (term
+                        (uni_term
+                          (infix_expr
+                            (applicative
+                              (record_operand
+                                (atom
+                                  (num_literal)))))))))))))))
       (infix_b_op_6)
       (infix_expr
         (applicative
@@ -33,17 +34,18 @@ Record Merge
             (atom
               (uni_record
                 (last_field
-                  (field_def
-                    (field_path
-                      (field_path_elem
-                        (ident)))
-                    (term
-                      (uni_term
-                        (infix_expr
-                          (applicative
-                            (record_operand
-                              (atom
-                                (num_literal)))))))))))))))))
+                  (field_decl
+                    (field_def
+                      (field_path
+                        (field_path_elem
+                          (ident)))
+                      (term
+                        (uni_term
+                          (infix_expr
+                            (applicative
+                              (record_operand
+                                (atom
+                                  (num_literal))))))))))))))))))
 
 ================================================================================
 Record (empty)
@@ -108,24 +110,25 @@ Record
                             (atom
                               (num_literal)))))))))
               (last_field
-                (field_def
-                  (field_path
-                    (field_path_elem
-                      (ident))
-                    (field_path_elem
-                      (ident))
-                    (field_path_elem
-                      (ident)))
-                  (term
-                    (uni_term
-                      (infix_expr
-                        (applicative
-                          (record_operand
-                            (atom
-                              (str_chunks
-                                (str_chunks_single
-                                  (chunk_literal_single
-                                    (str_literal)))))))))))))))))))
+                (field_decl
+                  (field_def
+                    (field_path
+                      (field_path_elem
+                        (ident))
+                      (field_path_elem
+                        (ident))
+                      (field_path_elem
+                        (ident)))
+                    (term
+                      (uni_term
+                        (infix_expr
+                          (applicative
+                            (record_operand
+                              (atom
+                                (str_chunks
+                                  (str_chunks_single
+                                    (chunk_literal_single
+                                      (str_literal))))))))))))))))))))
 
 ================================================================================
 Record with dangling comma
@@ -205,6 +208,28 @@ Record with simple includes
                               (num_literal))))))))))))))))
 
 ================================================================================
+Record with only an include
+================================================================================
+
+{
+  include foo
+}
+
+--------------------------------------------------------------------------------
+
+(term
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (uni_record
+              (last_field
+                (field_decl
+                  (record_include
+                    (ident)))))))))))
+
+================================================================================
 Record with include list
 ================================================================================
 
@@ -217,32 +242,32 @@ Record with include list
 --------------------------------------------------------------------------------
 
 (term
-    (uni_term
-      (infix_expr
-        (applicative
-          (record_operand
-            (atom
-              (uni_record
-                (field_decl
-                  (record_include_list
-                    (ident)
-                    (ident)
-                    (ident)))
-                (field_decl
-                  (record_include
-                    (ident)))
-                (field_decl
-                  (field_def
-                    (field_path
-                      (field_path_elem
-                        (ident)))
-                    (term
-                      (uni_term
-                        (infix_expr
-                          (applicative
-                            (record_operand
-                              (atom
-                                (bool))))))))))))))))
+  (uni_term
+    (infix_expr
+      (applicative
+        (record_operand
+          (atom
+            (uni_record
+              (field_decl
+                (record_include_list
+                  (ident)
+                  (ident)
+                  (ident)))
+              (field_decl
+                (record_include
+                  (ident)))
+              (field_decl
+                (field_def
+                  (field_path
+                    (field_path_elem
+                      (ident)))
+                  (term
+                    (uni_term
+                      (infix_expr
+                        (applicative
+                          (record_operand
+                            (atom
+                              (bool))))))))))))))))
 
 ================================================================================
 Record with include annotations

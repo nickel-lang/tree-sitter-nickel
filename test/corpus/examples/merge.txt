@@ -64,19 +64,20 @@ server & security & {firewall.enabled = false}
                         (atom
                           (uni_record
                             (last_field
-                              (field_def
-                                (field_path
-                                  (field_path_elem
-                                    (ident))
-                                  (field_path_elem
-                                    (ident)))
-                                (term
-                                  (uni_term
-                                    (infix_expr
-                                      (applicative
-                                        (record_operand
-                                          (atom
-                                            (bool)))))))))))))))))))))))
+                              (field_decl
+                                (field_def
+                                  (field_path
+                                    (field_path_elem
+                                      (ident))
+                                    (field_path_elem
+                                      (ident)))
+                                  (term
+                                    (uni_term
+                                      (infix_expr
+                                        (applicative
+                                          (record_operand
+                                            (atom
+                                              (bool))))))))))))))))))))))))
 
 ================================================================================
 server.ncl
@@ -151,7 +152,7 @@ server.ncl
                                 (str_chunks_single
                                   (chunk_literal_single
                                     (str_literal)))))))))))))))))))
- 
+
 ================================================================================
 security.ncl
 ================================================================================
