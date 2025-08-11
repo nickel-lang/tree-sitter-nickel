@@ -130,7 +130,7 @@ module.exports = grammar({
     let_in_block: $ => seq(
       "let",
       optional("rec"),
-      field("bindings", seq(commaSep($.let_binding), optional(","))),
+      field("bindings", commaSep($.let_binding)),
       "in",
     ),
 
@@ -144,7 +144,7 @@ module.exports = grammar({
     match_expr: $ => seq(
       "match",
       "{",
-      field("cases", seq(commaSep($.match_branch), optional(","))),
+      field("cases", commaSep($.match_branch)),
       "}",
     ),
 
@@ -690,16 +690,17 @@ function patternF($, enum_rule, or_rule) {
   )
 }
 
-function sep(rule, separator) {
-  return optional(sep1(rule, separator));
+function sep_with_optional_trailing(rule, separator) {
+  return optional(seq(sep1(rule, separator), optional(separator)));
 }
 
 function sep1(rule, separator) {
   return seq(rule, repeat(seq(separator, rule)));
 }
 
+// A comma-separated sequence of repetitions of a rule, with an optional trailing comma.
 function commaSep(rule) {
-  return sep(rule, ",");
+  return sep_with_optional_trailing(rule, ",");
 }
 
 function parens(rule) {
@@ -715,9 +716,9 @@ function parens(rule) {
  */
 function list(rule, field_label = null) {
   if (field_label != null) {
-    return seq("[", (field(field_label, seq(commaSep(rule), optional(",")))), "]");
+    return seq("[", (field(field_label, commaSep(rule))), "]");
   }
   else {
-    return seq("[", (seq(commaSep(rule), optional(","))), "]");
+    return seq("[", commaSep(rule), "]");
   }
 }

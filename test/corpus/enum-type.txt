@@ -35,6 +35,43 @@ Enum tags
                           (raw_enum_tag))))))))))))))
 
 ================================================================================
+Enum tags with trailing comma
+================================================================================
+
+'Foo : [| 'Foo, 'Bar, 'Baz, |]
+
+--------------------------------------------------------------------------------
+
+
+(term
+  (uni_term
+    (annotated_infix_expr
+      (infix_expr
+        (applicative
+          (record_operand
+            (atom
+              (enum_tag
+                (raw_enum_tag))))))
+      (annot
+        (annot_atom
+          (types
+            (infix_expr
+              (applicative
+                (record_operand
+                  (atom
+                    (type_atom
+                      (enum
+                        (enum_tag
+                          (raw_enum_tag)))
+                      (enum
+                        (enum_tag
+                          (raw_enum_tag)))
+                      (enum
+                        (enum_tag
+                          (raw_enum_tag))))))))))))))
+
+
+================================================================================
 Enum variants
 ================================================================================
 
