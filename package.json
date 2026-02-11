@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-nickel",
-  "version": "0.2.0",
+  "version": "0.6.0",
   "description": "Nickel grammar for tree-sitter",
   "main": "bindings/node",
   "types": "bindings/node",
@@ -9,6 +9,7 @@
     "install": "node-gyp-build",
     "prebuildify": "prebuildify --napi --strip"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nickel-lang/tree-sitter-nickel.git"
