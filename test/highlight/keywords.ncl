@@ -1,35 +1,35 @@
 {
   x = let a = 1 in a,
-  #     ^ keyword
-  #               ^ keyword
+  #   ^ keyword
+  #             ^ keyword
 
   f = fun a => a,
-  #     ^ keyword.function
-  #         ^ parameter
+  #   ^ keyword.function
+  #       ^ parameter
 
   cond = if true then 1 else 2,
-  #        ^ keyword.conditional
-  #                ^ keyword.conditional
-  #                       ^ keyword.conditional
+  #      ^ keyword.conditional
+  #              ^ keyword.conditional
+  #                     ^ keyword.conditional
 
   matcher = match { 'foo => 1 },
-  #           ^ keyword.conditional
+  #         ^ keyword.conditional
 
   imported = import "foo.ncl",
-  #            ^ include
+  #          ^ include
 
   foo | default = 1,
-  #       ^ keyword
+  #     ^ keyword
   bar | doc "hello",
-  #       ^ keyword
+  #     ^ keyword
   baz | optional,
-  #       ^ keyword
+  #     ^ keyword
   qux | priority 1,
-  #       ^ keyword
+  #     ^ keyword
   quux | force = 1,
-  #        ^ keyword
+  #      ^ keyword
   corge | rec default = {},
-  #         ^ keyword
+  #       ^ keyword
   grault | not_exported,
-  #          ^ keyword
+  #        ^ keyword
 }

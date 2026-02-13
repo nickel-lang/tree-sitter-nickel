@@ -1,12 +1,12 @@
 {
   f = fun x => x,
-  #     ^ keyword.function
-  #         ^ parameter
+  #   ^ keyword.function
+  #       ^ parameter
 
   g = fun x y => x + y,
+  #       ^ parameter
   #         ^ parameter
-  #           ^ parameter
 
   result = %is_number% 42,
-  #          ^ function.builtin
+  #        ^ function.builtin
 }

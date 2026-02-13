@@ -1,22 +1,32 @@
 123
 # <- number
-  123.456
+
+123.456
 # <- number
-  0b01
+
+0b01
 # <- number
-  0o07
+
+0o07
 # <- number
-  0xFa09
+
+0xFa09
 # <- number
-  1e10
+
+1e10
 # <- number
-  true
+
+true
 # <- boolean
-  false
+
+false
 # <- boolean
-  null
+
+null
 # <- constant.builtin
-  'foo
+
+'foo
 # <- constant
-  '"quoted tag"
+
+'"quoted tag"
 # <- constant

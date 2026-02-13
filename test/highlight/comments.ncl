@@ -2,5 +2,5 @@
 # <- spell
 {
   foo | doc "Documentation string here",
-  #           ^ spell
+  #         ^ spell
 }

@@ -1,25 +1,25 @@
 {
   a = 1 + 2,
-  #       ^ punctuation.delimiter
+  #     ^ punctuation.delimiter
 
   b = 1 - 2,
-  #       ^ punctuation.delimiter
+  #     ^ punctuation.delimiter
 
   c = 1 * 2,
-  #       ^ punctuation.delimiter
+  #     ^ punctuation.delimiter
 
   d = 1 / 2,
-  #       ^ operator
+  #     ^ operator
 
   e = 1 == 2,
-  #       ^^ operator
+  #     ^^ operator
 
   m = 1 |> (fun x => x),
-  #       ^^ operator
+  #     ^^ operator
 
   n = { x = 1 } & { y = 2 },
-  #               ^ operator
+  #             ^ operator
 
   o = let x = 1 in x,
-  #           ^ operator
+  #         ^ operator
 }

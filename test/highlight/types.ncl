@@ -1,15 +1,15 @@
 {
   a = 1 : Number,
-  #         ^ type
+  #       ^ type
 
   b = "hello" : String,
-  #               ^ type
+  #             ^ type
 
   c = true : Bool,
-  #            ^ type
+  #          ^ type
 
   d = { x = 1 } : { x : Number },
-  #                 ^ punctuation.bracket
-  #                     ^ punctuation.delimiter
-  #                       ^ type
+  #               ^ punctuation.bracket
+  #                   ^ punctuation.delimiter
+  #                     ^ type
 }
