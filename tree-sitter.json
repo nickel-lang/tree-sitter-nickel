@@ -11,7 +11,8 @@
         "nickel"
       ],
       "injection-regex": "^(ncl|nickel)$",
-      "class-name": "TreeSitterNickel"
+      "class-name": "TreeSitterNickel",
+      "highlights": "queries/highlights.scm"
     }
   ],
   "metadata": {
