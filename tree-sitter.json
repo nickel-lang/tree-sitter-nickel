@@ -16,7 +16,7 @@
     }
   ],
   "metadata": {
-    "version": "0.1.0",
+    "version": "0.6.0",
     "license": "MIT",
     "description": "Nickel grammar for tree-sitter",
     "authors": [
@@ -31,6 +31,7 @@
   "bindings": {
     "c": true,
     "go": true,
+    "java": false,
     "node": true,
     "python": true,
     "rust": true,

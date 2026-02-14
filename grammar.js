@@ -3,13 +3,13 @@
 // instead. This prevents the grammar from having to be updated when a new
 // builtin function is added. Additionally, it keeps the grammar smaller. You
 // will not see rules in this grammar that match on all builtin function
-// seperately.
+// separately.
 
 // NOTE[typerule] In the lalrpop grammar there is a FixedType rule that is just
 // a Types rule, but with post-processing. We don't do any post-processing in
 // tree-sitter, so we just parse them as a `Types`.
 
-// NOTE[special-infix] The lalrpop grammer produces an AST. In tree-sitter we
+// NOTE[special-infix] The lalrpop grammar produces an AST. In tree-sitter we
 // don't have to do this. Hence, we don't have to treat the "|>" and "!="
 // operators differently from others. This means we can unify them with the
 // other _b_op rules.
@@ -25,7 +25,7 @@
 // strings may consist of multiple chunks, and interpolation and string chunks
 // do not strictly alternate.
 
-module.exports = grammar({
+export default grammar({
   name: 'nickel',
 
   extras: $ => [
@@ -106,7 +106,7 @@ module.exports = grammar({
     //grammar.lalrpop: 165
     uni_term: $ => choice(
       $.infix_expr,
-      // NOTE: We seperate the rules out into their own, otherwise it would get
+      // NOTE: We separate the rules out into their own, otherwise it would get
       // a little much for this single rule.
       $.annotated_infix_expr,
       $.forall,
@@ -488,9 +488,9 @@ module.exports = grammar({
       // We are a bit more liberal with what can go in a builtin function than
       // for identifiers, because builtins are properly delimited by `%`.
       // Upstream Nickel added `/` as a valid character already, so there's a
-      // precendent for extensions (although it's not very likely), so we try to
+      // precedent for extensions (although it's not very likely), so we try to
       // be a bit future-proof. We just make sure the builtin starts with either
-      // a letter or an undescore, to ensure reasonable names.
+      // a letter or an underscore, to ensure reasonable names.
       /_*[a-zA-Z][a-zA-Z0-9./_'-]*/,
       "%",
     ),
