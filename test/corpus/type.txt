@@ -57,8 +57,10 @@ type nested (FIXME this should be syntax error)
                   (atom
                     (str_chunks
                       (str_chunks_single
+                        (str_start)
                         (chunk_literal_single
-                          (str_literal))))))))))))))
+                          (str_literal))
+                        (str_end)))))))))))))
 
 ================================================================================
 wildcard type

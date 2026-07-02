@@ -25,8 +25,10 @@ server & security & {firewall.enabled = false}
               (infix_expr
                 (applicative
                   (static_string
+                    (str_start)
                     (chunk_literal_single
-                      (str_literal)))))))))
+                      (str_literal))
+                    (str_end))))))))
       (term
         (uni_term
           (let_expr
@@ -39,8 +41,10 @@ server & security & {firewall.enabled = false}
                     (infix_expr
                       (applicative
                         (static_string
+                          (str_start)
                           (chunk_literal_single
-                            (str_literal)))))))))
+                            (str_literal))
+                          (str_end))))))))
             (comment)
             (term
               (uni_term
@@ -115,8 +119,10 @@ server.ncl
                             (atom
                               (str_chunks
                                 (str_chunks_single
+                                  (str_start)
                                   (chunk_literal_single
-                                    (str_literal))))))))))))
+                                    (str_literal))
+                                  (str_end)))))))))))
               (field_decl
                 (field_def
                   (field_path
@@ -150,8 +156,10 @@ server.ncl
                             (atom
                               (str_chunks
                                 (str_chunks_single
+                                  (str_start)
                                   (chunk_literal_single
-                                    (str_literal)))))))))))))))))))
+                                    (str_literal))
+                                  (str_end))))))))))))))))))
 
 ================================================================================
 security.ncl
@@ -191,8 +199,10 @@ security.ncl
                             (atom
                               (str_chunks
                                 (str_chunks_single
+                                  (str_start)
                                   (chunk_literal_single
-                                    (str_literal))))))))))))
+                                    (str_literal))
+                                  (str_end)))))))))))
               (field_decl
                 (field_def
                   (field_path
@@ -224,8 +234,10 @@ security.ncl
                             (atom
                               (str_chunks
                                 (str_chunks_single
+                                  (str_start)
                                   (chunk_literal_single
-                                    (str_literal))))))))))))
+                                    (str_literal))
+                                  (str_end)))))))))))
               (field_decl
                 (field_def
                   (field_path

@@ -1815,7 +1815,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_str_start"
+          "name": "str_start"
         },
         {
           "type": "FIELD",
@@ -1839,7 +1839,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_str_end"
+          "name": "str_end"
         }
       ]
     },
@@ -1921,7 +1921,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_str_start"
+              "name": "str_start"
             },
             {
               "type": "REPEAT",
@@ -1932,7 +1932,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "_str_end"
+              "name": "str_end"
             }
           ]
         },
@@ -1974,7 +1974,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_str_end"
+          "name": "str_end"
         }
       ]
     },
@@ -2915,11 +2915,11 @@
     },
     {
       "type": "SYMBOL",
-      "name": "_str_start"
+      "name": "str_start"
     },
     {
       "type": "SYMBOL",
-      "name": "_str_end"
+      "name": "str_end"
     },
     {
       "type": "SYMBOL",
