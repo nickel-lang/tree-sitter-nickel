@@ -102,8 +102,10 @@ let metadata_ = {
           (annot
             (annot_atom
               (static_string
+                (str_start)
                 (chunk_literal_single
-                  (str_literal)))))
+                  (str_literal))
+                (str_end))))
           (term
             (uni_term
               (infix_expr
@@ -194,8 +196,10 @@ let metadata_ = {
                 (annot
                   (annot_atom
                     (static_string
+                      (str_start)
                       (chunk_literal_single
-                        (str_literal)))))
+                        (str_literal))
+                      (str_end))))
                 (term
                   (uni_term
                     (infix_expr
@@ -324,8 +328,10 @@ let metadata_ = {
                                                                   (raw_enum_tag))))))))))
                                                 (annot_atom
                                                   (static_string
+                                                    (str_start)
                                                     (chunk_literal_single
-                                                      (str_literal))))
+                                                      (str_literal))
+                                                    (str_end)))
                                                 (annot_atom))
                                               (term
                                                 (uni_term
@@ -421,8 +427,10 @@ let metadata_ = {
                                                                               (ident)))))))
                                                                   (annot_atom
                                                                     (static_string
+                                                                      (str_start)
                                                                       (chunk_literal_single
-                                                                        (str_literal))))
+                                                                        (str_literal))
+                                                                      (str_end)))
                                                                   (annot_atom))
                                                                 (term
                                                                   (uni_term
@@ -510,8 +518,10 @@ let metadata_ = {
                                             (atom
                                               (str_chunks
                                                 (str_chunks_single
+                                                  (str_start)
                                                   (chunk_literal_single
-                                                    (str_literal))))))))))))
+                                                    (str_literal))
+                                                  (str_end)))))))))))
                               (term
                                 (uni_term
                                   (let_expr
@@ -586,8 +596,10 @@ let metadata_ = {
                                                                   (atom
                                                                     (str_chunks
                                                                       (str_chunks_single
+                                                                        (str_start)
                                                                         (chunk_literal_single
-                                                                          (str_literal))))))))))))
+                                                                          (str_literal))
+                                                                        (str_end)))))))))))
                                                     (field_decl
                                                       (field_def
                                                         (field_path
@@ -747,6 +759,7 @@ let metadata_ = {
                                                                                                                                                               (atom
                                                                                                                                                                 (str_chunks
                                                                                                                                                                   (str_chunks_single
+                                                                                                                                                                    (str_start)
                                                                                                                                                                     (chunk_literal_single
                                                                                                                                                                       (str_literal))
                                                                                                                                                                     (chunk_expr
@@ -760,7 +773,8 @@ let metadata_ = {
                                                                                                                                                                                   (ident)))))))
                                                                                                                                                                       (interpolation_end))
                                                                                                                                                                     (chunk_literal_single
-                                                                                                                                                                      (str_literal))))))))))))
+                                                                                                                                                                      (str_literal))
+                                                                                                                                                                    (str_end)))))))))))
                                                                                                                                                 (last_field
                                                                                                                                                   (field_decl
                                                                                                                                                     (field_def
@@ -793,8 +807,10 @@ let metadata_ = {
                                                                                                                                                                                               (atom
                                                                                                                                                                                                 (str_chunks
                                                                                                                                                                                                   (str_chunks_single
+                                                                                                                                                                                                    (str_start)
                                                                                                                                                                                                     (chunk_literal_single
-                                                                                                                                                                                                      (str_literal))))))))))))
+                                                                                                                                                                                                      (str_literal))
+                                                                                                                                                                                                    (str_end)))))))))))
                                                                                                                                                                                 (field_decl
                                                                                                                                                                                   (field_def
                                                                                                                                                                                     (field_path

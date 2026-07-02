@@ -1814,13 +1814,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "str_start"
-          },
-          "named": false,
-          "value": "\""
+          "type": "SYMBOL",
+          "name": "str_start"
         },
         {
           "type": "FIELD",
@@ -1843,13 +1838,8 @@
           }
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "str_end"
-          },
-          "named": false,
-          "value": "\""
+          "type": "SYMBOL",
+          "name": "str_end"
         }
       ]
     },
@@ -1930,13 +1920,8 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "str_start"
-              },
-              "named": false,
-              "value": "\""
+              "type": "SYMBOL",
+              "name": "str_start"
             },
             {
               "type": "REPEAT",
@@ -1946,13 +1931,8 @@
               }
             },
             {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "str_end"
-              },
-              "named": false,
-              "value": "\""
+              "type": "SYMBOL",
+              "name": "str_end"
             }
           ]
         },
@@ -1993,13 +1973,8 @@
           }
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "str_end"
-          },
-          "named": false,
-          "value": "\""
+          "type": "SYMBOL",
+          "name": "str_end"
         }
       ]
     },

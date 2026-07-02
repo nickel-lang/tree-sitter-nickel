@@ -81,8 +81,10 @@ metadata doc
                   (annot
                     (annot_atom
                       (static_string
+                        (str_start)
                         (chunk_literal_single
-                          (str_literal)))))
+                          (str_literal))
+                        (str_end))))
                   (term
                     (uni_term
                       (infix_expr
@@ -236,8 +238,10 @@ metadata prio
                       (signed_num_literal))
                     (annot_atom
                       (static_string
+                        (str_start)
                         (chunk_literal_single
-                          (str_literal)))))
+                          (str_literal))
+                        (str_end))))
                   (term
                     (uni_term
                       (infix_expr
@@ -246,8 +250,10 @@ metadata prio
                             (atom
                               (str_chunks
                                 (str_chunks_single
+                                  (str_start)
                                   (chunk_literal_single
-                                    (str_literal)))))))))))))))))))
+                                    (str_literal))
+                                  (str_end))))))))))))))))))
 
 ================================================================================
 metadata not_exported
@@ -276,8 +282,10 @@ metadata not_exported
                     (field_path_elem
                       (str_chunks
                         (str_chunks_single
+                          (str_start)
                           (chunk_literal_single
-                            (str_literal))))))
+                            (str_literal))
+                          (str_end)))))
                   (annot
                     (annot_atom))
                   (term

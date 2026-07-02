@@ -272,8 +272,8 @@ static const char * const ts_symbol_names[] = {
   [anon_sym_PIPE_RBRACK] = "|]",
   [sym_multstr_start] = "multstr_start",
   [sym_multstr_end] = "multstr_end",
-  [sym_str_start] = "\"",
-  [sym_str_end] = "\"",
+  [sym_str_start] = "str_start",
+  [sym_str_end] = "str_end",
   [sym_interpolation_start] = "interpolation_start",
   [sym_interpolation_end] = "interpolation_end",
   [sym_quoted_enum_tag_start] = "quoted_enum_tag_start",
@@ -450,7 +450,7 @@ static const TSSymbol ts_symbol_map[] = {
   [sym_multstr_start] = sym_multstr_start,
   [sym_multstr_end] = sym_multstr_end,
   [sym_str_start] = sym_str_start,
-  [sym_str_end] = sym_str_start,
+  [sym_str_end] = sym_str_end,
   [sym_interpolation_start] = sym_interpolation_start,
   [sym_interpolation_end] = sym_interpolation_end,
   [sym_quoted_enum_tag_start] = sym_quoted_enum_tag_start,
@@ -856,11 +856,11 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
   },
   [sym_str_start] = {
     .visible = true,
-    .named = false,
+    .named = true,
   },
   [sym_str_end] = {
     .visible = true,
-    .named = false,
+    .named = true,
   },
   [sym_interpolation_start] = {
     .visible = true,
