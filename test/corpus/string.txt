@@ -14,10 +14,8 @@ string (simple)
           (atom
             (str_chunks
               (str_chunks_single
-                (str_start)
                 (chunk_literal_single
-                  (str_literal))
-                (str_end)))))))))
+                  (str_literal))))))))))
 
 ================================================================================
 string (interpolation)
@@ -35,7 +33,6 @@ string (interpolation)
           (atom
             (str_chunks
               (str_chunks_single
-                (str_start)
                 (chunk_literal_single
                   (str_literal))
                 (chunk_expr
@@ -49,8 +46,7 @@ string (interpolation)
                               (ident)))))))
                   (interpolation_end))
                 (chunk_literal_single
-                  (str_literal))
-                (str_end)))))))))
+                  (str_literal))))))))))
 
 ================================================================================
 multistring
@@ -220,10 +216,8 @@ m%%%%"%%%%%{"Hello "} world"%%%%
                             (atom
                               (str_chunks
                                 (str_chunks_single
-                                  (str_start)
                                   (chunk_literal_single
-                                    (str_literal))
-                                  (str_end)))))))))
+                                    (str_literal))))))))))
                   (interpolation_end))
                 (chunk_literal_multi
                   (mult_str_literal))
@@ -272,10 +266,8 @@ m%"#tre"%
             (atom
               (str_chunks
                 (str_chunks_single
-                  (str_start)
                   (chunk_literal_single
-                    (str_literal))
-                  (str_end))))))
+                    (str_literal)))))))
         (record_operand
           (atom
             (str_chunks
@@ -322,7 +314,6 @@ symbolic string with weird prefix
 mix-s-s%%""%%
 
 --------------------------------------------------------------------------------
-
 (term
   (uni_term
     (infix_expr
@@ -344,7 +335,6 @@ export PATH="%{inputs.coreutils}/bin:$PATH"
 "%
 
 --------------------------------------------------------------------------------
-
 (term
   (uni_term
     (infix_expr

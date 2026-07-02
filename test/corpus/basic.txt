@@ -17,10 +17,8 @@ comment
           (atom
             (str_chunks
               (str_chunks_single
-                (str_start)
                 (chunk_literal_single
-                  (str_literal))
-                (str_end)))))))))
+                  (str_literal))))))))))
 
 ================================================================================
 identifier
@@ -125,8 +123,7 @@ enum tag (quoted)
                 (chunk_literal_single
                   (percent))
                 (chunk_literal_single
-                  (str_literal))
-                (str_end)))))))))
+                  (str_literal))))))))))
 
 ================================================================================
 identifier (builtin function)
@@ -652,7 +649,6 @@ u.v."x%{y}z"
                 (ident)))
             (str_chunks
               (str_chunks_single
-                (str_start)
                 (chunk_literal_single
                   (str_literal))
                 (chunk_expr
@@ -666,8 +662,7 @@ u.v."x%{y}z"
                               (ident)))))))
                   (interpolation_end))
                 (chunk_literal_single
-                  (str_literal))
-                (str_end)))))))))
+                  (str_literal))))))))))
 
 ================================================================================
 apply (multiple functions)
@@ -717,10 +712,8 @@ a 1 "x"
           (atom
             (str_chunks
               (str_chunks_single
-                (str_start)
                 (chunk_literal_single
-                  (str_literal))
-                (str_end)))))))))
+                  (str_literal))))))))))
 
 ================================================================================
 let bind apply
@@ -860,10 +853,8 @@ curried dot operator
             (atom
               (str_chunks
                 (str_chunks_single
-                  (str_start)
                   (chunk_literal_single
-                    (str_literal))
-                  (str_end)))))))
+                    (str_literal))))))))
       (infix_b_op_6)
       (infix_expr
         (applicative
@@ -888,7 +879,5 @@ curried dot operator
                                 (atom
                                   (str_chunks
                                     (str_chunks_single
-                                      (str_start)
                                       (chunk_literal_single
-                                        (str_literal))
-                                      (str_end))))))))))))))))))))
+                                        (str_literal)))))))))))))))))))))

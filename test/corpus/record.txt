@@ -100,10 +100,8 @@ Record
                     (field_path_elem
                       (str_chunks
                         (str_chunks_single
-                          (str_start)
                           (chunk_literal_single
-                            (str_literal))
-                          (str_end)))))
+                            (str_literal))))))
                   (term
                     (uni_term
                       (infix_expr
@@ -129,10 +127,8 @@ Record
                               (atom
                                 (str_chunks
                                   (str_chunks_single
-                                    (str_start)
                                     (chunk_literal_single
-                                      (str_literal))
-                                    (str_end)))))))))))))))))))
+                                      (str_literal))))))))))))))))))))
 
 ================================================================================
 Record with dangling comma
@@ -300,10 +296,8 @@ Record with include annotations
                   (annot
                     (annot_atom
                       (static_string
-                        (str_start)
                         (chunk_literal_single
-                          (str_literal))
-                        (str_end)))
+                          (str_literal))))
                     (annot_atom
                       (types
                         (infix_expr

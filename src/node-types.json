@@ -1395,10 +1395,6 @@
         {
           "type": "quoted_enum_tag_start",
           "named": true
-        },
-        {
-          "type": "str_end",
-          "named": true
         }
       ]
     }
@@ -1555,7 +1551,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "chunk_literal_multi",
@@ -1571,14 +1567,6 @@
         },
         {
           "type": "multstr_start",
-          "named": true
-        },
-        {
-          "type": "str_end",
-          "named": true
-        },
-        {
-          "type": "str_start",
           "named": true
         }
       ]
@@ -1661,20 +1649,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "str_end",
-          "named": true
-        },
-        {
-          "type": "str_start",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1871,6 +1845,10 @@
   },
   {
     "type": "!=",
+    "named": false
+  },
+  {
+    "type": "\"",
     "named": false
   },
   {
@@ -2135,19 +2113,11 @@
     "named": true
   },
   {
-    "type": "str_end",
-    "named": true
-  },
-  {
     "type": "str_esc_char",
     "named": true
   },
   {
     "type": "str_literal",
-    "named": true
-  },
-  {
-    "type": "str_start",
     "named": true
   },
   {

@@ -116,10 +116,8 @@ let Contract = {
                                           (atom
                                             (str_chunks
                                               (str_chunks_single
-                                                (str_start)
                                                 (chunk_literal_single
-                                                  (str_literal))
-                                                (str_end)))))))))
+                                                  (str_literal))))))))))
                                 (term
                                   (uni_term
                                     (infix_expr
@@ -128,10 +126,8 @@ let Contract = {
                                           (atom
                                             (str_chunks
                                               (str_chunks_single
-                                                (str_start)
                                                 (chunk_literal_single
-                                                  (str_literal))
-                                                (str_end)))))))))
+                                                  (str_literal))))))))))
                                 (term
                                   (uni_term
                                     (infix_expr
@@ -140,10 +136,8 @@ let Contract = {
                                           (atom
                                             (str_chunks
                                               (str_chunks_single
-                                                (str_start)
                                                 (chunk_literal_single
-                                                  (str_literal))
-                                                (str_end)))))))))
+                                                  (str_literal))))))))))
                                 (term
                                   (uni_term
                                     (infix_expr
@@ -152,10 +146,8 @@ let Contract = {
                                           (atom
                                             (str_chunks
                                               (str_chunks_single
-                                                (str_start)
                                                 (chunk_literal_single
-                                                  (str_literal))
-                                                (str_end)))))))))
+                                                  (str_literal))))))))))
                                 (term
                                   (uni_term
                                     (infix_expr
@@ -164,10 +156,8 @@ let Contract = {
                                           (atom
                                             (str_chunks
                                               (str_chunks_single
-                                                (str_start)
                                                 (chunk_literal_single
-                                                  (str_literal))
-                                                (str_end)))))))))))))))))
+                                                  (str_literal))))))))))))))))))
                 (term
                   (uni_term
                     (fun_expr
@@ -289,7 +279,6 @@ let Contract = {
                                               (atom
                                                 (str_chunks
                                                   (str_chunks_single
-                                                    (str_start)
                                                     (chunk_literal_single
                                                       (str_literal))
                                                     (chunk_expr
@@ -301,8 +290,7 @@ let Contract = {
                                                               (record_operand
                                                                 (atom
                                                                   (ident)))))))
-                                                      (interpolation_end))
-                                                    (str_end))))))
+                                                      (interpolation_end)))))))
                                           (record_operand
                                             (atom
                                               (ident))))))))))
@@ -343,10 +331,8 @@ let Contract = {
                                                       (atom
                                                         (str_chunks
                                                           (str_chunks_single
-                                                            (str_start)
                                                             (chunk_literal_single
-                                                              (str_literal))
-                                                            (str_end))))))
+                                                              (str_literal)))))))
                                                   (record_operand
                                                     (atom
                                                       (ident)))))
@@ -365,10 +351,8 @@ let Contract = {
                                                       (atom
                                                         (str_chunks
                                                           (str_chunks_single
-                                                            (str_start)
                                                             (chunk_literal_single
-                                                              (str_literal))
-                                                            (str_end))))))
+                                                              (str_literal)))))))
                                                   (record_operand
                                                     (atom
                                                       (ident))))))))
@@ -450,7 +434,6 @@ let Contract = {
                                                           (atom
                                                             (str_chunks
                                                               (str_chunks_single
-                                                                (str_start)
                                                                 (chunk_literal_single
                                                                   (str_literal))
                                                                 (chunk_expr
@@ -465,8 +448,7 @@ let Contract = {
                                                                                 (atom
                                                                                   (ident)))
                                                                               (ident)))))))
-                                                                  (interpolation_end))
-                                                                (str_end))))))
+                                                                  (interpolation_end)))))))
                                                       (record_operand
                                                         (atom
                                                           (ident))))))))))
@@ -486,10 +468,8 @@ let Contract = {
                                                     (atom
                                                       (str_chunks
                                                         (str_chunks_single
-                                                          (str_start)
                                                           (chunk_literal_single
-                                                            (str_literal))
-                                                          (str_end))))))
+                                                            (str_literal)))))))
                                                 (record_operand
                                                   (atom
                                                     (ident))))))))))
@@ -509,10 +489,8 @@ let Contract = {
                                               (atom
                                                 (str_chunks
                                                   (str_chunks_single
-                                                    (str_start)
                                                     (chunk_literal_single
-                                                      (str_literal))
-                                                    (str_end))))))
+                                                      (str_literal)))))))
                                           (record_operand
                                             (atom
                                               (ident)))))))))))))))))))))
@@ -610,10 +588,8 @@ let Contract = {
                                                     (atom
                                                       (str_chunks
                                                         (str_chunks_single
-                                                          (str_start)
                                                           (chunk_literal_single
-                                                            (str_literal))
-                                                          (str_end))))))
+                                                            (str_literal)))))))
                                                 (record_operand
                                                   (atom
                                                     (ident))))))))))
@@ -633,10 +609,8 @@ let Contract = {
                                               (atom
                                                 (str_chunks
                                                   (str_chunks_single
-                                                    (str_start)
                                                     (chunk_literal_single
-                                                      (str_literal))
-                                                    (str_end))))))
+                                                      (str_literal)))))))
                                           (record_operand
                                             (atom
                                               (ident))))))))))))))))))
@@ -720,10 +694,8 @@ let Contract = {
                                                     (atom
                                                       (str_chunks
                                                         (str_chunks_single
-                                                          (str_start)
                                                           (chunk_literal_single
-                                                            (str_literal))
-                                                          (str_end))))))
+                                                            (str_literal)))))))
                                                 (record_operand
                                                   (atom
                                                     (ident))))))))))
@@ -743,10 +715,8 @@ let Contract = {
                                               (atom
                                                 (str_chunks
                                                   (str_chunks_single
-                                                    (str_start)
                                                     (chunk_literal_single
-                                                      (str_literal))
-                                                    (str_end))))))
+                                                      (str_literal)))))))
                                           (record_operand
                                             (atom
                                               (ident)))))))))))))))
@@ -852,10 +822,8 @@ let Contract = {
                                                     (annot
                                                       (annot_atom
                                                         (static_string
-                                                          (str_start)
                                                           (chunk_literal_single
-                                                            (str_literal))
-                                                          (str_end)))
+                                                            (str_literal))))
                                                       (annot_atom
                                                         (types
                                                           (infix_expr
@@ -879,10 +847,8 @@ let Contract = {
                                                               (atom
                                                                 (str_chunks
                                                                   (str_chunks_single
-                                                                    (str_start)
                                                                     (chunk_literal_single
-                                                                      (str_literal))
-                                                                    (str_end)))))))))))
+                                                                      (str_literal))))))))))))
                                                 (field_decl
                                                   (field_def
                                                     (field_path
@@ -891,10 +857,8 @@ let Contract = {
                                                     (annot
                                                       (annot_atom
                                                         (static_string
-                                                          (str_start)
                                                           (chunk_literal_single
-                                                            (str_literal))
-                                                          (str_end)))
+                                                            (str_literal))))
                                                       (annot_atom
                                                         (types
                                                           (infix_expr
@@ -918,10 +882,8 @@ let Contract = {
                                                     (annot
                                                       (annot_atom
                                                         (static_string
-                                                          (str_start)
                                                           (chunk_literal_single
-                                                            (str_literal))
-                                                          (str_end)))
+                                                            (str_literal))))
                                                       (annot_atom
                                                         (types
                                                           (infix_expr
@@ -964,10 +926,8 @@ let Contract = {
                                                                         (atom
                                                                           (str_chunks
                                                                             (str_chunks_single
-                                                                              (str_start)
                                                                               (chunk_literal_single
-                                                                                (str_literal))
-                                                                              (str_end)))))))))
+                                                                                (str_literal))))))))))
                                                               (term
                                                                 (uni_term
                                                                   (infix_expr
@@ -988,10 +948,8 @@ let Contract = {
                                                                                           (atom
                                                                                             (str_chunks
                                                                                               (str_chunks_single
-                                                                                                (str_start)
                                                                                                 (chunk_literal_single
-                                                                                                  (str_literal))
-                                                                                                (str_end)))))))))))
+                                                                                                  (str_literal))))))))))))
                                                                             (last_field
                                                                               (field_decl
                                                                                 (field_def
@@ -1006,10 +964,8 @@ let Contract = {
                                                                                             (atom
                                                                                               (str_chunks
                                                                                                 (str_chunks_single
-                                                                                                  (str_start)
                                                                                                   (chunk_literal_single
-                                                                                                    (str_literal))
-                                                                                                  (str_end)))))))))))))))))))))))))))
+                                                                                                    (str_literal))))))))))))))))))))))))))))
                                               (field_decl
                                                 (field_def
                                                   (field_path
