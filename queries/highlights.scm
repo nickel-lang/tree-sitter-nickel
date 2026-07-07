@@ -47,6 +47,8 @@
 
 (chunk_literal_single) @string
 (chunk_literal_multi) @string
+(str_literal) @string
+(mult_str_literal) @string
 
 (str_esc_char) @string.escape
 

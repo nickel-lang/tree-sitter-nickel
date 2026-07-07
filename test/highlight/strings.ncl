@@ -3,8 +3,8 @@
 #           ^ string
 
 m%"multi
+#  ^ string
 line string"%
-# <- string
 
 "escape \n here"
 #       ^^ string.escape
