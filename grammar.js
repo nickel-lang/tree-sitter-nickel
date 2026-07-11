@@ -25,7 +25,7 @@
 // strings may consist of multiple chunks, and interpolation and string chunks
 // do not strictly alternate.
 
-module.exports = grammar({
+export default grammar({
   name: 'nickel',
 
   extras: $ => [

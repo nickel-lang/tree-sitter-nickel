@@ -10,9 +10,9 @@
         "ncl",
         "nickel"
       ],
+      "highlights": "queries/highlights.scm",
       "injection-regex": "^(ncl|nickel)$",
-      "class-name": "TreeSitterNickel",
-      "highlights": "queries/highlights.scm"
+      "class-name": "TreeSitterNickel"
     }
   ],
   "metadata": {
@@ -31,6 +31,7 @@
   "bindings": {
     "c": true,
     "go": true,
+    "java": false,
     "node": true,
     "python": true,
     "rust": true,
