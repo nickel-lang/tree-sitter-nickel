@@ -1,6 +1,6 @@
 LANGUAGE_NAME := tree-sitter-nickel
 HOMEPAGE_URL := https://github.com/tree-sitter/tree-sitter-nickel
-VERSION := 0.1.0
+VERSION := 0.6.0
 
 # repository
 SRC_DIR := src

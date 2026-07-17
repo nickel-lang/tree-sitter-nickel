@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-nickel",
-  "version": "0.2.0",
+  "version": "0.6.0",
   "description": "Nickel grammar for tree-sitter",
   "main": "bindings/node",
   "types": "bindings/node",
