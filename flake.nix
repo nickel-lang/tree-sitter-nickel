@@ -38,7 +38,7 @@
       };
 
       packages = forAllSystems ({ system, pkgs, ... }: {
-        tree-sitter-nickel = pkgs.callPackage (nixpkgs + "/pkgs/development/tools/parsing/tree-sitter/grammar.nix") { }
+        tree-sitter-nickel = pkgs.callPackage (nixpkgs + "/pkgs/by-name/tr/tree-sitter/grammars/build-grammar.nix") { }
           {
             language = "nickel";
             src = ./.;

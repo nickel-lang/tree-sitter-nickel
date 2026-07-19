@@ -10,13 +10,13 @@
         "ncl",
         "nickel"
       ],
+      "highlights": "queries/highlights.scm",
       "injection-regex": "^(ncl|nickel)$",
-      "class-name": "TreeSitterNickel",
-      "highlights": "queries/highlights.scm"
+      "class-name": "TreeSitterNickel"
     }
   ],
   "metadata": {
-    "version": "0.1.0",
+    "version": "0.6.0",
     "license": "MIT",
     "description": "Nickel grammar for tree-sitter",
     "authors": [
@@ -25,12 +25,13 @@
       }
     ],
     "links": {
-      "repository": "https://github.com/tree-sitter/tree-sitter-nickel"
+      "repository": "https://github.com/nickel-lang/tree-sitter-nickel"
     }
   },
   "bindings": {
     "c": true,
     "go": true,
+    "java": false,
     "node": true,
     "python": true,
     "rust": true,
