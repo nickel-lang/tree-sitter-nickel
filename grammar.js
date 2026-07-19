@@ -42,8 +42,8 @@ module.exports = grammar({
   externals: $ => [
     $.multstr_start,
     $.multstr_end,
-    $._str_start,
-    $._str_end,
+    $.str_start,
+    $.str_end,
     $.interpolation_start,
     $.interpolation_end,
     $.quoted_enum_tag_start,
@@ -383,12 +383,12 @@ module.exports = grammar({
     ),
 
     str_chunks_single: $ => seq(
-      $._str_start,
+      $.str_start,
       field("chunks", repeat(choice(
         $.chunk_expr,
         $.chunk_literal_single,
       ))),
-      $._str_end,
+      $.str_end,
     ),
 
     str_chunks_multi: $ => seq(
@@ -425,7 +425,7 @@ module.exports = grammar({
     //See NOTE[scanner].
     static_string: $ => choice(
       // "Single line"
-      seq($._str_start, repeat($.chunk_literal_single), $._str_end),
+      seq($.str_start, repeat($.chunk_literal_single), $.str_end),
       // m%"Multi line"%m
       seq($.multstr_start, repeat($.chunk_literal_multi), $.multstr_end),
     ),
@@ -433,7 +433,7 @@ module.exports = grammar({
     // grammar.lalrpop (c30ad1fc6cf43a450126b3c9dd4bbe68d53ca3b2): L55
     // An enum tag escaped with double quotes, like `"enum$tag$with$spec$chars"
     quoted_enum_tag: $ =>
-      seq($.quoted_enum_tag_start, repeat($.chunk_literal_single), $._str_end),
+      seq($.quoted_enum_tag_start, repeat($.chunk_literal_single), $.str_end),
 
     //grammar.lalrpop: 498
     enum_tag: $ => choice(

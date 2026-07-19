@@ -45,7 +45,7 @@ match {
                       (atom))))))))))))
 
 ================================================================================
-Constant patterns 
+Constant patterns
 ================================================================================
 
 match {
@@ -69,8 +69,10 @@ match {
             (pattern
               (constant_pattern
                 (static_string
+                  (str_start)
                   (chunk_literal_single
-                    (str_literal)))))
+                    (str_literal))
+                  (str_end))))
             (term
               (uni_term
                 (infix_expr
@@ -82,8 +84,10 @@ match {
             (pattern
               (constant_pattern
                 (static_string
+                  (str_start)
                   (chunk_literal_single
-                    (str_literal)))))
+                    (str_literal))
+                  (str_end))))
             (term
               (uni_term
                 (infix_expr
@@ -189,8 +193,10 @@ match {
                           (pattern_fun
                             (constant_pattern
                               (static_string
+                                (str_start)
                                 (chunk_literal_single
-                                  (str_literal))))))))))))
+                                  (str_literal))
+                                (str_end)))))))))))
             (term
               (uni_term
                 (infix_expr
@@ -324,7 +330,7 @@ match {
                   (applicative
                     (record_operand
                       (atom))))))))))))
- 
+
 ================================================================================
 Pattern guards
 ================================================================================
@@ -531,13 +537,17 @@ match {
                         (pattern_or_branch
                           (constant_pattern
                             (static_string
+                              (str_start)
                               (chunk_literal_single
-                                (str_literal)))))
+                                (str_literal))
+                              (str_end))))
                         (pattern_or_branch
                           (constant_pattern
                             (static_string
+                              (str_start)
                               (chunk_literal_single
-                                (str_literal)))))))))))
+                                (str_literal))
+                              (str_end))))))))))
             (term
               (uni_term
                 (infix_expr
