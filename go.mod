@@ -1,4 +1,4 @@
-module github.com/tree-sitter/tree-sitter-nickel
+module github.com/nickel-lang/tree-sitter-nickel
 
 go 1.22
 
